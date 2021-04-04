@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://flandre923.github.io/</id>
     <title>Flandre</title>
-    <updated>2021-04-04T09:31:04.024Z</updated>
+    <updated>2021-04-04T13:37:38.813Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://flandre923.github.io/"/>
     <link rel="self" href="https://flandre923.github.io/atom.xml"/>
@@ -10,4 +10,66 @@
     <logo>https://flandre923.github.io/images/avatar.png</logo>
     <icon>https://flandre923.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Flandre</rights>
+    <entry>
+        <title type="html"><![CDATA[离散数学笔记]]></title>
+        <id>https://flandre923.github.io/post/chi-san-shu-xue-bi-ji/</id>
+        <link href="https://flandre923.github.io/post/chi-san-shu-xue-bi-ji/">
+        </link>
+        <updated>2021-04-04T11:58:03.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="谓词逻辑">谓词逻辑</h2>
+<h3 id="谓词的概念与表示">谓词的概念与表示</h3>
+<p>1.谓词的提出<br>
+无法表达命题的结构成分和内在逻辑<br>
+2。谓语的概念</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="谓词逻辑">谓词逻辑</h2>
+<h3 id="谓词的概念与表示">谓词的概念与表示</h3>
+<p>1.谓词的提出<br>
+无法表达命题的结构成分和内在逻辑<br>
+2。谓语的概念</p>
+<!-- more -->
+<pre><code>一个陈述句由主语和谓语两部分构成，
+主语称之为客体，谓语称之为谓词，
+定义：
+    在判断的句子中，客体的性质和关系即是谓词
+客体：
+    客体常元a，b，c
+    客体变元x，y，z
+谓词：
+    谓词常元
+    谓词变元P Q R
+</code></pre>
+<p>3.谓词的表示<br>
+A：是个大学生<br>
+z：张三，，l：李四<br>
+A(z)：张三是个大学生<br>
+注意：<br>
+1.一元谓词，二元谓词，n元谓词<br>
+2.客体次序不能颠倒<br>
+3单独一个谓词不是完整的命题<br>
+4谓词中只有客体变元不能称之为命题</p>
+<h3 id="命题函数与量词">命题函数与量词</h3>
+<p>1.命题函数<br>
+C：总是要死的。<br>
+x：表示变元（客体变元）<br>
+C（x）表示命题变元<br>
+x总是要死的。<br>
+定义一：由一个谓词和一些客体变元组成的表达式，称为简单命题函数<br>
+定义二：由一个或n个简单命题以及逻辑连接词组成的表达式，称为复合命题函数（谓词表达式）<br>
+个体域：在命题函数中，客体变元的取值范围叫个体的论述域<br>
+全总个体域：把各种个体域综合在一起的作为论述范围的域<br>
+个体域的给定形式有两种：<br>
+（1）具体给定：{j,e,t}<br>
+(2)  全总体域/任意域,<br>
+例如；<br>
+P（x）表示质数，<br>
+（1）将x取某一个值。如：P（4）；<br>
+（2）量化量词，（▽x）P（x）；<br>
+2.量词<br>
+（1）全称量词<br>
+▽<br>
+所有的，每一个，任意一个，对一切，<br>
+<img src="https://flandre923.github.io//post-images/1617543436594.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
 </feed>
