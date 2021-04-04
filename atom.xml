@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://flandre923.github.io/</id>
     <title>Flandre</title>
-    <updated>2021-04-04T13:42:02.735Z</updated>
+    <updated>2021-04-04T13:55:46.512Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://flandre923.github.io/"/>
     <link rel="self" href="https://flandre923.github.io/atom.xml"/>
@@ -69,7 +69,29 @@ P（x）表示质数，<br>
 （1）全称量词<br>
 ▽<br>
 所有的，每一个，任意一个，对一切，<br>
-<img src="https://flandre923.github.io//post-images/1617543436594.png" alt="" loading="lazy"></p>
+几种解读方式<br>
+<img src="https://flandre923.github.io//post-images/1617543436594.png" alt="" loading="lazy"><br>
+例如<br>
+<img src="https://flandre923.github.io//post-images/1617543818425.png" alt="" loading="lazy"><br>
+例如<br>
+对于所有的x和任何的y，如果x高于y，那么y不高于x<br>
+<img src="https://flandre923.github.io//post-images/1617543877712.png" alt="" loading="lazy"><br>
+（2）存在量词<br>
+<img src="https://flandre923.github.io//post-images/1617543919329.png" alt="" loading="lazy"><br>
+<img src="https://flandre923.github.io//post-images/1617543930372.png" alt="" loading="lazy"><br>
+<img src="https://flandre923.github.io//post-images/1617543955440.png" alt="" loading="lazy"><br>
+注意<br>
+（1）论述域不同，<br>
+（2）在命题函数中个体域可以限定也可以不限定<br>
+（3）采用全个体域，谓词个体域中用特性谓词来限制客体边缘的取值范围<br>
+特性谓词：在全个体域内，将每个客体变元变化范围加以限制的谓词<br>
+例如<br>
+设M（x）：x是人，S（x）：x是会死的。<br>
+个体域约定为{人类}：<img src="https://flandre923.github.io//post-images/1617544280992.png" alt="" loading="lazy"><br>
+全总体域：<img src="https://flandre923.github.io//post-images/1617544301493.png" alt="" loading="lazy"><br>
+例如：有一些人是不怕死的<br>
+设M（x）：x是人，F（x）：x是不怕死的。<br>
+<img src="https://flandre923.github.io//post-images/1617544538869.png" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
 </feed>
