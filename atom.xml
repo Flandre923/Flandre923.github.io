@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://flandre923.github.io/</id>
     <title>Flandre</title>
-    <updated>2021-04-04T14:46:24.648Z</updated>
+    <updated>2021-04-05T03:48:49.433Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://flandre923.github.io/"/>
     <link rel="self" href="https://flandre923.github.io/atom.xml"/>
@@ -97,6 +97,65 @@ P（x）表示质数，<br>
 其中：p称为n元谓词，x1，。。xn称为客体变元，当n=0零元变元公式。<br>
 定义：<br>
 <img src="https://flandre923.github.io//post-images/1617546525947.png" alt="" loading="lazy"></p>
+<h3 id="变元约束">变元约束</h3>
+<p>一。概念<br>
+1.指导变元，<img src="https://flandre923.github.io//post-images/1617588240119.png" alt="" loading="lazy"><br>
+2.辖域：P（x）称为相应量词的作用域或者辖域。（紧接在量词后面括号内的谓词公式。）<br>
+3.约束变元：在量词的辖域内，且与量词下标相同的变元（在作用域中的x）<br>
+4.自由变元：除去约束变元以外的所出现的变元称作为自由变元（不受到量词约束的变元）<br>
+<img src="https://flandre923.github.io//post-images/1617588838251.png" alt="" loading="lazy"><br>
+说明：<br>
+P(x1，x2，。。。xn)是n元谓词，有n个互相独立的自由变元，若对其k个变元进行约束，则成为n-k元谓词，<br>
+例如：<img src="https://flandre923.github.io//post-images/1617588985632.png" alt="" loading="lazy"><br>
+区别是命题还是命题函数的方法<br>
+（a）若在谓词公式中有自由变元，则该公式为命题函数，<br>
+（b）若在谓词公式中的变元均出现为约束变元，则为命题<br>
+二。约束变元的换名。<br>
+<img src="https://flandre923.github.io//post-images/1617589217292.png" alt="" loading="lazy"><br>
+换名规则：<br>
+（a）换名范围，量词中的指导变元以及该量词作用域中出现的变元（指导变元以及约束的变元）<br>
+（b）换名时候要改作用域中没有出现的变元名称<br>
+例如<img src="https://flandre923.github.io//post-images/1617590096622.png" alt="" loading="lazy"><br>
+三。自有变元的带入<br>
+对公式中的自由变元的更改叫做带入<br>
+规则，<br>
+a。对公式出现的改自由变元的每一处进行带入。<br>
+b。用已带入的变元和该公式的变元中所有的变元名称不能相同<br>
+<img src="https://flandre923.github.io//post-images/1617590630128.png" alt="" loading="lazy"><br>
+（2）量词对变元的约束，往往与量词的次序有关<br>
+约定：对多个量词的读出顺序是从左到右，不能颠倒。</p>
+<h3 id="谓词演算的等价失与蕴含式">谓词演算的等价失与蕴含式</h3>
+<p>二：概念<br>
+赋值：在谓词公式中，当客体变元由确定的客体所取代，命题变元用确定的命题所取代时候，就成对谓词公式的赋值<br>
+定义1；给定两个谓词公式wff A 和wffB E为他们共同的个体域，若对A和B的人一组变元惊醒赋值，是的A和B的值形同，则成谓词公式A和B在E上是互为等价的，记为<img src="https://flandre923.github.io//post-images/1617592306711.png" alt="" loading="lazy"><br>
+定义2：给定任意wff A，E是A的个体域，若给A中客体变元指派E中的每一个客体。wffA只均为真，则称A在E中是有效地。（用真的）<br>
+第一3：wffA。若在所复赋值下均为F，则wffA为不可满足式<br>
+定义4：wffA E是A的个体域，若至少一种赋值下为真，责称A为可满足试<br>
+二：谓词演算的一些等价式与蕴含式<br>
+1命题公式的推广<br>
+谓词演算中的公式代替命题演算中的用真公式的变元时，  所得的谓词公式，即为永真式。<br>
+在第一章永真蕴含式和等价公式均可变成谓词演算中的永真式。<br>
+<img src="https://flandre923.github.io//post-images/1617593043797.png" alt="" loading="lazy"><br>
+<img src="https://flandre923.github.io//post-images/1617593167646.png" alt="" loading="lazy"><br>
+<img src="https://flandre923.github.io//post-images/1617593531088.png" alt="" loading="lazy"><br>
+3   量词辖域的扩张及其收缩率<br>
+<img src="https://flandre923.github.io//post-images/1617593946961.png" alt="" loading="lazy"><br>
+4 量词与命题连接词之间的一些等价式<br>
+例：“所有人既上学又工作”<br>
+等价于 “所有人及上学并且所有人都工作“<br>
+<img src="https://flandre923.github.io//post-images/1617594087107.png" alt="" loading="lazy"><br>
+<img src="https://flandre923.github.io//post-images/1617594106248.png" alt="" loading="lazy"><br>
+5量词与命题之间的一些蕴含式<br>
+<img src="https://flandre923.github.io//post-images/1617594212390.png" alt="" loading="lazy"><br>
+6 多个量词的使用<br>
+（a）量词出现的次序直接关系到命题的含义<br>
+<img src="https://flandre923.github.io//post-images/1617594291100.png" alt="" loading="lazy"><br>
+（c）量词转化律的推广使用，吧非深入到谓词之前<br>
+<img src="https://flandre923.github.io//post-images/1617594355785.png" alt="" loading="lazy"><br>
+（d）两个量词 任意，存在， 组成的谓词公式的等价式和永真蕴含式<br>
+<img src="https://flandre923.github.io//post-images/1617594423451.png" alt="" loading="lazy"><br>
+7谓词公式的对偶式<br>
+定义：在一个谓词公示A中（其中不出现-&gt;,&lt;-&gt;)吧公式中的<img src="https://flandre923.github.io//post-images/1617594525309.png" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
 </feed>
