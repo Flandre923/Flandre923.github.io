@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://flandre923.github.io/</id>
     <title>Flandre</title>
-    <updated>2021-04-24T06:47:53.285Z</updated>
+    <updated>2021-05-16T03:01:45.361Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://flandre923.github.io/"/>
     <link rel="self" href="https://flandre923.github.io/atom.xml"/>
@@ -10,6 +10,32 @@
     <logo>https://flandre923.github.io/images/avatar.png</logo>
     <icon>https://flandre923.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Flandre</rights>
+    <entry>
+        <title type="html"><![CDATA[又是不知道关于什么的记录]]></title>
+        <id>https://flandre923.github.io/post/you-shi-bu-zhi-dao-guan-yu-shi-me-de-ji-lu/</id>
+        <link href="https://flandre923.github.io/post/you-shi-bu-zhi-dao-guan-yu-shi-me-de-ji-lu/">
+        </link>
+        <updated>2021-05-16T02:52:04.000Z</updated>
+        <summary type="html"><![CDATA[<p>刷了几天明日方舟，没有好好看书，，。。。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>刷了几天明日方舟，没有好好看书，，。。。</p>
+<!-- more -->
+<h2 id="闲扯">闲扯</h2>
+<p>首先这几日看了看go语言，主要是闲的没事，又不知道做什么，rust也闲的看了一眼，结果语法不敢恭维都是什么鬼啊。各种奇奇怪怪的语法，先溜了，昨日被人拉去做ppt ，以为前辈问话颇有问一些不重要东西的味道，ppt嘛。不是太想搞啦，提不起兴趣来就是了，go方面看了看基础的东西还什么也没做，也是郁闷，也不知道做些什么，还有下周线代考试，还没怎么复习，今日还把模电作业给忘记了，不愧是我，还有就是昨天看了龙珠超，回忆小时候感觉，还不错，不过战力膨胀啊，什么鬼都有了，真是可怕，之后怕是会有平行宇宙巴拉巴拉的，而且今日还要搞定ppt和模电作业，两个都不会，一个和别人合作，她也没说什么，还不知道怎么去做，给的文档也都是一些官方的话，没什么太多的资料，模板还没有确定使用哪个，话说会有人做一个介绍ppt，不用模板直接上吗？这不就是自己去写一些框架吗- -，最后效果还不一定有人家的好就是了 ，</p>
+<h2 id="关于之后的事情">关于之后的事情</h2>
+<p>今日还是先把 模电和ppt搞定再说吧<br>
+之后做一下pta 的java作业 直接发b站好了 水视频了 ， 之前两周都没发了，先把那个python 的爬虫发了吧，这周算是有东西了<br>
+下周吧那个java的作业发了 也有事情了，，，<br>
+狗头。</p>
+<h2 id="综上">综上</h2>
+<p>模电<br>
+ppt<br>
+pta java 题<br>
+java 结课项目 作业，<br>
+go 24 点 这个是和同学玩的时候想到的，不过发现不是很好写，先把事情完成了再说这个<br>
+python 那个爬虫上传<img src="https://flandre923.github.io//post-images/1621134085470.jpg" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[关于最近几日不知道做些什么。]]></title>
         <id>https://flandre923.github.io/post/guan-yu-zui-jin-ji-ri-bu-zhi-dao-zuo-xie-shi-me/</id>
