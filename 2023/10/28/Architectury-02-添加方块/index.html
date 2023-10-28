@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Architectury-02-添加方块 | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="添加方块 添加方块1234567891011121314151617181920212223242526272829303132333435363738394041package net.tutorialmod.block;import dev.architectury.registry.registries.DeferredRegister;import dev.architectury.reg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Architectury-02-添加方块">
+<meta property="og:url" content="https://flandre923.github.io/2023/10/28/Architectury-02-%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="添加方块 添加方块1234567891011121314151617181920212223242526272829303132333435363738394041package net.tutorialmod.block;import dev.architectury.registry.registries.DeferredRegister;import dev.architectury.reg">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://w.wallhaven.cc/full/5g/wallhaven-5gpp65.jpg">
+<meta property="article:published_time" content="2023-10-28T12:51:04.000Z">
+<meta property="article:modified_time" content="2023-10-28T13:25:34.976Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="我的世界">
+<meta property="article:tag" content="模组教程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w.wallhaven.cc/full/5g/wallhaven-5gpp65.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2023/10/28/Architectury-02-%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Architectury-02-添加方块',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-28 21:25:34'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w.wallhaven.cc/full/5g/wallhaven-5gpp65.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Architectury-02-添加方块</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-10-28T12:51:04.000Z" title="Created 2023-10-28 20:51:04">2023-10-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-10-28T13:25:34.976Z" title="Updated 2023-10-28 21:25:34">2023-10-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">459</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>2mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Architectury-02-添加方块"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="添加方块"><a href="#添加方块" class="headerlink" title="添加方块"></a>添加方块</h1><p><img src="https://s2.loli.net/2023/10/28/wqLaZK1WGzPrnVF.png" alt="image-20231028212405539"></p>
+<h2 id="添加方块-1"><a href="#添加方块-1" class="headerlink" title="添加方块"></a>添加方块</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> net.tutorialmod.block;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> dev.architectury.registry.registries.DeferredRegister;</span><br><span class="line"><span class="keyword">import</span> dev.architectury.registry.registries.RegistrySupplier;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.core.registries.Registries;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.world.item.BlockItem;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.world.item.Item;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.world.level.block.Block;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.world.level.block.Blocks;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.world.level.block.state.BlockBehaviour;</span><br><span class="line"><span class="keyword">import</span> net.tutorialmod.TutorialMod;</span><br><span class="line"><span class="keyword">import</span> net.tutorialmod.item.ModCreativeTab;</span><br><span class="line"><span class="keyword">import</span> net.tutorialmod.item.ModItem;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.function.Supplier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ModBlock</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredRegister&lt;Block&gt; BLOCKS = DeferredRegister.create(TutorialMod.MOD_ID, Registries.BLOCK);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> RegistrySupplier&lt;Block&gt; ZIRCON_BLOCK = registerBlock(<span class="string">&quot;zircon_block&quot;</span>,()-&gt;<span class="keyword">new</span> <span class="title class_">Block</span>(BlockBehaviour.Properties.copy(Blocks.STONE)));</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> &lt;T <span class="keyword">extends</span> <span class="title class_">Block</span>&gt; RegistrySupplier&lt;T&gt; <span class="title function_">registerBlock</span><span class="params">(String name, Supplier&lt;T&gt; block)</span> &#123;</span><br><span class="line">        RegistrySupplier&lt;T&gt; toReturn = BLOCKS.register(name, block);</span><br><span class="line">        registerBlockItem(name, toReturn);</span><br><span class="line">        <span class="keyword">return</span> toReturn;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> &lt;T <span class="keyword">extends</span> <span class="title class_">Block</span>&gt; RegistrySupplier&lt;Item&gt; <span class="title function_">registerBlockItem</span><span class="params">(String name, RegistrySupplier&lt;T&gt; block)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ModItem.ITEMS.register(name, () -&gt; <span class="keyword">new</span> <span class="title class_">BlockItem</span>(block.get(), <span class="keyword">new</span> <span class="title class_">Item</span>.Properties().arch$tab(ModCreativeTab.EXAMPLE_TAB)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">register</span><span class="params">()</span>&#123;</span><br><span class="line">        BLOCKS.register();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="修改TutorialMod类"><a href="#修改TutorialMod类" class="headerlink" title="修改TutorialMod类"></a>修改TutorialMod类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> net.tutorialmod;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.google.common.base.Suppliers;</span><br><span class="line"><span class="keyword">import</span> dev.architectury.registry.CreativeTabRegistry;</span><br><span class="line"><span class="keyword">import</span> dev.architectury.registry.registries.DeferredRegister;</span><br><span class="line"><span class="keyword">import</span> dev.architectury.registry.registries.RegistrarManager;</span><br><span class="line"><span class="keyword">import</span> dev.architectury.registry.registries.RegistrySupplier;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.core.registries.Registries;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.network.chat.Component;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.world.item.CreativeModeTab;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.world.item.Item;</span><br><span class="line"><span class="keyword">import</span> net.minecraft.world.item.ItemStack;</span><br><span class="line"><span class="keyword">import</span> net.tutorialmod.block.ModBlock;</span><br><span class="line"><span class="keyword">import</span> net.tutorialmod.item.ModCreativeTab;</span><br><span class="line"><span class="keyword">import</span> net.tutorialmod.item.ModItem;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.function.Supplier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TutorialMod</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">MOD_ID</span> <span class="operator">=</span> <span class="string">&quot;tutorialmod&quot;</span>;</span><br><span class="line">    <span class="comment">// We can use this if we don&#x27;t want to use DeferredRegister</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Supplier&lt;RegistrarManager&gt; REGISTRIES = Suppliers.memoize(() -&gt; RegistrarManager.get(MOD_ID));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123; <span class="comment">// 这里线注册方块，在注册Item，不可以反过来</span></span><br><span class="line">        ModCreativeTab.register();</span><br><span class="line">        ModBlock.register();</span><br><span class="line">        ModItem.register();</span><br><span class="line"></span><br><span class="line">        System.out.println(TutorialModExpectPlatform.getConfigDirectory().toAbsolutePath().normalize().toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="添加blockstate"><a href="#添加blockstate" class="headerlink" title="添加blockstate"></a>添加blockstate</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;variants&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;model&quot;</span>: <span class="string">&quot;tutorialmod:block/zircon_block&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="添加model"><a href="#添加model" class="headerlink" title="添加model"></a>添加model</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;parent&quot;</span>: <span class="string">&quot;minecraft:block/cube_all&quot;</span>,</span><br><span class="line">  <span class="string">&quot;textures&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;all&quot;</span>: <span class="string">&quot;tutorialmod:block/zircon_block&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="添加item-model"><a href="#添加item-model" class="headerlink" title="添加item model"></a>添加item model</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;parent&quot;</span>: <span class="string">&quot;tutorialmod:block/zircon_block&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="添加texture"><a href="#添加texture" class="headerlink" title="添加texture"></a>添加texture</h2><h2 id="添加lang"><a href="#添加lang" class="headerlink" title="添加lang"></a>添加lang</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;item.tutorialmod.zircon&quot;</span>: <span class="string">&quot;Zircon&quot;</span>,</span><br><span class="line">  <span class="string">&quot;itemGroup.tutorialmod.example_tab&quot;</span>: <span class="string">&quot;TutoriablTab&quot;</span>,</span><br><span class="line">  <span class="string">&quot;block.tutorialmod.zircon_block&quot;</span>: <span class="string">&quot;Zircon Block&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2023/10/28/Architectury-02-%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97/">https://flandre923.github.io/2023/10/28/Architectury-02-%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C/">我的世界</a><a class="post-meta__tags" href="/tags/%E6%A8%A1%E7%BB%84%E6%95%99%E7%A8%8B/">模组教程</a></div><div class="post_share"><div class="social-share" data-image="https://w.wallhaven.cc/full/5g/wallhaven-5gpp65.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/10/28/Architectury-01-%E6%B7%BB%E5%8A%A0%E7%89%A9%E5%93%81/" title="Architectury-01-添加物品"><img class="cover" src="https://w.wallhaven.cc/full/x6/wallhaven-x6kkwo.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">Architectury-01-添加物品</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/10/28/Architectury-01-%E6%B7%BB%E5%8A%A0%E7%89%A9%E5%93%81/" title="Architectury-01-添加物品"><img class="cover" src="https://w.wallhaven.cc/full/x6/wallhaven-x6kkwo.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-01-添加物品</div></div></a></div><div><a href="/2023/10/24/Architectury%E6%95%99%E7%A8%8B/" title="Architectury教程"><img class="cover" src="https://w.wallhaven.cc/full/qz/wallhaven-qzpj95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-24</div><div class="title">Architectury教程</div></div></a></div><div><a href="/2023/10/27/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8Cep5%E6%B7%BB%E5%8A%A0%E7%94%B5%E7%BC%86%E6%95%99%E7%A8%8B/" title="我的世界Forge ep5：添加线缆"><img class="cover" src="https://w.wallhaven.cc/full/yx/wallhaven-yx9dvd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-27</div><div class="title">我的世界Forge ep5：添加线缆</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text">添加方块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97-1"><span class="toc-number">1.1.</span> <span class="toc-text">添加方块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9TutorialMod%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">修改TutorialMod类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0blockstate"><span class="toc-number">1.3.</span> <span class="toc-text">添加blockstate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0model"><span class="toc-number">1.4.</span> <span class="toc-text">添加model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0item-model"><span class="toc-number">1.5.</span> <span class="toc-text">添加item model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0texture"><span class="toc-number">1.6.</span> <span class="toc-text">添加texture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0lang"><span class="toc-number">1.7.</span> <span class="toc-text">添加lang</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/10/28/Architectury-02-%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97/" title="Architectury-02-添加方块"><img src="https://w.wallhaven.cc/full/5g/wallhaven-5gpp65.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Architectury-02-添加方块"/></a><div class="content"><a class="title" href="/2023/10/28/Architectury-02-%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97/" title="Architectury-02-添加方块">Architectury-02-添加方块</a><time datetime="2023-10-28T12:51:04.000Z" title="Created 2023-10-28 20:51:04">2023-10-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/28/Architectury-01-%E6%B7%BB%E5%8A%A0%E7%89%A9%E5%93%81/" title="Architectury-01-添加物品"><img src="https://w.wallhaven.cc/full/x6/wallhaven-x6kkwo.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Architectury-01-添加物品"/></a><div class="content"><a class="title" href="/2023/10/28/Architectury-01-%E6%B7%BB%E5%8A%A0%E7%89%A9%E5%93%81/" title="Architectury-01-添加物品">Architectury-01-添加物品</a><time datetime="2023-10-28T11:50:25.000Z" title="Created 2023-10-28 19:50:25">2023-10-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/28/typro%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0%E5%9B%BE%E5%BA%8A/" title="typro自动上传图片到图床"><img src="https://w.wallhaven.cc/full/yx/wallhaven-yx96mk.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="typro自动上传图片到图床"/></a><div class="content"><a class="title" href="/2023/10/28/typro%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0%E5%9B%BE%E5%BA%8A/" title="typro自动上传图片到图床">typro自动上传图片到图床</a><time datetime="2023-10-28T01:49:04.000Z" title="Created 2023-10-28 09:49:04">2023-10-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/27/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8Cep5%E6%B7%BB%E5%8A%A0%E7%94%B5%E7%BC%86%E6%95%99%E7%A8%8B/" title="我的世界Forge ep5：添加线缆"><img src="https://w.wallhaven.cc/full/yx/wallhaven-yx9dvd.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我的世界Forge ep5：添加线缆"/></a><div class="content"><a class="title" href="/2023/10/27/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8Cep5%E6%B7%BB%E5%8A%A0%E7%94%B5%E7%BC%86%E6%95%99%E7%A8%8B/" title="我的世界Forge ep5：添加线缆">我的世界Forge ep5：添加线缆</a><time datetime="2023-10-27T10:10:25.000Z" title="Created 2023-10-27 18:10:25">2023-10-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/24/Architectury%E6%95%99%E7%A8%8B/" title="Architectury教程"><img src="https://w.wallhaven.cc/full/qz/wallhaven-qzpj95.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Architectury教程"/></a><div class="content"><a class="title" href="/2023/10/24/Architectury%E6%95%99%E7%A8%8B/" title="Architectury教程">Architectury教程</a><time datetime="2023-10-24T10:10:25.000Z" title="Created 2023-10-24 18:10:25">2023-10-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: 'c80bd39117938df8aa90191e69860549',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
