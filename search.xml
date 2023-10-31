@@ -4,6 +4,40 @@
   
     
     <entry>
+      <title>关于自己写一个简单模组的想法</title>
+      <link href="/2023/10/31/%E5%85%B3%E4%BA%8E%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%A8%A1%E7%BB%84%E7%9A%84%E6%83%B3%E6%B3%95/"/>
+      <url>/2023/10/31/%E5%85%B3%E4%BA%8E%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%A8%A1%E7%BB%84%E7%9A%84%E6%83%B3%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h1><p>做一个能够直接破坏矿物的爆炸的物品，类似于匠魂2的EPLE物品，可以直接用来挖矿，并再这个基础上做一些拓展</p><h1 id="灵感"><a href="#灵感" class="headerlink" title="灵感"></a>灵感</h1><p>来自匠魂的[EFLN - <a href="https://www.mcmod.cn/item/157578.html">TiC2]匠魂2 (Tinkers’ Construct 2) - MC百科|最大的Minecraft中文MOD百科 (mcmod.cn)</a>。</p><h1 id="实现的内容"><a href="#实现的内容" class="headerlink" title="实现的内容"></a>实现的内容</h1><ol><li>实现匠魂基础的功能。</li><li>实现不同的范围，通过木头，石头，铁，钻石，下届合金（之后也可以加入金和铜不过目前没想到什么特性）合成具有不同的爆炸范围。</li><li>加入一种原石进行的合成，可以爆炸后仅保留矿物。</li><li>加入一种末影珍珠合成的物品，可以爆炸后将所有物品传到玩家背包中，而不是掉落在地上。</li></ol><h1 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h1><ol><li>首先完成添加这样的物品</li><li>添加不同的范围</li><li>添加爆炸后仅保留掉落物的物品</li><li>添加传送物品</li><li>还想添加一套能够大量产火药的方法，因为杀苦力怕也太坐牢的。</li></ol><h1 id="关于命名"><a href="#关于命名" class="headerlink" title="关于命名"></a>关于命名</h1><p>暂定Mine helper吧。挖矿小助手。欢迎各位想想啥中二名字。</p><p>也欢迎给该模组提供能，我会选择考虑是否加入。</p><h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>没啥结论。之后在更新。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 我的世界 </tag>
+            
+            <tag> 模组 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Architectury-09-添加村民，添加村民交易</title>
+      <link href="/2023/10/29/Architectury-09-%E6%B7%BB%E5%8A%A0%E6%9D%91%E6%B0%91%EF%BC%8C%E6%B7%BB%E5%8A%A0%E6%9D%91%E6%B0%91%E4%BA%A4%E6%98%93/"/>
+      <url>/2023/10/29/Architectury-09-%E6%B7%BB%E5%8A%A0%E6%9D%91%E6%B0%91%EF%BC%8C%E6%B7%BB%E5%8A%A0%E6%9D%91%E6%B0%91%E4%BA%A4%E6%98%93/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Architectury-08-添加画</title>
       <link href="/2023/10/29/Architectury-08-%E6%B7%BB%E5%8A%A0%E7%94%BB/"/>
       <url>/2023/10/29/Architectury-08-%E6%B7%BB%E5%8A%A0%E7%94%BB/</url>
