@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>搭建该blog的你可能需要的相关资料</title>
+      <link href="/2023/11/05/%E6%90%AD%E5%BB%BA%E8%AF%A5blog%E7%9A%84%E4%BD%A0%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81%E7%9A%84%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99/"/>
+      <url>/2023/11/05/%E6%90%AD%E5%BB%BA%E8%AF%A5blog%E7%9A%84%E4%BD%A0%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81%E7%9A%84%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99/</url>
+      
+        <content type="html"><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>这里罗列下搭建本blog时候用到了那些文档方便想要自己的搭建一个的去用。</p><h1 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h1><h2 id="博客搭建"><a href="#博客搭建" class="headerlink" title="博客搭建"></a>博客搭建</h2><p>hexo博客的搭建教程，其中第三步域名绑定可选做。</p><p><a href="https://zhuanlan.zhihu.com/p/137476045">Hexo搭建个人博客-并部署到Github上托管(Windows) - 知乎 (zhihu.com)</a></p><h2 id="主题使用"><a href="#主题使用" class="headerlink" title="主题使用"></a>主题使用</h2><p>这里简单介绍了怎么配置使用主题，并给出了一部分主题的配置，详细的主题配置还是推荐看作者给的内容。</p><p><a href="https://www.cnblogs.com/ncphoton/p/16950595.html">Hexo-Butterfly主题配置 - NcPhoton - 博客园 (cnblogs.com)</a></p><h2 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h2><p>这里是作者官网给出的配置文档，写的比较详细，也导致你需要的和不需要的很多，需要耐心阅读找到你需要的。</p><p>其中不仅仅是一，还请翻阅其他的篇幅。</p><p><a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 教程 </tag>
+            
+            <tag> 博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于自己写一个简单模组的想法</title>
       <link href="/2023/10/31/%E5%85%B3%E4%BA%8E%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%A8%A1%E7%BB%84%E7%9A%84%E6%83%B3%E6%B3%95/"/>
       <url>/2023/10/31/%E5%85%B3%E4%BA%8E%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%A8%A1%E7%BB%84%E7%9A%84%E6%83%B3%E6%B3%95/</url>
