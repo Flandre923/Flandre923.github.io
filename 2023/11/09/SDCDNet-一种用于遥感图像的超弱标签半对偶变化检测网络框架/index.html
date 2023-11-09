@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架 | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="SDCDNet是指什么SDCDNet 全称 Semi-Dual Change Detection Network 。其中Semi-Dual是半对偶， Change Detection是变化检测，Network是神经网络模型。 变化检测 Change Detection变化检测是从不同时期的遥感数据中定量分析和确定地表变化的特征与过程； 遥感变化检测是一个确定和评价各种地表现象随时间发生变化的过程；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架">
+<meta property="og:url" content="https://flandre923.github.io/2023/11/09/SDCDNet-%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E7%9A%84%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E5%8D%8A%E5%AF%B9%E5%81%B6%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="SDCDNet是指什么SDCDNet 全称 Semi-Dual Change Detection Network 。其中Semi-Dual是半对偶， Change Detection是变化检测，Network是神经网络模型。 变化检测 Change Detection变化检测是从不同时期的遥感数据中定量分析和确定地表变化的特征与过程； 遥感变化检测是一个确定和评价各种地表现象随时间发生变化的过程；">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://w.wallhaven.cc/full/2y/wallhaven-2y6xmy.jpg">
+<meta property="article:published_time" content="2023-11-09T01:37:46.000Z">
+<meta property="article:modified_time" content="2023-11-09T13:36:24.720Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="遥感">
+<meta property="article:tag" content="SDCDN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w.wallhaven.cc/full/2y/wallhaven-2y6xmy.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2023/11/09/SDCDNet-%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E7%9A%84%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E5%8D%8A%E5%AF%B9%E5%81%B6%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-09 21:36:24'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w.wallhaven.cc/full/2y/wallhaven-2y6xmy.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-09T01:37:46.000Z" title="Created 2023-11-09 09:37:46">2023-11-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-09T13:36:24.720Z" title="Updated 2023-11-09 21:36:24">2023-11-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">5.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>15mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="SDCDNet是指什么"><a href="#SDCDNet是指什么" class="headerlink" title="SDCDNet是指什么"></a>SDCDNet是指什么</h1><p>SDCDNet 全称 Semi-Dual Change Detection Network 。其中Semi-Dual是半对偶， Change Detection是变化检测，Network是神经网络模型。</p>
+<h2 id="变化检测-Change-Detection"><a href="#变化检测-Change-Detection" class="headerlink" title="变化检测 Change Detection"></a>变化检测 Change Detection</h2><p>变化检测是从不同时期的遥感数据中定量分析和确定地表变化的特征与过程；</p>
+<p>遥感变化检测是一个确定和评价各种地表现象随时间发生变化的过程；</p>
+<p>遥感变化检测是遥感瞬时视场中地表特征随时间发生的变化引起两个时期影像像元光谱响应的变化；</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
+<li>更新地理数据的关键技术</li>
+<li>评估灾害、预测灾害发展趋势的关键技术</li>
+<li>土地覆盖&#x2F;利用监测的关键技术</li>
+<li>新一代智能型对地观测卫星的关键技术</li>
+</ul>
+<h3 id="传统经典方法"><a href="#传统经典方法" class="headerlink" title="传统经典方法"></a>传统经典方法</h3><p>先获得两幅同一地点不同时间图像的差异图像，再对差异图像进行处理，将像素点分成变化和无变化两类。</p>
+<p>差异图的获得有很多方法：</p>
+<ul>
+<li>直接相减法</li>
+<li>log法</li>
+<li><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8F%98%E5%8C%96%E5%90%91%E9%87%8F%E5%88%86%E6%9E%90%E6%B3%95/8636415?fromModule=lemma_inlink">变化向量分析法</a>（CVA）</li>
+</ul>
+<p>差异图的处理方法：</p>
+<ul>
+<li>贝叶斯理论的无监督法（像素之间独立）</li>
+<li>马尔科夫随机场理论的无监督法（像素之间独立）</li>
+<li>自动获取阈值的方法（考虑像素之间的上下文信息）</li>
+</ul>
+<h1 id="一般的变化检测的问题"><a href="#一般的变化检测的问题" class="headerlink" title="一般的变化检测的问题"></a>一般的变化检测的问题</h1><p>大多数的变化检测方法需要大量的标记数据来训练参数。</p>
+<h1 id="本文要解决的问题"><a href="#本文要解决的问题" class="headerlink" title="本文要解决的问题"></a>本文要解决的问题</h1><p>打破这变化检测方法需要大量的标记数据这一限制。</p>
+<p>本文提出了一种用了遥感变化检测的新型半监督学习semi-supervised learning(SSL).称之为半对偶变化检测网络（SDCDNet）。</p>
+<h1 id="SDCDNet网络的大概模型是什么样子"><a href="#SDCDNet网络的大概模型是什么样子" class="headerlink" title="SDCDNet网络的大概模型是什么样子"></a>SDCDNet网络的大概模型是什么样子</h1><p>SDCDNet网络由双共享网络和双分支网络组成。此外，自适应模块(AWM)增强了弱分支的特征。掩模约束模块（MCM）增加网络提取前景特征的能力。</p>
+<h2 id="双共享网路的作用"><a href="#双共享网路的作用" class="headerlink" title="双共享网路的作用"></a>双共享网路的作用</h2><p>双共享网络旨在发挥数据的潜力</p>
+<h2 id="双分支网络的作用"><a href="#双分支网络的作用" class="headerlink" title="双分支网络的作用"></a>双分支网络的作用</h2><p>区分标记数据的种类并消除不同类型数据之间的干扰。</p>
+<h2 id="AWM作用和MCM作用"><a href="#AWM作用和MCM作用" class="headerlink" title="AWM作用和MCM作用"></a>AWM作用和MCM作用</h2><p>增强了弱分支的特征</p>
+<p>增加网络提取前景特征的能力</p>
+<h2 id="如何解决标签这个复杂问题"><a href="#如何解决标签这个复杂问题" class="headerlink" title="如何解决标签这个复杂问题"></a>如何解决标签这个复杂问题</h2><p>提出了一种基于补丁（patch-based）的弱标签构建方法来构建超弱（super method）标签。</p>
+<h1 id="效果怎么样"><a href="#效果怎么样" class="headerlink" title="效果怎么样"></a>效果怎么样</h1><p>实验表明，所提出的 SDCDNet 在两个遥感图像变化检测数据集上取得了优异的结果。</p>
+<h1 id="测试用的数据集"><a href="#测试用的数据集" class="headerlink" title="测试用的数据集"></a>测试用的数据集</h1><p>遥感图像变化检测数据集</p>
+<h1 id="本文的特征词是"><a href="#本文的特征词是" class="headerlink" title="本文的特征词是"></a>本文的特征词是</h1><ul>
+<li>变化检测（Change detection）</li>
+<li>双分支网络（dual branch network）</li>
+<li>遥感图像（remote sensing image）</li>
+<li>半监督学习（semi-supervised learning (SSL))</li>
+</ul>
+<h1 id="变化检测"><a href="#变化检测" class="headerlink" title="变化检测"></a>变化检测</h1><p>遥感领域的一个重要研究方向</p>
+<h2 id="变化检测应用"><a href="#变化检测应用" class="headerlink" title="变化检测应用"></a>变化检测应用</h2><ul>
+<li>建筑损坏检测</li>
+<li>环境监测</li>
+<li>灾害监测</li>
+<li>城市变化等</li>
+<li>土地覆盖监测</li>
+</ul>
+<h2 id="遥感图形容易获得的原因"><a href="#遥感图形容易获得的原因" class="headerlink" title="遥感图形容易获得的原因"></a>遥感图形容易获得的原因</h2><p>遥感观测技术的进步</p>
+<p>不同平台提供的遥感数据</p>
+<h2 id="变化检测的任务"><a href="#变化检测的任务" class="headerlink" title="变化检测的任务"></a>变化检测的任务</h2><p>分析多时间图像</p>
+<p>为每个像素分配一个二进制标签，标签“0”表示该像素对应的表面在语义上没有变化，标签“1”表示该像素对应的表面在T0和T1之间语义上发生了变化</p>
+<h2 id="超高分辨率（VHR）图像的变化检测的困难点"><a href="#超高分辨率（VHR）图像的变化检测的困难点" class="headerlink" title="超高分辨率（VHR）图像的变化检测的困难点"></a>超高分辨率（VHR）图像的变化检测的困难点</h2><p>季节性变化</p>
+<p>成像条件</p>
+<h1 id="多时相VHR遥感图像变化检测技术分类"><a href="#多时相VHR遥感图像变化检测技术分类" class="headerlink" title="多时相VHR遥感图像变化检测技术分类"></a>多时相VHR遥感图像变化检测技术分类</h1><ul>
+<li>传统方法</li>
+<li>深度学习的方法</li>
+</ul>
+<h2 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h2><p>图像代数和变化</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li>实际应用中相对有限，容易受到传感器本身、大气和季节变化以及太阳高度的影响。导致降低变化检测的性能</li>
+<li>依赖于手工设计的特征描述符，描述复杂和高级语义变化信息的能力有限，导致在杂乱覆盖地面具有较差的表现</li>
+</ol>
+<h2 id="深度学习技术"><a href="#深度学习技术" class="headerlink" title="深度学习技术"></a>深度学习技术</h2><h3 id="深度学习的特点"><a href="#深度学习的特点" class="headerlink" title="深度学习的特点"></a>深度学习的特点</h3><p>强大的数据模式建模能力</p>
+<h3 id="深度学习能做到什么"><a href="#深度学习能做到什么" class="headerlink" title="深度学习能做到什么"></a>深度学习能做到什么</h3><p>输入图像对之间抽象、复杂、非线性的特征表示，并实现较高的变化检测性能。</p>
+<h3 id="深度学习可以分为"><a href="#深度学习可以分为" class="headerlink" title="深度学习可以分为"></a>深度学习可以分为</h3><p>可以细分为监督方法、半监督方法和无监督方法</p>
+<h3 id="目前深度学习在变化检测上的状况"><a href="#目前深度学习在变化检测上的状况" class="headerlink" title="目前深度学习在变化检测上的状况"></a>目前深度学习在变化检测上的状况</h3><p>现有的深度学习网络模型通常具有更多的参数，<strong>变化检测方法的有效</strong>性在很大程度上取决于<strong>标记训练数据的质量和数量</strong>，特别是对于<strong>完全监督</strong>的方法。当我们没有<strong>大量的训练数据时，变化检测模型的检测能力会大大降低</strong></p>
+<h3 id="存在问题"><a href="#存在问题" class="headerlink" title="存在问题"></a>存在问题</h3><p>遥感图像的准确注释是一项非常昂贵的任务</p>
+<h4 id="原因是："><a href="#原因是：" class="headerlink" title="原因是："></a>原因是：</h4><ul>
+<li>标注需要具有一定专业知识的专家</li>
+<li>不易注释的部分可能会产生额外成本</li>
+</ul>
+<h4 id="导致结果："><a href="#导致结果：" class="headerlink" title="导致结果："></a>导致结果：</h4><ul>
+<li>大量精细标记的数据是不可持续的</li>
+</ul>
+<h4 id="在研究上的结果："><a href="#在研究上的结果：" class="headerlink" title="在研究上的结果："></a>在研究上的结果：</h4><p>许多学者将研究重点放在如何利用少量标注进行学习的问题上</p>
+<p>例如：</p>
+<ul>
+<li><p>半监督学习（SSL）</p>
+</li>
+<li><p>弱监督学习</p>
+</li>
+<li><p>自监督学习</p>
+</li>
+<li><p>无监督学习等</p>
+</li>
+</ul>
+<h1 id="半监督学习SSL"><a href="#半监督学习SSL" class="headerlink" title="半监督学习SSL"></a>半监督学习SSL</h1><p> SSL是一种结合了监督学习和无监督学习优点的学习方法</p>
+<h2 id="SSL是怎么做的"><a href="#SSL是怎么做的" class="headerlink" title="SSL是怎么做的"></a>SSL是怎么做的</h2><p>用大量的无标签数据和尽可能少的标签数据</p>
+<h2 id="到达了什么效果"><a href="#到达了什么效果" class="headerlink" title="到达了什么效果"></a>到达了什么效果</h2><p>不低于完全监督方法的效果</p>
+<h1 id="目前有没有统一的框架"><a href="#目前有没有统一的框架" class="headerlink" title="目前有没有统一的框架"></a>目前有没有统一的框架</h1><p>目前还没有统一的框架将完全监督方法扩展到半监督数据条件，</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>由于其复杂性，实施此类方法可能具有挑战性</p>
+<h1 id="本文是如何解决缺乏大量高精度标注问题的"><a href="#本文是如何解决缺乏大量高精度标注问题的" class="headerlink" title="本文是如何解决缺乏大量高精度标注问题的"></a>本文是如何解决缺乏大量高精度标注问题的</h1><p>设计了带有自适应加权模块（AWM）和掩模约束模块（MCM）的半监督双变化检测网络（SDCDNet）框架</p>
+<h2 id="在数据集达到的效果"><a href="#在数据集达到的效果" class="headerlink" title="在数据集达到的效果"></a>在数据集达到的效果</h2><p>训练中使用非常有限的像素级标记数据（pixel-level labeled data）和大量的补丁级标记数据（patch-level labeled data ）</p>
+<h2 id="AWM模块作用"><a href="#AWM模块作用" class="headerlink" title="AWM模块作用"></a>AWM模块作用</h2><p>自适应地对特征提取网络的不同语义级别的特征进行加权</p>
+<h2 id="MCM模块作用"><a href="#MCM模块作用" class="headerlink" title="MCM模块作用"></a>MCM模块作用</h2><p>MCM约束输入的弱分支的特征从而更加关注变化区域</p>
+<h2 id="结果上达到的效果"><a href="#结果上达到的效果" class="headerlink" title="结果上达到的效果"></a>结果上达到的效果</h2><p>该框架可以通过较少的精细注释实现更高精度的变化检测，并且所提出的两个模块可以有效地将网络的注意力引导到有用的变化信息，并且<em>消融实验（？）</em>在第四节中描述。</p>
+<h1 id="本文的贡献"><a href="#本文的贡献" class="headerlink" title="本文的贡献"></a>本文的贡献</h1><ol>
+<li>为变化检测提出了一种新颖的 SSL 框架，完美地适应了大多数完全监督的方法，在正常标记数据非常有限的情况下获得了与完全监督的方法相似的分数</li>
+<li>提出了一种与补丁相结合的超弱标签构建方法，其大小可以自行调整，并将超弱标签与正常标签一起输入到所提出的半监督网络中进行训练</li>
+<li>为框架的弱标记分支获得更好的前景特征，提出了AWM和MCM来提取对变化检测任务更有用的特征</li>
+</ol>
+<h1 id="全监督和半监督方法在变化检测领域的应用"><a href="#全监督和半监督方法在变化检测领域的应用" class="headerlink" title="全监督和半监督方法在变化检测领域的应用"></a>全监督和半监督方法在变化检测领域的应用</h1><h2 id="完全监督方法"><a href="#完全监督方法" class="headerlink" title="完全监督方法"></a>完全监督方法</h2><p>方法：一些方法使用完全卷积网络（FCN）从双时态输入生成高分辨率变化图。</p>
+<p>用于：遥感图像理解</p>
+<p>变种1：一部分方法将两个图像连接起来并将其输入变化检测网络，称为早期融合</p>
+<p>变种2：使用两分支网络来提取深层特征，然后融合并生成变化图</p>
+<h3 id="基于U-Net框架进行变化检测的FC-Siam-Diff方法"><a href="#基于U-Net框架进行变化检测的FC-Siam-Diff方法" class="headerlink" title="基于U-Net框架进行变化检测的FC-Siam-Diff方法"></a>基于U-Net框架进行变化检测的FC-Siam-Diff方法</h3><p>首先将图像对输入到siamese网络中，并利用从UNet中提取的多级特征的特征差异来生成最终的变化的地图，实现遥感影像对的变化检测。</p>
+<h3 id="其他的论文提出的方法"><a href="#其他的论文提出的方法" class="headerlink" title="其他的论文提出的方法"></a>其他的论文提出的方法</h3><p>在[^43],提出了时空注意力神经网络来实现变化检测，时空注意力机制计算不同时间和空间的两个像素之间的注意力以生成更具区分性的特征</p>
+<p>在[44]，使用差异增强密集注意力网络来整合低层和高层特征</p>
+<p>在[45]，多任务学习方法来训练变化检测网络，以解决检测结果区域不完整或区域边界不规则的问题。所提出 dual-task constrained deep siamese convolutional network (DTCDSCN) 包含一个检测网络和两个语义分割网络。</p>
+<p>在[46]，提出了具有密集连接 和通道注意的siamese 网络 用于变化检测。</p>
+<p>在[47]，提出了遥感图像变化检测的深度监督双分支图像融合FCN。该方法提取双时态图像深层特征，并利用深度监督差分识别网络指导训练。</p>
+<p>在 [48]，提出将孪生架构与循环神经网络（RNN）相结合，以实现多源数据的更高性能。为了获得更具判别性的特征表示。</p>
+<p>在[49]，提出了具有双重注意机制的连体FCN</p>
+<p>在[50]，为了提供更多有用的信息，提出了一种分层动态融合策略。</p>
+<p>在[51]，利用自注意机制对双时态时空中任意两个像素之间的语义关系进行建模</p>
+<p>在[52]，提出了基于Transformers的变化检测方法，该方法使用卷积神经网络（CNN）提取深层特征并将其输入双时图像转换器（BIT）。作者实现了 BIT 来学习和关联高级语义概念的全局信息，从而增强原始的双时态特征。然后生成双时态特征图减法的元素绝对值。最后，利用基于卷积的预测头来预测变化图。</p>
+<p>[^43]: H. Chen and Z. Shi, “A spatial-temporal attention-based method and a new dataset for remote sensing image change detection,” Remote Sens. vol. 12, no. 10, p. 1662, May 2023</p>
+<h2 id="半监督方法"><a href="#半监督方法" class="headerlink" title="半监督方法"></a>半监督方法</h2><h3 id="一些半监督方法是基于-GAN-的。"><a href="#一些半监督方法是基于-GAN-的。" class="headerlink" title="一些半监督方法是基于 GAN 的。"></a>一些半监督方法是基于 GAN 的。</h3><p>在[53]，提出了一种基于FCN和GAN的半监督变化检测网络。作者使用带有attention的UNet++作为GAN的生成器，并使用两个判别器分别奖励输出特征分布一致性和抑制未标记数据变化图中的不确定性区域。通过不断地从标记和未标记数据中学习，生成器可以生成预期的变化图。</p>
+<p>在[54]中，提出了一种半监督语义分割网络。它由分割器和鉴别器组成，分割器和鉴别器以对抗方式进行训练，并提出自训练损失和特征匹配损失。特征匹配损失稳定了低数据训练，自训练损失平衡了分割器和鉴别器。</p>
+<p>文献[55]提出了一种自监督条件生成对抗网络（GAN），利用生成器和判别器的相互监督信息进行训练，并利用GAN中的判别器实现双时相遥感图像的变化检测作为训练完成后变化检测的分类器。 </p>
+<p>[56]提出了一个端到端的变化检测框架，其中包含三个基本模块：分段器、鉴别器和生成器。通过将其中的两个或两个与不同的优化策略相结合，可以在不同的监督条件下实现变化检测任务。</p>
+<h3 id="非GAN半监督"><a href="#非GAN半监督" class="headerlink" title="非GAN半监督"></a>非GAN半监督</h3><p>由于GAN的训练难度和稳定性，基于非GAN或更稳定的半监督方法仍然是学者们的研究热点。</p>
+<p>在[25]中，使用图卷积网络（GCN）来实现半监督变化检测。</p>
+<p>在[57]中提出了一种用于变化检测的半监督方法。它包含两个阶段：完全监督训练和无监督训练。完全监督训练阶段是正常的图像分割训练过程。在无监督训练阶段，输入图像对没有地面真实变化掩模。然后首先对深度特征差异图应用随机扰动。因此限制输出变化图在不同扰动下保持一致。</p>
+<p> [58] 使用 GCN 在带有少量注释数据的半监督框架中学习判别特征。</p>
+<p>在[39]中，提出了一种标签细化方法，从低分辨率数据标签生成高分辨率变化图。</p>
+<p> [59]在低标签数据情况下训练具有图注意力的双分支嵌套UNet，然后通过约束扭曲图像的检测结果和未标签数据的伪标签的一致性来重新训练网络。</p>
+<p>在[60]中，双任务网络集成了城市建筑分割和变化检测，然后实现了半监督变化检测。</p>
+<h1 id="标注存在的问题"><a href="#标注存在的问题" class="headerlink" title="标注存在的问题"></a>标注存在的问题</h1><p>由于遥感图像的复杂性，遥感图像的标注通常需要专业知识，这导致完全监督方法所需的像素级标注数据的获取非常昂贵。</p>
+<h1 id="其他非完全监督取得的效果"><a href="#其他非完全监督取得的效果" class="headerlink" title="其他非完全监督取得的效果"></a>其他非完全监督取得的效果</h1><p>相比之下，许多非完全监督的变化检测方法仅需要一部分像素级标记数据进行训练。他们在变化检测任务中取得了类似的结果。</p>
+<h1 id="其他的非完全监督存在的问题"><a href="#其他的非完全监督存在的问题" class="headerlink" title="其他的非完全监督存在的问题"></a>其他的非完全监督存在的问题</h1><p>现有的半监督变化检测方法通常无法充分利用所有数据的潜力[61]、[62]，导致当像素级标记数据的比例较低时变化检测往往不令人满意。</p>
+<h1 id="现研究存在的问题"><a href="#现研究存在的问题" class="headerlink" title="现研究存在的问题"></a>现研究存在的问题</h1><p>1）全监督方法的像素级标记监督信息不容易获得。</p>
+<p>2）现有半监督方法的框架普遍复杂，缺乏简单有效的策略。</p>
+<p>3）监督信息挖掘不够深入，珍贵的精细标注数据中的信息没有得到很好的利用。</p>
+<h1 id="本文如何解决这些问题"><a href="#本文如何解决这些问题" class="headerlink" title="本文如何解决这些问题"></a>本文如何解决这些问题</h1><p>该框架使用原始的完全监督方法，将像素级和补丁级注释结合起来，用于变化检测任务。通过战略性地利用监督信息，我们在训练过程中逐步增强标记数据和未标记数据之间变化特征分布的一致性，从而使网络能够学习用于变化检测的关键特征，并使用最小像素级标记数据实现高性能</p>
+<h1 id="第三部分的结构"><a href="#第三部分的结构" class="headerlink" title="第三部分的结构"></a>第三部分的结构</h1><p>我们在第 III-A 节中介绍了我们提出的框架的一般结构，该框架利用带有像素级标签的强标记训练数据和基于补丁注释的弱标记训练数据。</p>
+<p>我们还在第 III-B 节中描述了超弱标签的构造。</p>
+<p>为了改善弱分支的前景特征，我们提出了 AWM 和 MCM 技术，分别在第 III-C 和 III-D 节中进行了解释。</p>
+<p>在第III-E节中，我们介绍了该框架中使用的损失函数，</p>
+<p>在第III-F节中，我们详细介绍了训练过程。</p>
+<h1 id="为什么具有适用性"><a href="#为什么具有适用性" class="headerlink" title="为什么具有适用性"></a>为什么具有适用性</h1><p>1.可以简单地向原始完全添加弱分支来扩展以合并额外的弱标记训练数据的弱监督网络，不需要改变任何的结构。从而可以轻松的将半监督变化检测框架与大多数现有的编码器-解码器[63]范例集成，以实现完全监督的变化检测。</p>
+<h1 id="模型图像"><a href="#模型图像" class="headerlink" title="模型图像"></a>模型图像</h1><p><img src="https://s2.loli.net/2023/11/09/o5vrDBUWfAjMi7J.png" alt="image-20231109163730326"></p>
+<h1 id="模型总体结构"><a href="#模型总体结构" class="headerlink" title="模型总体结构"></a>模型总体结构</h1><h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p>它包含五个部分：训练数据的构造、双权值共享的特征提取模块、AWM、MCM和双分支模块。</p>
+<h2 id="A部分框架的一般结构"><a href="#A部分框架的一般结构" class="headerlink" title="A部分框架的一般结构"></a>A部分框架的一般结构</h2><p>首先，像素级强标记图像<br>$$<br>x^n<br>$$<br>和弱标记图像<br>$$<br>x^w<br>$$<br>同时发送到权重共享主干网络生成特征C，进一步将C分割为<br>$$<br>C^n<br>$$<br>和<br>$$<br>C^w<br>$$<br>。主干网络主要由全监督变化检测模型确定，例如，DSIFN[47]中的主干网络是VGG16[64]，SNUNet[46]中的主干网络是UNet++[65]的编码器等。</p>
+<p>对于Normal Head，<br>$$<br>C^n<br>$$<br>直接输送。对于Weak Head，由于对应的弱标注缺少很多细节信息，使用AWM对特征<br>$$<br>C^w<br>$$<br>的一致性约束进行加权，在不确定性较低的区域进行更强的多尺度一致性约束，然后使用MCM使Weak Head获得更好的前景特征，从而将生成的<br>$$<br>f_x<br>$$<br>输入到Weak Head。最后，Normal Head和Weak Head生成最终的预测结果<br>$$<br>\hat{y}^n 和 \hat{y}^w<br>$$</p>
+<p>$$<br>然后分别用像素级标注y^n和弱标注y^w计算损失L_{D_{n}}和L_{D_{w}}。<br>$$</p>
+<p>$$<br>L_{D_{n}}+L_{D_{w}}用于反向传播训练。<br>$$</p>
+<p>在Weak Head中，首先使用AWM自适应地提取多尺度特征。然后，为了减少信息损失并避免训练步骤中的梯度消失问题[66]，受ResNet [61]中残差连接的启发，我们在模块中添加了恒等分支。</p>
+<p> MCM被插入到分支中以增加网络提取前景特征的能力。</p>
+<p>最后，批量归一化[67]和丢失[68]分别用于提高网络的收敛速度和泛化能力。</p>
+<p>如图1所示，假设<br>$$<br>F_{in}&#x3D;[F_1,F_2,…  , F_c] ∈ R^{C<em>H</em>W}<br>$$<br>其中C表示特征图中的通道数，H和W分别表示高度和宽度，<br>$$<br>F’<br>$$<br>和<br>$$<br>F_{out}<br>$$<br>可以通过以下等式获得：<br>$$<br>F’ &#x3D; AWM(F_{in}) + MCM(AWM(F_{in}))<br>$$</p>
+<p>$$<br>F_{out} &#x3D; Conv(D(B(Conv(F’))))<br>$$</p>
+<p>其中 D 是 dropout [68]，B 是批量归一化 [67]。</p>
+<h2 id="B部分超弱标签的构造"><a href="#B部分超弱标签的构造" class="headerlink" title="B部分超弱标签的构造"></a>B部分超弱标签的构造</h2><p>了基于补丁的超弱标签生成方法SWL，不再局限于标记群体。</p>
+<p><img src="https://s2.loli.net/2023/11/09/YWjvl9u3znAH4Xa.png" alt="image-20231109172900271"></p>
+<p>首先，我们按预定义的补丁大小对输入标签进行分块。其次，对于第 k 个 patch<br>$$<br>p^k<br>$$<br>大小为 psize × psize，最终生成的弱 patch 标签定义如下：<br>$$<br>p_{weak}^{k}&#x3D;1-I(\sum_{i&#x3D;1}^{psize}\sum_{j&#x3D;1}^{psize}p_{ij}^{k}&#x3D;0)<br>$$<br>其中 I(·) 是指示函数，如果·为真，则值为 1，否则为 0。表示第 k 个补丁中第 (i, j) 个像素的值。直观上，当一个 patch 包含有变化的像素标签时，整个 patch 的值为 1；当整个patch不包含变化时，该patch中的每个像素都取值为0。在图2中，左上角的patch没有变化的像素，因此其对应的弱标签将被赋予0。相反，其余三个补丁包含变化信息，因此它们相关的弱标签将被赋值为1。最后，经过弱标签构建过程，我们得到了不精确标记的弱标签。</p>
+<h2 id="C部分AWM"><a href="#C部分AWM" class="headerlink" title="C部分AWM"></a>C部分AWM</h2><p><img src="https://s2.loli.net/2023/11/09/WBo5TVPAtcZ2qsH.png" alt="image-20231109173154696"></p>
+<p>如图3所示，通过特征提取获得的每个阶段的特征被输入到该模块中。首先，对于每个stage的特征，将剩余stage的特征进行卷积采样，使其大小与该stage的特征相同，并与之拼接，从而可以从每个stage中提取不同尺度的特征信息。然后不同时间序列中同一阶段的特征通过自适应空间特征融合（ASFF）模块[69]以获得每个最终阶段的附加增强特征。为一个骨干网络有n个阶段，每个阶段的具体增强特征计算表示如下：<br>$$<br>weight_1 &#x3D; CS(Concat(F_1,DS(F_2),DS(F_3),DS(F_4)))<br>$$</p>
+<p>$$<br>weight_2 &#x3D; CS(Concat(US(F_1),F_2,DS(F_3),DS(F_4)))<br>$$</p>
+<p>$$<br>weight_3 &#x3D; CS(Concat(US(F_1),US(F_2),F_3,DS(F_4)))<br>$$</p>
+<p>$$<br>weight_4 &#x3D; CS(Concat(US(F_1),US(F_2),US(F_3),F_4))<br>$$</p>
+<p>$$<br>ASFF_i &#x3D; weight_i * F_i, i &#x3D; 1,2,3,4<br>$$</p>
+<p>其中DS和US代表下采样和上采样操作，CS表示先进行Conv，然后进行SoftMax。详细信息可以参见[69]。利用变化检测中的特征差异或特征拼接来完成后续处理。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2023/11/09/SDCDNet-%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E7%9A%84%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E5%8D%8A%E5%AF%B9%E5%81%B6%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/">https://flandre923.github.io/2023/11/09/SDCDNet-%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E7%9A%84%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E5%8D%8A%E5%AF%B9%E5%81%B6%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/%E9%81%A5%E6%84%9F/">遥感</a><a class="post-meta__tags" href="/tags/SDCDN/">SDCDN</a></div><div class="post_share"><div class="social-share" data-image="https://w.wallhaven.cc/full/2y/wallhaven-2y6xmy.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/11/07/%E5%9C%B0%E7%8B%B1%E9%97%A8%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/" title="地狱门代码详解"><img class="cover" src="https://w.wallhaven.cc/full/85/wallhaven-858w9j.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">地狱门代码详解</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SDCDNet%E6%98%AF%E6%8C%87%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">SDCDNet是指什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B-Change-Detection"><span class="toc-number">1.1.</span> <span class="toc-text">变化检测 Change Detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E7%BB%8F%E5%85%B8%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.2.</span> <span class="toc-text">传统经典方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E7%9A%84%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">一般的变化检测的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">本文要解决的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SDCDNet%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A4%A7%E6%A6%82%E6%A8%A1%E5%9E%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E5%AD%90"><span class="toc-number">4.</span> <span class="toc-text">SDCDNet网络的大概模型是什么样子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%85%B1%E4%BA%AB%E7%BD%91%E8%B7%AF%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">4.1.</span> <span class="toc-text">双共享网路的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%88%86%E6%94%AF%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">4.2.</span> <span class="toc-text">双分支网络的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWM%E4%BD%9C%E7%94%A8%E5%92%8CMCM%E4%BD%9C%E7%94%A8"><span class="toc-number">4.3.</span> <span class="toc-text">AWM作用和MCM作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%A0%87%E7%AD%BE%E8%BF%99%E4%B8%AA%E5%A4%8D%E6%9D%82%E9%97%AE%E9%A2%98"><span class="toc-number">4.4.</span> <span class="toc-text">如何解决标签这个复杂问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E6%80%8E%E4%B9%88%E6%A0%B7"><span class="toc-number">5.</span> <span class="toc-text">效果怎么样</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">6.</span> <span class="toc-text">测试用的数据集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E7%9A%84%E7%89%B9%E5%BE%81%E8%AF%8D%E6%98%AF"><span class="toc-number">7.</span> <span class="toc-text">本文的特征词是</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B"><span class="toc-number">8.</span> <span class="toc-text">变化检测</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E5%BA%94%E7%94%A8"><span class="toc-number">8.1.</span> <span class="toc-text">变化检测应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%A5%E6%84%9F%E5%9B%BE%E5%BD%A2%E5%AE%B9%E6%98%93%E8%8E%B7%E5%BE%97%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-number">8.2.</span> <span class="toc-text">遥感图形容易获得的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="toc-number">8.3.</span> <span class="toc-text">变化检测的任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B6%85%E9%AB%98%E5%88%86%E8%BE%A8%E7%8E%87%EF%BC%88VHR%EF%BC%89%E5%9B%BE%E5%83%8F%E7%9A%84%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%9A%84%E5%9B%B0%E9%9A%BE%E7%82%B9"><span class="toc-number">8.4.</span> <span class="toc-text">超高分辨率（VHR）图像的变化检测的困难点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E6%97%B6%E7%9B%B8VHR%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E6%8A%80%E6%9C%AF%E5%88%86%E7%B1%BB"><span class="toc-number">9.</span> <span class="toc-text">多时相VHR遥感图像变化检测技术分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%B3%95"><span class="toc-number">9.1.</span> <span class="toc-text">传统方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">9.1.1.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8A%80%E6%9C%AF"><span class="toc-number">9.2.</span> <span class="toc-text">深度学习技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">9.2.1.</span> <span class="toc-text">深度学习的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%83%BD%E5%81%9A%E5%88%B0%E4%BB%80%E4%B9%88"><span class="toc-number">9.2.2.</span> <span class="toc-text">深度学习能做到什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8F%AF%E4%BB%A5%E5%88%86%E4%B8%BA"><span class="toc-number">9.2.3.</span> <span class="toc-text">深度学习可以分为</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9C%A8%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E4%B8%8A%E7%9A%84%E7%8A%B6%E5%86%B5"><span class="toc-number">9.2.4.</span> <span class="toc-text">目前深度学习在变化检测上的状况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98"><span class="toc-number">9.2.5.</span> <span class="toc-text">存在问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0%E6%98%AF%EF%BC%9A"><span class="toc-number">9.2.5.1.</span> <span class="toc-text">原因是：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E8%87%B4%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">9.2.5.2.</span> <span class="toc-text">导致结果：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E7%A0%94%E7%A9%B6%E4%B8%8A%E7%9A%84%E7%BB%93%E6%9E%9C%EF%BC%9A"><span class="toc-number">9.2.5.3.</span> <span class="toc-text">在研究上的结果：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0SSL"><span class="toc-number">10.</span> <span class="toc-text">半监督学习SSL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84"><span class="toc-number">10.1.</span> <span class="toc-text">SSL是怎么做的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B0%E8%BE%BE%E4%BA%86%E4%BB%80%E4%B9%88%E6%95%88%E6%9E%9C"><span class="toc-number">10.2.</span> <span class="toc-text">到达了什么效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E6%9C%89%E6%B2%A1%E6%9C%89%E7%BB%9F%E4%B8%80%E7%9A%84%E6%A1%86%E6%9E%B6"><span class="toc-number">11.</span> <span class="toc-text">目前有没有统一的框架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-number">11.1.</span> <span class="toc-text">原因</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%98%AF%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%BC%BA%E4%B9%8F%E5%A4%A7%E9%87%8F%E9%AB%98%E7%B2%BE%E5%BA%A6%E6%A0%87%E6%B3%A8%E9%97%AE%E9%A2%98%E7%9A%84"><span class="toc-number">12.</span> <span class="toc-text">本文是如何解决缺乏大量高精度标注问题的</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BE%BE%E5%88%B0%E7%9A%84%E6%95%88%E6%9E%9C"><span class="toc-number">12.1.</span> <span class="toc-text">在数据集达到的效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWM%E6%A8%A1%E5%9D%97%E4%BD%9C%E7%94%A8"><span class="toc-number">12.2.</span> <span class="toc-text">AWM模块作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MCM%E6%A8%A1%E5%9D%97%E4%BD%9C%E7%94%A8"><span class="toc-number">12.3.</span> <span class="toc-text">MCM模块作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C%E4%B8%8A%E8%BE%BE%E5%88%B0%E7%9A%84%E6%95%88%E6%9E%9C"><span class="toc-number">12.4.</span> <span class="toc-text">结果上达到的效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E7%9A%84%E8%B4%A1%E7%8C%AE"><span class="toc-number">13.</span> <span class="toc-text">本文的贡献</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%A8%E7%9B%91%E7%9D%A3%E5%92%8C%E5%8D%8A%E7%9B%91%E7%9D%A3%E6%96%B9%E6%B3%95%E5%9C%A8%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E9%A2%86%E5%9F%9F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">14.</span> <span class="toc-text">全监督和半监督方法在变化检测领域的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E5%85%A8%E7%9B%91%E7%9D%A3%E6%96%B9%E6%B3%95"><span class="toc-number">14.1.</span> <span class="toc-text">完全监督方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EU-Net%E6%A1%86%E6%9E%B6%E8%BF%9B%E8%A1%8C%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%9A%84FC-Siam-Diff%E6%96%B9%E6%B3%95"><span class="toc-number">14.1.1.</span> <span class="toc-text">基于U-Net框架进行变化检测的FC-Siam-Diff方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%9A%84%E8%AE%BA%E6%96%87%E6%8F%90%E5%87%BA%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">14.1.2.</span> <span class="toc-text">其他的论文提出的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8A%E7%9B%91%E7%9D%A3%E6%96%B9%E6%B3%95"><span class="toc-number">14.2.</span> <span class="toc-text">半监督方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%8D%8A%E7%9B%91%E7%9D%A3%E6%96%B9%E6%B3%95%E6%98%AF%E5%9F%BA%E4%BA%8E-GAN-%E7%9A%84%E3%80%82"><span class="toc-number">14.2.1.</span> <span class="toc-text">一些半监督方法是基于 GAN 的。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9EGAN%E5%8D%8A%E7%9B%91%E7%9D%A3"><span class="toc-number">14.2.2.</span> <span class="toc-text">非GAN半监督</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E6%B3%A8%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">15.</span> <span class="toc-text">标注存在的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%9D%9E%E5%AE%8C%E5%85%A8%E7%9B%91%E7%9D%A3%E5%8F%96%E5%BE%97%E7%9A%84%E6%95%88%E6%9E%9C"><span class="toc-number">16.</span> <span class="toc-text">其他非完全监督取得的效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%9A%84%E9%9D%9E%E5%AE%8C%E5%85%A8%E7%9B%91%E7%9D%A3%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">17.</span> <span class="toc-text">其他的非完全监督存在的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E7%A0%94%E7%A9%B6%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">18.</span> <span class="toc-text">现研究存在的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%BF%99%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="toc-number">19.</span> <span class="toc-text">本文如何解决这些问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">20.</span> <span class="toc-text">第三部分的结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%85%B7%E6%9C%89%E9%80%82%E7%94%A8%E6%80%A7"><span class="toc-number">21.</span> <span class="toc-text">为什么具有适用性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E5%9B%BE%E5%83%8F"><span class="toc-number">22.</span> <span class="toc-text">模型图像</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84"><span class="toc-number">23.</span> <span class="toc-text">模型总体结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E6%88%90"><span class="toc-number">23.1.</span> <span class="toc-text">组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A%E9%83%A8%E5%88%86%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%80%E8%88%AC%E7%BB%93%E6%9E%84"><span class="toc-number">23.2.</span> <span class="toc-text">A部分框架的一般结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B%E9%83%A8%E5%88%86%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E7%9A%84%E6%9E%84%E9%80%A0"><span class="toc-number">23.3.</span> <span class="toc-text">B部分超弱标签的构造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C%E9%83%A8%E5%88%86AWM"><span class="toc-number">23.4.</span> <span class="toc-text">C部分AWM</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/09/SDCDNet-%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E7%9A%84%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E5%8D%8A%E5%AF%B9%E5%81%B6%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/" title="SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架"><img src="https://w.wallhaven.cc/full/2y/wallhaven-2y6xmy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架"/></a><div class="content"><a class="title" href="/2023/11/09/SDCDNet-%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E7%9A%84%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E5%8D%8A%E5%AF%B9%E5%81%B6%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/" title="SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架">SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架</a><time datetime="2023-11-09T01:37:46.000Z" title="Created 2023-11-09 09:37:46">2023-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/07/%E5%9C%B0%E7%8B%B1%E9%97%A8%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/" title="地狱门代码详解"><img src="https://w.wallhaven.cc/full/85/wallhaven-858w9j.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="地狱门代码详解"/></a><div class="content"><a class="title" href="/2023/11/07/%E5%9C%B0%E7%8B%B1%E9%97%A8%E4%BB%A3%E7%A0%81%E8%AF%A6%E8%A7%A3/" title="地狱门代码详解">地狱门代码详解</a><time datetime="2023-11-07T01:22:33.000Z" title="Created 2023-11-07 09:22:33">2023-11-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/06/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%E9%A2%98/" title="自然辩证法习题"><img src="https://www.hqwalls.com/wp-content/uploads/2013/06/Bing-background-1920x1200-2013-05-14.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="自然辩证法习题"/></a><div class="content"><a class="title" href="/2023/11/06/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%E9%A2%98/" title="自然辩证法习题">自然辩证法习题</a><time datetime="2023-11-06T01:34:27.000Z" title="Created 2023-11-06 09:34:27">2023-11-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/05/%E6%90%AD%E5%BB%BA%E8%AF%A5blog%E7%9A%84%E4%BD%A0%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81%E7%9A%84%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99/" title="搭建该blog的你可能需要的相关资料"><img src="https://w.wallhaven.cc/full/l8/wallhaven-l8g77y.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="搭建该blog的你可能需要的相关资料"/></a><div class="content"><a class="title" href="/2023/11/05/%E6%90%AD%E5%BB%BA%E8%AF%A5blog%E7%9A%84%E4%BD%A0%E5%8F%AF%E8%83%BD%E9%9C%80%E8%A6%81%E7%9A%84%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99/" title="搭建该blog的你可能需要的相关资料">搭建该blog的你可能需要的相关资料</a><time datetime="2023-11-05T14:06:02.000Z" title="Created 2023-11-05 22:06:02">2023-11-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/10/31/%E5%85%B3%E4%BA%8E%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%A8%A1%E7%BB%84%E7%9A%84%E6%83%B3%E6%B3%95/" title="关于自己写一个简单模组的想法"><img src="https://w.wallhaven.cc/full/1p/wallhaven-1ppld1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于自己写一个简单模组的想法"/></a><div class="content"><a class="title" href="/2023/10/31/%E5%85%B3%E4%BA%8E%E8%87%AA%E5%B7%B1%E5%86%99%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%A8%A1%E7%BB%84%E7%9A%84%E6%83%B3%E6%B3%95/" title="关于自己写一个简单模组的想法">关于自己写一个简单模组的想法</a><time datetime="2023-10-31T12:52:11.000Z" title="Created 2023-10-31 20:52:11">2023-10-31</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: '6af1c4447c0b85d85dcd5a846b2d6f0e',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
