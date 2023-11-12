@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>03_pytorch_Transforms | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="TRANSFORMSTransforms是什么？ 数据并不总是以训练机器学习算法所需的最终处理形式出现。我们使用转换来对数据执行一些操作并使其适合训练。 应该如何转化？ 所有 TorchVision 数据集都有两个参数 - 用于修改功能的 transform 和用于修改标签的 target_transform - 接受包含转换逻辑的可调用对象。 torchvision.transforms  模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03_pytorch_Transforms">
+<meta property="og:url" content="https://flandre923.github.io/2023/11/10/03-pytorch-Transforms/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="TRANSFORMSTransforms是什么？ 数据并不总是以训练机器学习算法所需的最终处理形式出现。我们使用转换来对数据执行一些操作并使其适合训练。 应该如何转化？ 所有 TorchVision 数据集都有两个参数 - 用于修改功能的 transform 和用于修改标签的 target_transform - 接受包含转换逻辑的可调用对象。 torchvision.transforms  模块">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://w.wallhaven.cc/full/yx/wallhaven-yxk6qd.png">
+<meta property="article:published_time" content="2023-11-10T08:09:19.000Z">
+<meta property="article:modified_time" content="2023-11-12T02:11:45.265Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="transforms">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w.wallhaven.cc/full/yx/wallhaven-yxk6qd.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2023/11/10/03-pytorch-Transforms/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '03_pytorch_Transforms',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-12 10:11:45'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w.wallhaven.cc/full/yx/wallhaven-yxk6qd.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">03_pytorch_Transforms</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-10T08:09:19.000Z" title="Created 2023-11-10 16:09:19">2023-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-12T02:11:45.265Z" title="Updated 2023-11-12 10:11:45">2023-11-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">861</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="03_pytorch_Transforms"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="TRANSFORMS"><a href="#TRANSFORMS" class="headerlink" title="TRANSFORMS"></a>TRANSFORMS</h1><p><strong>Transforms是什么？</strong></p>
+<p>数据并不总是以训练机器学习算法所需的最终处理形式出现。我们使用转换来对数据执行一些操作并使其适合训练。</p>
+<p><strong>应该如何转化？</strong></p>
+<p>所有 TorchVision 数据集都有两个参数 - 用于修改功能的 <code>transform</code> 和用于修改标签的 <code>target_transform</code> - 接受包含转换逻辑的可调用对象。 <a target="_blank" rel="noopener" href="https://pytorch.org/vision/stable/transforms.html">torchvision.transforms</a>  模块提供了几种开箱即用的常用转换。</p>
+<p>例如:</p>
+<p>FashionMNIST特征采用PIL图像格式，标签为整数。对于训练，我们需要将特征作为归一化张量，将标签作为单热编码张量。为了进行这些转换，我们使用 <code>ToTensor</code> 和 <code>Lambda</code> 。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> torchvision.transforms <span class="keyword">import</span> ToTensor, Lambda</span><br><span class="line"></span><br><span class="line">ds = datasets.FashionMNIST(</span><br><span class="line">    root=<span class="string">&quot;data&quot;</span>,</span><br><span class="line">    train=<span class="literal">True</span>,</span><br><span class="line">    download=<span class="literal">True</span>,</span><br><span class="line">    transform=ToTensor(),</span><br><span class="line">    target_transform=Lambda(<span class="keyword">lambda</span> y: torch.zeros(<span class="number">10</span>, dtype=torch.<span class="built_in">float</span>).scatter_(<span class="number">0</span>, torch.tensor(y), value=<span class="number">1</span>))</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz</span><br><span class="line">Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz to data/FashionMNIST/raw/train-images-idx3-ubyte.gz</span><br><span class="line"></span><br><span class="line">  0%|          | 0/26421880 [00:00&lt;?, ?it/s]</span><br><span class="line">  0%|          | 65536/26421880 [00:00&lt;01:12, 361134.05it/s]</span><br><span class="line">  1%|          | 229376/26421880 [00:00&lt;00:38, 678664.07it/s]</span><br><span class="line">  3%|2         | 753664/26421880 [00:00&lt;00:12, 2053982.29it/s]</span><br><span class="line">  5%|5         | 1409024/26421880 [00:00&lt;00:08, 2875069.78it/s]</span><br><span class="line"> 12%|#2        | 3244032/26421880 [00:00&lt;00:03, 6812170.26it/s]</span><br><span class="line"> 21%|##1       | 5570560/26421880 [00:00&lt;00:02, 9643810.01it/s]</span><br><span class="line"> 30%|##9       | 7897088/26421880 [00:01&lt;00:01, 12668660.86it/s]</span><br><span class="line"> 39%|###9      | 10354688/26421880 [00:01&lt;00:01, 13567884.70it/s]</span><br><span class="line"> 47%|####7     | 12517376/26421880 [00:01&lt;00:00, 15107192.72it/s]</span><br><span class="line"> 57%|#####7    | 15138816/26421880 [00:01&lt;00:00, 15464642.87it/s]</span><br><span class="line"> 65%|######4   | 17170432/26421880 [00:01&lt;00:00, 16205991.36it/s]</span><br><span class="line"> 75%|#######5  | 19922944/26421880 [00:01&lt;00:00, 16485428.61it/s]</span><br><span class="line"> 83%|########2 | 21823488/26421880 [00:01&lt;00:00, 16620077.17it/s]</span><br><span class="line"> 94%|#########3| 24739840/26421880 [00:02&lt;00:00, 17125086.87it/s]</span><br><span class="line">100%|##########| 26421880/26421880 [00:02&lt;00:00, 12608239.78it/s]</span><br><span class="line">Extracting data/FashionMNIST/raw/train-images-idx3-ubyte.gz to data/FashionMNIST/raw</span><br><span class="line"></span><br><span class="line">Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz</span><br><span class="line">Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw/train-labels-idx1-ubyte.gz</span><br><span class="line"></span><br><span class="line">  0%|          | 0/29515 [00:00&lt;?, ?it/s]</span><br><span class="line">100%|##########| 29515/29515 [00:00&lt;00:00, 327666.12it/s]</span><br><span class="line">Extracting data/FashionMNIST/raw/train-labels-idx1-ubyte.gz to data/FashionMNIST/raw</span><br><span class="line"></span><br><span class="line">Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz</span><br><span class="line">Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz</span><br><span class="line"></span><br><span class="line">  0%|          | 0/4422102 [00:00&lt;?, ?it/s]</span><br><span class="line">  1%|1         | 65536/4422102 [00:00&lt;00:12, 360810.29it/s]</span><br><span class="line">  5%|5         | 229376/4422102 [00:00&lt;00:06, 676632.69it/s]</span><br><span class="line"> 19%|#8        | 819200/4422102 [00:00&lt;00:01, 2275103.44it/s]</span><br><span class="line"> 33%|###2      | 1441792/4422102 [00:00&lt;00:01, 2899610.49it/s]</span><br><span class="line"> 74%|#######4  | 3276800/4422102 [00:00&lt;00:00, 6877973.06it/s]</span><br><span class="line">100%|##########| 4422102/4422102 [00:00&lt;00:00, 5392190.04it/s]</span><br><span class="line">Extracting data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz to data/FashionMNIST/raw</span><br><span class="line"></span><br><span class="line">Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz</span><br><span class="line">Downloading http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz</span><br><span class="line"></span><br><span class="line">  0%|          | 0/5148 [00:00&lt;?, ?it/s]</span><br><span class="line">100%|##########| 5148/5148 [00:00&lt;00:00, 36597079.65it/s]</span><br><span class="line">Extracting data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz to data/FashionMNIST/raw</span><br></pre></td></tr></table></figure>
+
+<h2 id="ToTensor"><a href="#ToTensor" class="headerlink" title="ToTensor()"></a>ToTensor()</h2><p>ToTensor 将 PIL 图像或 NumPy <code>ndarray</code> 转换为 <code>FloatTensor</code> 。并在 [0., 1.] 范围内缩放图像的像素强度值</p>
+<h2 id="Lambda-Transforms"><a href="#Lambda-Transforms" class="headerlink" title="Lambda Transforms"></a>Lambda Transforms</h2><p>Lambda 转换应用任何用户定义的 lambda 函数。在这里，我们定义一个函数将整数转换为 one-hot 编码张量。它首先创建一个大小为 10 的零张量（数据集中的标签数量）并调用 scatter_ ，它在标签 <code>y</code> 给出的索引上分配 <code>value=1</code> 。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target_transform = Lambda(<span class="keyword">lambda</span> y: torch.zeros(</span><br><span class="line">    <span class="number">10</span>, dtype=torch.<span class="built_in">float</span>).scatter_(dim=<span class="number">0</span>, index=torch.tensor(y), value=<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2023/11/10/03-pytorch-Transforms/">https://flandre923.github.io/2023/11/10/03-pytorch-Transforms/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/transforms/">transforms</a></div><div class="post_share"><div class="social-share" data-image="https://w.wallhaven.cc/full/yx/wallhaven-yxk6qd.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/11/10/04-pytorch-build-the-neural-network/" title="04_pytorch_build_the_neural_network"><img class="cover" src="https://w.wallhaven.cc/full/jx/wallhaven-jxlpem.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">04_pytorch_build_the_neural_network</div></div></a></div><div class="next-post pull-right"><a href="/2023/11/10/02-pytorch-datasets-DataLoaders/" title="02_pytorch_datasets_DataLoaders"><img class="cover" src="https://w.wallhaven.cc/full/2y/wallhaven-2y6v16.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">02_pytorch_datasets_DataLoaders</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/11/09/SDCDNet-%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E7%9A%84%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E5%8D%8A%E5%AF%B9%E5%81%B6%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/" title="SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架"><img class="cover" src="https://w.wallhaven.cc/full/2y/wallhaven-2y6xmy.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-09</div><div class="title">SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架</div></div></a></div><div><a href="/2023/11/10/01_pytorch_tensors/" title="01_pytorch_tensors"><img class="cover" src="https://w.wallhaven.cc/full/qz/wallhaven-qzpkrr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">01_pytorch_tensors</div></div></a></div><div><a href="/2023/11/10/02-pytorch-datasets-DataLoaders/" title="02_pytorch_datasets_DataLoaders"><img class="cover" src="https://w.wallhaven.cc/full/2y/wallhaven-2y6v16.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">02_pytorch_datasets_DataLoaders</div></div></a></div><div><a href="/2023/11/10/04-pytorch-build-the-neural-network/" title="04_pytorch_build_the_neural_network"><img class="cover" src="https://w.wallhaven.cc/full/jx/wallhaven-jxlpem.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">04_pytorch_build_the_neural_network</div></div></a></div><div><a href="/2023/11/10/05-pytorch-AUTOMATIC-DIFFERENTIATION/" title="05_pytorch_AUTOMATIC_DIFFERENTIATION"><img class="cover" src="https://w.wallhaven.cc/full/d6/wallhaven-d6vj3m.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">05_pytorch_AUTOMATIC_DIFFERENTIATION</div></div></a></div><div><a href="/2023/11/10/06-pytorch-optimizing-model-parameters/" title="06-pytorch-optimizing model parameters"><img class="cover" src="https://w.wallhaven.cc/full/o5/wallhaven-o57qy9.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">06-pytorch-optimizing model parameters</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TRANSFORMS"><span class="toc-number">1.</span> <span class="toc-text">TRANSFORMS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ToTensor"><span class="toc-number">1.1.</span> <span class="toc-text">ToTensor()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lambda-Transforms"><span class="toc-number">1.2.</span> <span class="toc-text">Lambda Transforms</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/12/07-pytorch-save-and-load-model/" title="07-pytorch-save and load model"><img src="https://w.wallhaven.cc/full/p9/wallhaven-p9m1j9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="07-pytorch-save and load model"/></a><div class="content"><a class="title" href="/2023/11/12/07-pytorch-save-and-load-model/" title="07-pytorch-save and load model">07-pytorch-save and load model</a><time datetime="2023-11-12T01:44:40.000Z" title="Created 2023-11-12 09:44:40">2023-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/10/06-pytorch-optimizing-model-parameters/" title="06-pytorch-optimizing model parameters"><img src="https://w.wallhaven.cc/full/o5/wallhaven-o57qy9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="06-pytorch-optimizing model parameters"/></a><div class="content"><a class="title" href="/2023/11/10/06-pytorch-optimizing-model-parameters/" title="06-pytorch-optimizing model parameters">06-pytorch-optimizing model parameters</a><time datetime="2023-11-10T09:26:08.000Z" title="Created 2023-11-10 17:26:08">2023-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/10/05-pytorch-AUTOMATIC-DIFFERENTIATION/" title="05_pytorch_AUTOMATIC_DIFFERENTIATION"><img src="https://w.wallhaven.cc/full/d6/wallhaven-d6vj3m.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="05_pytorch_AUTOMATIC_DIFFERENTIATION"/></a><div class="content"><a class="title" href="/2023/11/10/05-pytorch-AUTOMATIC-DIFFERENTIATION/" title="05_pytorch_AUTOMATIC_DIFFERENTIATION">05_pytorch_AUTOMATIC_DIFFERENTIATION</a><time datetime="2023-11-10T08:54:29.000Z" title="Created 2023-11-10 16:54:29">2023-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/10/04-pytorch-build-the-neural-network/" title="04_pytorch_build_the_neural_network"><img src="https://w.wallhaven.cc/full/jx/wallhaven-jxlpem.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="04_pytorch_build_the_neural_network"/></a><div class="content"><a class="title" href="/2023/11/10/04-pytorch-build-the-neural-network/" title="04_pytorch_build_the_neural_network">04_pytorch_build_the_neural_network</a><time datetime="2023-11-10T08:20:41.000Z" title="Created 2023-11-10 16:20:41">2023-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/10/03-pytorch-Transforms/" title="03_pytorch_Transforms"><img src="https://w.wallhaven.cc/full/yx/wallhaven-yxk6qd.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="03_pytorch_Transforms"/></a><div class="content"><a class="title" href="/2023/11/10/03-pytorch-Transforms/" title="03_pytorch_Transforms">03_pytorch_Transforms</a><time datetime="2023-11-10T08:09:19.000Z" title="Created 2023-11-10 16:09:19">2023-11-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: 'ca0932c52ec15236403fa7447f507aa7',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

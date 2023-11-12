@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>06-pytorch-optimizing model parameters | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="OPTIMIZING MODEL PARAMETERS现在我们有了模型和数据，是时候通过优化数据上的参数来训练、验证和测试我们的模型了。训练模型是一个迭代过程；在每次迭代中，模型都会对输出进行猜测，计算其猜测的误差（损失），收集误差相对于其参数的导数（如我们在上一节中看到的），并使用梯度下降优化这些参数。有关此过程的更详细演练，请观看 3Blue1Brown 的有关反向传播的视频 Prerequi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="06-pytorch-optimizing model parameters">
+<meta property="og:url" content="https://flandre923.github.io/2023/11/10/06-pytorch-optimizing-model-parameters/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="OPTIMIZING MODEL PARAMETERS现在我们有了模型和数据，是时候通过优化数据上的参数来训练、验证和测试我们的模型了。训练模型是一个迭代过程；在每次迭代中，模型都会对输出进行猜测，计算其猜测的误差（损失），收集误差相对于其参数的导数（如我们在上一节中看到的），并使用梯度下降优化这些参数。有关此过程的更详细演练，请观看 3Blue1Brown 的有关反向传播的视频 Prerequi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://w.wallhaven.cc/full/o5/wallhaven-o57qy9.png">
+<meta property="article:published_time" content="2023-11-10T09:26:08.000Z">
+<meta property="article:modified_time" content="2023-11-12T02:10:39.084Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="optimizing model parameters">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w.wallhaven.cc/full/o5/wallhaven-o57qy9.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2023/11/10/06-pytorch-optimizing-model-parameters/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '06-pytorch-optimizing model parameters',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-12 10:10:39'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w.wallhaven.cc/full/o5/wallhaven-o57qy9.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">06-pytorch-optimizing model parameters</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-10T09:26:08.000Z" title="Created 2023-11-10 17:26:08">2023-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-12T02:10:39.084Z" title="Updated 2023-11-12 10:10:39">2023-11-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>5mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="06-pytorch-optimizing model parameters"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="OPTIMIZING-MODEL-PARAMETERS"><a href="#OPTIMIZING-MODEL-PARAMETERS" class="headerlink" title="OPTIMIZING MODEL PARAMETERS"></a>OPTIMIZING MODEL PARAMETERS</h1><p>现在我们有了模型和数据，是时候通过优化数据上的参数来训练、验证和测试我们的模型了。训练模型是一个迭代过程；在每次迭代中，模型都会对输出进行猜测，计算其猜测的误差（损失），收集误差相对于其参数的导数（如我们在上一节中看到的），并使用梯度下降优化这些参数。有关此过程的更详细演练，请观看 3Blue1Brown 的有关反向传播的<br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=tIeHLnjs5U8">视频</a></p>
+<h2 id="Prerequisite-Code"><a href="#Prerequisite-Code" class="headerlink" title="Prerequisite Code"></a>Prerequisite Code</h2><p>我们加载前面有关数据集和数据加载器以及构建模型部分的代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">from</span> torchvision.transforms <span class="keyword">import</span> ToTensor</span><br><span class="line"></span><br><span class="line">training_data = datasets.FashionMNIST(</span><br><span class="line">    root=<span class="string">&quot;data&quot;</span>,</span><br><span class="line">    train=<span class="literal">True</span>,</span><br><span class="line">    download=<span class="literal">True</span>,</span><br><span class="line">    transform=ToTensor()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">test_data = datasets.FashionMNIST(</span><br><span class="line">    root=<span class="string">&quot;data&quot;</span>,</span><br><span class="line">    train=<span class="literal">False</span>,</span><br><span class="line">    download=<span class="literal">True</span>,</span><br><span class="line">    transform=ToTensor()</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">train_dataloader = DataLoader(training_data, batch_size=<span class="number">64</span>)</span><br><span class="line">test_dataloader = DataLoader(test_data, batch_size=<span class="number">64</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NeuralNetwork</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.flatten = nn.Flatten()</span><br><span class="line">        self.linear_relu_stack = nn.Sequential(</span><br><span class="line">            nn.Linear(<span class="number">28</span>*<span class="number">28</span>, <span class="number">512</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">512</span>, <span class="number">512</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">512</span>, <span class="number">10</span>),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = self.flatten(x)</span><br><span class="line">        logits = self.linear_relu_stack(x)</span><br><span class="line">        <span class="keyword">return</span> logits</span><br><span class="line"></span><br><span class="line">model = NeuralNetwork()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hyperparameters"><a href="#Hyperparameters" class="headerlink" title="Hyperparameters"></a>Hyperparameters</h2><p>超参数是可调整的参数，可让您控制模型优化过程。不同的超参数值会影响模型训练和收敛速度（阅读有关超参数调整的更多信息）</p>
+<p>我们定义以下训练超参数：</p>
+<ul>
+<li>Number of Epochs - 迭代数据集的次数</li>
+<li>Batch Size - 参数更新之前通过网络传播的数据样本数量</li>
+<li>学习率 - 每个批次&#x2F;时期更新模型参数的量。较小的值会导致学习速度较慢，而较大的值可能会导致训练期间出现不可预测的行为。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">learning_rate = <span class="number">1e-3</span></span><br><span class="line">batch_size = <span class="number">64</span></span><br><span class="line">epochs = <span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Optimization-Loop"><a href="#Optimization-Loop" class="headerlink" title="Optimization Loop"></a>Optimization Loop</h2><p>一旦我们设置了超参数，我们就可以使用优化循环来训练和优化我们的模型。优化循环的每次迭代称为一个时期epoch。</p>
+<p>每个时期epoch由两个主要部分组成：</p>
+<ul>
+<li>The Train Loop:迭代训练数据集并尝试收敛到最佳参数。</li>
+<li>The Validation&#x2F;Test Loop:迭代测试数据集以检查模型性能是否有所改善。</li>
+</ul>
+<p>让我们简单熟悉一下训练循环中使用的一些概念。向前跳转查看优化循环的完整实现。</p>
+<h3 id="Loss-Function"><a href="#Loss-Function" class="headerlink" title="Loss Function"></a>Loss Function</h3><p>当提供一些训练数据时，我们未经训练的网络可能不会给出正确的答案。损失函数衡量的是得到的结果与目标值的不相似程度，它是我们在训练时想要最小化的损失函数。为了计算损失，我们使用给定数据样本的输入进行预测，并将其与真实数据标签值进行比较。</p>
+<p>常见的损失函数包括用于回归任务的 nn.MSELoss（均方误差）和用于分类的 nn.NLLLoss（负对数似然）。 nn.CrossEntropyLoss 结合了 <code>nn.LogSoftmax</code> 和 <code>nn.NLLLoss</code> 。</p>
+<p>我们将模型的输出 logits 传递给 <code>nn.CrossEntropyLoss</code> ，这将标准化 logits 并计算预测误差。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Initialize the loss function</span></span><br><span class="line">loss_fn = nn.CrossEntropyLoss()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Optimizer"><a href="#Optimizer" class="headerlink" title="Optimizer"></a>Optimizer</h3><p>优化是调整模型参数以减少每个训练步骤中模型误差的过程。优化算法定义了如何执行此过程（在本例中我们使用随机梯度下降）。所有优化逻辑都封装在 <code>optimizer</code> 对象中。这里，我们使用SGD优化器；此外，PyTorch 中还有许多不同的优化器，例如 ADAM 和 RMSProp，它们可以更好地处理不同类型的模型和数据。</p>
+<p>我们通过注册需要训练的模型参数并传入学习率超参数来初始化优化器。</p>
+<p>在训练循环中，优化分三个步骤进行：</p>
+<ul>
+<li>调用 <code>optimizer.zero_grad()</code> 重置模型参数的梯度。默认情况下渐变相加；为了防止重复计算，我们在每次迭代时明确地将它们归零。</li>
+<li>通过调用 <code>loss.backward()</code> 反向传播预测损失。 PyTorch 存储损失的梯度。每个参数。</li>
+<li>一旦我们有了梯度，我们就调用 optimizer.step() 通过向后传递中收集的梯度来调整参数。</li>
+</ul>
+<h2 id="Full-Implementation"><a href="#Full-Implementation" class="headerlink" title="Full Implementation"></a>Full Implementation</h2><p>我们定义了循环优化代码的 <code>train_loop</code> 和根据测试数据评估模型性能的 <code>test_loop</code> 。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train_loop</span>(<span class="params">dataloader, model, loss_fn, optimizer</span>):</span><br><span class="line">    size = <span class="built_in">len</span>(dataloader.dataset)</span><br><span class="line">    <span class="comment"># Set the model to training mode - important for batch normalization and dropout layers</span></span><br><span class="line">    <span class="comment"># Unnecessary in this situation but added for best practices</span></span><br><span class="line">    model.train()</span><br><span class="line">    <span class="keyword">for</span> batch, (X, y) <span class="keyword">in</span> <span class="built_in">enumerate</span>(dataloader):</span><br><span class="line">        <span class="comment"># Compute prediction and loss</span></span><br><span class="line">        pred = model(X)</span><br><span class="line">        loss = loss_fn(pred, y)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Backpropagation</span></span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> batch % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            loss, current = loss.item(), (batch + <span class="number">1</span>) * <span class="built_in">len</span>(X)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;loss: <span class="subst">&#123;loss:&gt;7f&#125;</span>  [<span class="subst">&#123;current:&gt;5d&#125;</span>/<span class="subst">&#123;size:&gt;5d&#125;</span>]&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_loop</span>(<span class="params">dataloader, model, loss_fn</span>):</span><br><span class="line">    <span class="comment"># Set the model to evaluation mode - important for batch normalization and dropout layers</span></span><br><span class="line">    <span class="comment"># Unnecessary in this situation but added for best practices</span></span><br><span class="line">    model.<span class="built_in">eval</span>()</span><br><span class="line">    size = <span class="built_in">len</span>(dataloader.dataset)</span><br><span class="line">    num_batches = <span class="built_in">len</span>(dataloader)</span><br><span class="line">    test_loss, correct = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Evaluating the model with torch.no_grad() ensures that no gradients are computed during test mode</span></span><br><span class="line">    <span class="comment"># also serves to reduce unnecessary gradient computations and memory usage for tensors with requires_grad=True</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> X, y <span class="keyword">in</span> dataloader:</span><br><span class="line">            pred = model(X)</span><br><span class="line">            test_loss += loss_fn(pred, y).item()</span><br><span class="line">            correct += (pred.argmax(<span class="number">1</span>) == y).<span class="built_in">type</span>(torch.<span class="built_in">float</span>).<span class="built_in">sum</span>().item()</span><br><span class="line"></span><br><span class="line">    test_loss /= num_batches</span><br><span class="line">    correct /= size</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Test Error: \n Accuracy: <span class="subst">&#123;(<span class="number">100</span>*correct):&gt;<span class="number">0.1</span>f&#125;</span>%, Avg loss: <span class="subst">&#123;test_loss:&gt;8f&#125;</span> \n&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>我们初始化损失函数和优化器，并将其传递给 <code>train_loop</code> 和 <code>test_loop</code> 。您可以随意增加纪元数来跟踪模型性能的改进。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">loss_fn = nn.CrossEntropyLoss()</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">10</span></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Epoch <span class="subst">&#123;t+<span class="number">1</span>&#125;</span>\n-------------------------------&quot;</span>)</span><br><span class="line">    train_loop(train_dataloader, model, loss_fn, optimizer)</span><br><span class="line">    test_loop(test_dataloader, model, loss_fn)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Done!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2023/11/10/06-pytorch-optimizing-model-parameters/">https://flandre923.github.io/2023/11/10/06-pytorch-optimizing-model-parameters/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a><a class="post-meta__tags" href="/tags/optimizing-model-parameters/">optimizing model parameters</a></div><div class="post_share"><div class="social-share" data-image="https://w.wallhaven.cc/full/o5/wallhaven-o57qy9.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/11/12/07-pytorch-save-and-load-model/" title="07-pytorch-save and load model"><img class="cover" src="https://w.wallhaven.cc/full/p9/wallhaven-p9m1j9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">07-pytorch-save and load model</div></div></a></div><div class="next-post pull-right"><a href="/2023/11/10/05-pytorch-AUTOMATIC-DIFFERENTIATION/" title="05_pytorch_AUTOMATIC_DIFFERENTIATION"><img class="cover" src="https://w.wallhaven.cc/full/d6/wallhaven-d6vj3m.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">05_pytorch_AUTOMATIC_DIFFERENTIATION</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/11/09/SDCDNet-%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E7%9A%84%E8%B6%85%E5%BC%B1%E6%A0%87%E7%AD%BE%E5%8D%8A%E5%AF%B9%E5%81%B6%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%BD%91%E7%BB%9C%E6%A1%86%E6%9E%B6/" title="SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架"><img class="cover" src="https://w.wallhaven.cc/full/2y/wallhaven-2y6xmy.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-09</div><div class="title">SDCDNet:一种用于遥感图像的超弱标签半对偶变化检测网络框架</div></div></a></div><div><a href="/2023/11/10/01_pytorch_tensors/" title="01_pytorch_tensors"><img class="cover" src="https://w.wallhaven.cc/full/qz/wallhaven-qzpkrr.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">01_pytorch_tensors</div></div></a></div><div><a href="/2023/11/10/02-pytorch-datasets-DataLoaders/" title="02_pytorch_datasets_DataLoaders"><img class="cover" src="https://w.wallhaven.cc/full/2y/wallhaven-2y6v16.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">02_pytorch_datasets_DataLoaders</div></div></a></div><div><a href="/2023/11/10/04-pytorch-build-the-neural-network/" title="04_pytorch_build_the_neural_network"><img class="cover" src="https://w.wallhaven.cc/full/jx/wallhaven-jxlpem.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">04_pytorch_build_the_neural_network</div></div></a></div><div><a href="/2023/11/10/03-pytorch-Transforms/" title="03_pytorch_Transforms"><img class="cover" src="https://w.wallhaven.cc/full/yx/wallhaven-yxk6qd.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">03_pytorch_Transforms</div></div></a></div><div><a href="/2023/11/10/05-pytorch-AUTOMATIC-DIFFERENTIATION/" title="05_pytorch_AUTOMATIC_DIFFERENTIATION"><img class="cover" src="https://w.wallhaven.cc/full/d6/wallhaven-d6vj3m.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-10</div><div class="title">05_pytorch_AUTOMATIC_DIFFERENTIATION</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">21</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#OPTIMIZING-MODEL-PARAMETERS"><span class="toc-number">1.</span> <span class="toc-text">OPTIMIZING MODEL PARAMETERS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Prerequisite-Code"><span class="toc-number">1.1.</span> <span class="toc-text">Prerequisite Code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hyperparameters"><span class="toc-number">1.2.</span> <span class="toc-text">Hyperparameters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Optimization-Loop"><span class="toc-number">1.3.</span> <span class="toc-text">Optimization Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Loss-Function"><span class="toc-number">1.3.1.</span> <span class="toc-text">Loss Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Optimizer"><span class="toc-number">1.3.2.</span> <span class="toc-text">Optimizer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Full-Implementation"><span class="toc-number">1.4.</span> <span class="toc-text">Full Implementation</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/12/07-pytorch-save-and-load-model/" title="07-pytorch-save and load model"><img src="https://w.wallhaven.cc/full/p9/wallhaven-p9m1j9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="07-pytorch-save and load model"/></a><div class="content"><a class="title" href="/2023/11/12/07-pytorch-save-and-load-model/" title="07-pytorch-save and load model">07-pytorch-save and load model</a><time datetime="2023-11-12T01:44:40.000Z" title="Created 2023-11-12 09:44:40">2023-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/10/06-pytorch-optimizing-model-parameters/" title="06-pytorch-optimizing model parameters"><img src="https://w.wallhaven.cc/full/o5/wallhaven-o57qy9.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="06-pytorch-optimizing model parameters"/></a><div class="content"><a class="title" href="/2023/11/10/06-pytorch-optimizing-model-parameters/" title="06-pytorch-optimizing model parameters">06-pytorch-optimizing model parameters</a><time datetime="2023-11-10T09:26:08.000Z" title="Created 2023-11-10 17:26:08">2023-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/10/05-pytorch-AUTOMATIC-DIFFERENTIATION/" title="05_pytorch_AUTOMATIC_DIFFERENTIATION"><img src="https://w.wallhaven.cc/full/d6/wallhaven-d6vj3m.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="05_pytorch_AUTOMATIC_DIFFERENTIATION"/></a><div class="content"><a class="title" href="/2023/11/10/05-pytorch-AUTOMATIC-DIFFERENTIATION/" title="05_pytorch_AUTOMATIC_DIFFERENTIATION">05_pytorch_AUTOMATIC_DIFFERENTIATION</a><time datetime="2023-11-10T08:54:29.000Z" title="Created 2023-11-10 16:54:29">2023-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/10/04-pytorch-build-the-neural-network/" title="04_pytorch_build_the_neural_network"><img src="https://w.wallhaven.cc/full/jx/wallhaven-jxlpem.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="04_pytorch_build_the_neural_network"/></a><div class="content"><a class="title" href="/2023/11/10/04-pytorch-build-the-neural-network/" title="04_pytorch_build_the_neural_network">04_pytorch_build_the_neural_network</a><time datetime="2023-11-10T08:20:41.000Z" title="Created 2023-11-10 16:20:41">2023-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/10/03-pytorch-Transforms/" title="03_pytorch_Transforms"><img src="https://w.wallhaven.cc/full/yx/wallhaven-yxk6qd.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="03_pytorch_Transforms"/></a><div class="content"><a class="title" href="/2023/11/10/03-pytorch-Transforms/" title="03_pytorch_Transforms">03_pytorch_Transforms</a><time datetime="2023-11-10T08:09:19.000Z" title="Created 2023-11-10 16:09:19">2023-11-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: 'a78f7de7af441e7cc8a36c71c45a18c4',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
