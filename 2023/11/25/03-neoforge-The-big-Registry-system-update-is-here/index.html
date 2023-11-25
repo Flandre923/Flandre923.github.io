@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>03-neoforge-The big Registry system update is here | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="注册表系统大更新来了Introduction 介绍NeoForge 20.2.59-beta 版刚刚发布了注册表系统的重大更新！我们的主要目标是尽可能简化代码，并使其与原版 Minecraft 中的注册表系统保持一致。 这篇博文将介绍所做的最重要的更改，作为模组制作者的迁移指南。 这次重做是我们最初的 20.2 版本发布后进行的三项重大重做中的第一个。未来几周将进行彻底检修的另外两个系统是capa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03-neoforge-The big Registry system update is here">
+<meta property="og:url" content="https://flandre923.github.io/2023/11/25/03-neoforge-The-big-Registry-system-update-is-here/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="注册表系统大更新来了Introduction 介绍NeoForge 20.2.59-beta 版刚刚发布了注册表系统的重大更新！我们的主要目标是尽可能简化代码，并使其与原版 Minecraft 中的注册表系统保持一致。 这篇博文将介绍所做的最重要的更改，作为模组制作者的迁移指南。 这次重做是我们最初的 20.2 版本发布后进行的三项重大重做中的第一个。未来几周将进行彻底检修的另外两个系统是capa">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://view.moezx.cc/images/2022/02/24/d44e7008f180acb26efa4b9ec7aebe90.png">
+<meta property="article:published_time" content="2023-11-25T02:11:13.000Z">
+<meta property="article:modified_time" content="2023-11-25T02:34:43.740Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="我的世界">
+<meta property="article:tag" content="noeforge">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://view.moezx.cc/images/2022/02/24/d44e7008f180acb26efa4b9ec7aebe90.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2023/11/25/03-neoforge-The-big-Registry-system-update-is-here/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '03-neoforge-The big Registry system update is here',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-25 10:34:43'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://view.moezx.cc/images/2022/02/24/d44e7008f180acb26efa4b9ec7aebe90.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">03-neoforge-The big Registry system update is here</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-11-25T02:11:13.000Z" title="Created 2023-11-25 10:11:13">2023-11-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-11-25T02:34:43.740Z" title="Updated 2023-11-25 10:34:43">2023-11-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>5mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="03-neoforge-The big Registry system update is here"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="注册表系统大更新来了"><a href="#注册表系统大更新来了" class="headerlink" title="注册表系统大更新来了"></a>注册表系统大更新来了</h1><h2 id="Introduction-介绍"><a href="#Introduction-介绍" class="headerlink" title="Introduction 介绍"></a>Introduction 介绍</h2><p>NeoForge 20.2.59-beta 版刚刚发布了注册表系统的重大更新！我们的主要目标是尽可能简化代码，并使其与原版 Minecraft 中的注册表系统保持一致。</p>
+<p>这篇博文将介绍所做的最重要的更改，作为模组制作者的迁移指南。</p>
+<p>这次重做是我们最初的 20.2 版本发布后进行的三项重大重做中的第一个。未来几周将进行彻底检修的另外两个系统是<strong>capabilities</strong>和 <strong>networking</strong>.。一旦这些也发布，我们的目标是发布 20.2 稳定版本。</p>
+<h2 id="Using-the-registries-使用注册表"><a href="#Using-the-registries-使用注册表" class="headerlink" title="Using the registries 使用注册表"></a>Using the registries 使用注册表</h2><p>此前，NeoForge 注册表系统与原版完全分开。现在，我们使用原生的现有注册表系统，并添加了一些与 mod 支持相关的内容。</p>
+<p>这意味着 <code>IForgeRegistry</code> 被替换为普通的 <code>Registry</code> 。 NeoForge 通过 <code>IRegistryExtension</code> 向普通 <code>Registry</code> 类型添加了一些方法。以下是更改后的方法的概述：</p>
+<table>
+<thead>
+<tr>
+<th><code>IForgeRegistry</code></th>
+<th><code>Registry</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>getValue(ResourceLocation)</code></td>
+<td><code>get(ResourceLocation)</code></td>
+</tr>
+<tr>
+<td><code>getKeys()</code></td>
+<td><code>keySet()</code></td>
+</tr>
+<tr>
+<td><code>getValues().stream()</code></td>
+<td><code>stream()</code></td>
+</tr>
+<tr>
+<td><code>getHolder(T)Optional&lt;Holder&gt;</code></td>
+<td><code>wrapAsHolder(T)Holder?</code></td>
+</tr>
+<tr>
+<td><code>tags()</code></td>
+<td>Use <code>getTag(TagKey)</code> and the HolderSet API 使用 <code>getTag(TagKey)</code> 和 HolderSet API</td>
+</tr>
+</tbody></table>
+<p>现在应该通过 <code>BuiltInRegistries</code> 访问 Minecraft 本身定义的注册表：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- ForgeRegistries.ITEMS.getValue(new ResourceLocation(&quot;minecraft:diamond&quot;));</span></span><br><span class="line"><span class="addition">+ BuiltInRegistries.ITEM.get(new ResourceLocation(&quot;minecraft:diamond&quot;));</span></span><br></pre></td></tr></table></figure>
+
+<p>NeoForge 定义的注册表可以通过 <code>NeoForgeRegistries</code> 访问。它们不再包裹在 <code>Supplier</code> 中，可以直接使用：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- ForgeRegistries.FLUID_TYPES.get().getValue(new ResourceLocation(&quot;mymod:fancyfluid&quot;));</span></span><br><span class="line"><span class="addition">+ NeoForgeRegistries.FLUID_TYPES.get(new ResourceLocation(&quot;mymod:fancyfluid&quot;));</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Registration-登记"><a href="#Registration-登记" class="headerlink" title="Registration 登记"></a>Registration 登记</h2><p>注册仍然发生在 <code>RegisterEvent</code> 中，我们仍然建议模组作者使用 <code>DeferredRegister</code> 来抽象事件。</p>
+<p><code>RegistryObject</code> 被 <code>DeferredHolder</code> 取代，它实现了 vanilla 的 <code>Holder</code> 接口。将对象注册到延迟寄存器时，我们推荐两个选项：</p>
+<ul>
+<li>如果您不需要任何 <code>Holder</code> 函数，则可以使用 <code>Supplier</code> 作为字段类型。</li>
+<li>否则，请使用 <code>DeferredHolder</code> 和两个通用参数（一个用于注册表，一个用于您的对象类型）。</li>
+</ul>
+<p>这是一个例子：</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  private static final DeferredRegister&lt;Enchantment&gt; ENCHANTMENTS = DeferredRegister.create(Registries.ENCHANTMENT, &quot;mymod&quot;);</span><br><span class="line"></span><br><span class="line"><span class="deletion">- public static final RegistryObject&lt;Enchantment&gt; MAGIC =</span></span><br><span class="line"><span class="deletion">-         ENCHANTMENTS.register(&quot;magic&quot;, () -&gt; new MagicEnchantment(/* create enchantment */));</span></span><br><span class="line"> // Supplier only:</span><br><span class="line"><span class="addition">+ public static final Supplier&lt;MagicEnchantment&gt; MAGIC =</span></span><br><span class="line"><span class="addition">+         ENCHANTMENTS.register(&quot;magic&quot;, () -&gt; new MagicEnchantment(/* create enchantment */));</span></span><br><span class="line">  // Access to both Holder and the exact object type:</span><br><span class="line"><span class="addition">+ public static final DeferredHolder&lt;Enchantment, MagicEnchantment&gt; MAGIC =</span></span><br><span class="line"><span class="addition">+         ENCHANTMENTS.register(&quot;magic&quot;, () -&gt; new MagicEnchantment(/* create enchantment */));</span></span><br></pre></td></tr></table></figure>
+
+<p>NeoForge 还为实现 <code>ItemLike</code> 的项目和块提供 <code>DeferredHolder</code> 和 <code>DeferredRegister</code> 专门化。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Make sure you use the special DeferredRegister.Blocks and DeferredRegister.Items types,</span></span><br><span class="line"><span class="comment">// NOT DeferredRegister&lt;Block&gt; or DeferredRegister&lt;Item&gt;!</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredRegister.<span class="type">Blocks</span> <span class="variable">BLOCKS</span> <span class="operator">=</span> DeferredRegister.createBlocks(<span class="string">&quot;mymod&quot;</span>);</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredRegister.<span class="type">Items</span> <span class="variable">ITEMS</span> <span class="operator">=</span> DeferredRegister.createItems(<span class="string">&quot;mymod&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// If you are registering blocks or items directly, use a normal `register` call:</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredBlock&lt;MyBlock&gt; MY_BLOCK = BLOCKS.register(<span class="string">&quot;my_block&quot;</span>, () -&gt; <span class="keyword">new</span> <span class="title class_">MyBlock</span>(<span class="comment">/* create block */</span>));</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredItem&lt;MyItem&gt; MY_ITEM = ITEMS.register(<span class="string">&quot;my_item&quot;</span>, () -&gt; <span class="keyword">new</span> <span class="title class_">MyItem</span>(<span class="comment">/* create item */</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// There are also a few extra helper functions.</span></span><br><span class="line"><span class="comment">// `registerBlock` to directly register a `new Block` from some block properties:</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredBlock&lt;Block&gt; MY_SIMPLE_BLOCK =</span><br><span class="line">        BLOCKS.registerBlock(<span class="string">&quot;simple_block&quot;</span>, BlockBehaviour.Properties.of().mapColor(MapColor.STONE));</span><br><span class="line"><span class="comment">// `registerItem` to directly register a `new Item` from some item properties:</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredItem&lt;Item&gt; MY_SIMPLE_ITEM =</span><br><span class="line">        ITEMS.registerItem(<span class="string">&quot;simple_item&quot;</span>, <span class="keyword">new</span> <span class="title class_">Item</span>.Properties().stacksTo(<span class="number">1</span>));</span><br><span class="line"><span class="comment">// `registerBlockItem` to directly register a `new BlockItem` for a block:</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredItem&lt;BlockItem&gt; MY_BLOCK_ITEM =</span><br><span class="line">        ITEMS.registerBlockItem(MY_BLOCK);</span><br></pre></td></tr></table></figure>
+
+<p>像往常一样，不要忘记将 mod 总线传递给 <code>DeferredRegister</code> ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mod(&quot;mymod&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyMod</span> &#123;</span><br><span class="line">    <span class="comment">// In case you missed it, mod constructors can now receive a number of optional arguments,</span></span><br><span class="line">    <span class="comment">// including the mod&#x27;s event bus. Unrelated to registries, but still pretty cool. ;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyMod</span><span class="params">(IEventBus modEventBus)</span> &#123;</span><br><span class="line">        ENCHANTMENTS.register(modEventBus);</span><br><span class="line">        BLOCKS.register(modEventBus);</span><br><span class="line">        ITEMS.register(modEventBus);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Custom-registries-自定义注册表"><a href="#Custom-registries-自定义注册表" class="headerlink" title="Custom registries 自定义注册表"></a>Custom registries 自定义注册表</h2><p>自定义注册表是使用 <code>RegistryBuilder</code> 创建的，并且必须注册到 <code>NewRegistryEvent</code> 。它们现在可以保存在静态字段中，就像 <code>BuiltInRegistries</code> 或 <code>NeoForgeRegistries</code> 中的注册表一样。</p>
+<p>这是一个注册示例，使用 <code>DeferredRegister</code> 提供的辅助方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a registry key - we don&#x27;t have a registry yet so give the key to DeferredRegister.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> ResourceKey&lt;Registry&lt;Custom&gt;&gt; CUSTOM_REGISTRY_KEY =</span><br><span class="line">        ResourceKey.createRegistryKey(<span class="keyword">new</span> <span class="title class_">ResourceLocation</span>(<span class="string">&quot;mymod:custom&quot;</span>));</span><br><span class="line"><span class="comment">// Create the DeferredRegister with our registry key.</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> DeferredRegister&lt;Custom&gt; CUSTOMS =</span><br><span class="line">        DeferredRegister.create(CUSTOM_REGISTRY_KEY, <span class="string">&quot;mymod&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// We can register objects as usual...</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Holder&lt;Custom&gt; CUSTOM_OBJECT =</span><br><span class="line">        CUSTOMS.register(<span class="string">&quot;custom_object&quot;</span>, () -&gt; <span class="keyword">new</span> <span class="title class_">Custom</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// And here is how to create the registry!</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Registry&lt;Custom&gt; CUSTOM_REGISTRY =</span><br><span class="line">        CUSTOMS.makeRegistry(builder -&gt; <span class="comment">/* use builder to configure registry if needed */</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Remember to register CUSTOMS in the mod constructor!</span></span><br></pre></td></tr></table></figure>
+
+<p>另一种方法是直接使用 <code>RegistryBuilder</code> 创建注册表，并手动注册它：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// We still need a registry key.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> ResourceKey&lt;Registry&lt;Custom&gt;&gt; CUSTOM_REGISTRY_KEY =</span><br><span class="line">        ResourceKey.createRegistryKey(<span class="keyword">new</span> <span class="title class_">ResourceLocation</span>(<span class="string">&quot;mymod:custom&quot;</span>));</span><br><span class="line"><span class="comment">// Create the registry directly...</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Registry&lt;Custom&gt; CUSTOM_REGISTRY = <span class="keyword">new</span> <span class="title class_">RegistryBuilder</span>&lt;&gt;(CUSTOM_REGISTRY_KEY)</span><br><span class="line">    <span class="comment">// configure the builder if you want, for example with .sync(true)</span></span><br><span class="line">    <span class="comment">// then build the registry</span></span><br><span class="line">    .build();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Remember to tell NeoForge about your registry! For example:</span></span><br><span class="line">modEventBus.addListener(NewRegistryEvent.class, event -&gt; event.register(CUSTOM_REGISTRY));</span><br></pre></td></tr></table></figure>
+
+<h2 id="That’s-it-就是这样！"><a href="#That’s-it-就是这样！" class="headerlink" title="That’s it! 就是这样！"></a>That’s it! 就是这样！</h2><p>像往常一样，如果您有任何问题，请在 <code>#modder-support-1.20</code> 频道中的 Discord 服务器上提问。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2023/11/25/03-neoforge-The-big-Registry-system-update-is-here/">https://flandre923.github.io/2023/11/25/03-neoforge-The-big-Registry-system-update-is-here/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C/">我的世界</a><a class="post-meta__tags" href="/tags/noeforge/">noeforge</a></div><div class="post_share"><div class="social-share" data-image="https://view.moezx.cc/images/2022/02/24/d44e7008f180acb26efa4b9ec7aebe90.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/11/25/02-neoforge-Event-system-changes-in-NeoForge-20-2/" title="02-neoforge-Event system changes in NeoForge 20.2"><img class="cover" src="https://view.moezx.cc/images/2022/02/24/ddda99f39eb9f46d4d727a910703e431.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">02-neoforge-Event system changes in NeoForge 20.2</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/10/27/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8Cep5%E6%B7%BB%E5%8A%A0%E7%94%B5%E7%BC%86%E6%95%99%E7%A8%8B/" title="我的世界Forge ep5：添加线缆"><img class="cover" src="https://w.wallhaven.cc/full/yx/wallhaven-yx9dvd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-27</div><div class="title">我的世界Forge ep5：添加线缆</div></div></a></div><div><a href="/2023/10/28/Architectury-01-%E6%B7%BB%E5%8A%A0%E7%89%A9%E5%93%81/" title="Architectury-01-添加物品"><img class="cover" src="https://w.wallhaven.cc/full/x6/wallhaven-x6kkwo.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-01-添加物品</div></div></a></div><div><a href="/2023/10/28/Architectury-02-%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97/" title="Architectury-02-添加方块"><img class="cover" src="https://w.wallhaven.cc/full/3l/wallhaven-3l7769.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-02-添加方块</div></div></a></div><div><a href="/2023/10/24/Architectury-00-%E5%89%8D%E8%A8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Architectury-00-环境搭建"><img class="cover" src="https://w.wallhaven.cc/full/qz/wallhaven-qzpj95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-24</div><div class="title">Architectury-00-环境搭建</div></div></a></div><div><a href="/2023/10/28/Architectury-04-%E9%AB%98%E7%BA%A7%E6%96%B9%E5%9D%97/" title="Architectury-04-高级方块"><img class="cover" src="https://w.wallhaven.cc/full/rr/wallhaven-rreeg1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-04-高级方块</div></div></a></div><div><a href="/2023/10/29/Architectury-05-%E6%B7%BB%E5%8A%A0%E5%90%88%E6%88%90%E8%A1%A8%E5%92%8CLootTable%E4%BB%A5%E5%8F%8A%E6%96%B9%E5%9D%97%E6%8C%96%E6%8E%98%E6%AD%A3%E7%A1%AE%E5%B7%A5%E5%85%B7%E7%9A%84%E6%8C%96%E6%8E%98%E7%AD%89%E7%BA%A7/" title="Architectury-05-添加合成表和LootTable以及方块挖掘正确工具的挖掘等级"><img class="cover" src="https://w.wallhaven.cc/full/kx/wallhaven-kxjdp1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-29</div><div class="title">Architectury-05-添加合成表和LootTable以及方块挖掘正确工具的挖掘等级</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%B3%BB%E7%BB%9F%E5%A4%A7%E6%9B%B4%E6%96%B0%E6%9D%A5%E4%BA%86"><span class="toc-number">1.</span> <span class="toc-text">注册表系统大更新来了</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Using-the-registries-%E4%BD%BF%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="toc-number">1.2.</span> <span class="toc-text">Using the registries 使用注册表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Registration-%E7%99%BB%E8%AE%B0"><span class="toc-number">1.3.</span> <span class="toc-text">Registration 登记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Custom-registries-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="toc-number">1.4.</span> <span class="toc-text">Custom registries 自定义注册表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#That%E2%80%99s-it-%E5%B0%B1%E6%98%AF%E8%BF%99%E6%A0%B7%EF%BC%81"><span class="toc-number">1.5.</span> <span class="toc-text">That’s it! 就是这样！</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/25/03-neoforge-The-big-Registry-system-update-is-here/" title="03-neoforge-The big Registry system update is here"><img src="https://view.moezx.cc/images/2022/02/24/d44e7008f180acb26efa4b9ec7aebe90.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="03-neoforge-The big Registry system update is here"/></a><div class="content"><a class="title" href="/2023/11/25/03-neoforge-The-big-Registry-system-update-is-here/" title="03-neoforge-The big Registry system update is here">03-neoforge-The big Registry system update is here</a><time datetime="2023-11-25T02:11:13.000Z" title="Created 2023-11-25 10:11:13">2023-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/25/02-neoforge-Event-system-changes-in-NeoForge-20-2/" title="02-neoforge-Event system changes in NeoForge 20.2"><img src="https://view.moezx.cc/images/2022/02/24/ddda99f39eb9f46d4d727a910703e431.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="02-neoforge-Event system changes in NeoForge 20.2"/></a><div class="content"><a class="title" href="/2023/11/25/02-neoforge-Event-system-changes-in-NeoForge-20-2/" title="02-neoforge-Event system changes in NeoForge 20.2">02-neoforge-Event system changes in NeoForge 20.2</a><time datetime="2023-11-25T01:54:49.000Z" title="Created 2023-11-25 09:54:49">2023-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/25/01-neoforge-NeoForge-20-2-for-Minecraft-1-20-2/" title="01-neoforge-NeoForge 20.2 for Minecraft 1.20.2"><img src="https://view.moezx.cc/images/2022/05/31/06d9f9250d4e9b0cc72aae9625d53a4b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="01-neoforge-NeoForge 20.2 for Minecraft 1.20.2"/></a><div class="content"><a class="title" href="/2023/11/25/01-neoforge-NeoForge-20-2-for-Minecraft-1-20-2/" title="01-neoforge-NeoForge 20.2 for Minecraft 1.20.2">01-neoforge-NeoForge 20.2 for Minecraft 1.20.2</a><time datetime="2023-11-25T01:31:21.000Z" title="Created 2023-11-25 09:31:21">2023-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/Mincraft%E6%BA%90%E7%A0%8106-block/" title="Mincraft源码06-block"><img src="https://view.moezx.cc/images/2018/01/17/violetevergarden66768635_by_DDD.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mincraft源码06-block"/></a><div class="content"><a class="title" href="/2023/11/23/Mincraft%E6%BA%90%E7%A0%8106-block/" title="Mincraft源码06-block">Mincraft源码06-block</a><time datetime="2023-11-23T13:54:42.000Z" title="Created 2023-11-23 21:54:42">2023-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/23/%E8%AE%BA%E6%96%8703%EF%BC%9AMF-SRCDNet/" title="论文03：MF-SRCDNet"><img src="https://view.moezx.cc/images/2022/04/06/cbd6757cccca6215cbeddc39148ac4e5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论文03：MF-SRCDNet"/></a><div class="content"><a class="title" href="/2023/11/23/%E8%AE%BA%E6%96%8703%EF%BC%9AMF-SRCDNet/" title="论文03：MF-SRCDNet">论文03：MF-SRCDNet</a><time datetime="2023-11-23T06:42:58.000Z" title="Created 2023-11-23 14:42:58">2023-11-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: 'd206295ddaa79b19588cb1a1be5a31eb',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
