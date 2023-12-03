@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>论文-DFSN网络 | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一种用于高分辨率双时间遥感图像变化检测的深度监督图像融合网络摘要高分辨率遥感图像中的变化检测对于理解地表变化至关重要。考虑到高分辨率图像中精细的图像细节和复杂的纹理特征所带来的挑战，传统的变化检测方法不适合这项任务，因此提出了许多基于深度学习的变化检测算法来提高变化检测性能。尽管最先进的基于深度特征的方法优于所有其他基于深度学习的变化检测方法，但现有基于深度特征方法中的网络大多是从最初提出的用于单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文-DFSN网络">
+<meta property="og:url" content="https://flandre923.github.io/2023/12/03/%E8%AE%BA%E6%96%87-DFSN%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="一种用于高分辨率双时间遥感图像变化检测的深度监督图像融合网络摘要高分辨率遥感图像中的变化检测对于理解地表变化至关重要。考虑到高分辨率图像中精细的图像细节和复杂的纹理特征所带来的挑战，传统的变化检测方法不适合这项任务，因此提出了许多基于深度学习的变化检测算法来提高变化检测性能。尽管最先进的基于深度特征的方法优于所有其他基于深度学习的变化检测方法，但现有基于深度特征方法中的网络大多是从最初提出的用于单">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-12-03T09:21:38.000Z">
+<meta property="article:modified_time" content="2023-12-03T14:29:35.272Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="Java,Python,Minecraft">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2023/12/03/%E8%AE%BA%E6%96%87-DFSN%E7%BD%91%E7%BB%9C/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '论文-DFSN网络',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-03 22:29:35'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">42</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">论文-DFSN网络</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-12-03T09:21:38.000Z" title="Created 2023-12-03 17:21:38">2023-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-12-03T14:29:35.272Z" title="Updated 2023-12-03 22:29:35">2023-12-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">10.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>31mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="论文-DFSN网络"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一种用于高分辨率双时间遥感图像变化检测的深度监督图像融合网络"><a href="#一种用于高分辨率双时间遥感图像变化检测的深度监督图像融合网络" class="headerlink" title="一种用于高分辨率双时间遥感图像变化检测的深度监督图像融合网络"></a>一种用于高分辨率双时间遥感图像变化检测的深度监督图像融合网络</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>高分辨率遥感图像中的变化检测对于理解地表变化至关重要。考虑到高分辨率图像中精细的图像细节和复杂的纹理特征所带来的挑战，传统的变化检测方法不适合这项任务，因此提出了许多基于深度学习的变化检测算法来提高变化检测性能。尽管最先进的基于深度特征的方法优于所有其他基于深度学习的变化检测方法，但现有基于深度特征方法中的网络大多是从最初提出的用于单图像语义分割的架构中修改而来的。将这些网络转移到变化检测任务中仍然存在一些关键问题。在本文中，我们提出了一种用于高分辨率双时间遥感图像变化检测的深度监督图像融合网络（IFN）。具体地说，首先通过全卷积双层结构提取双时间图像的高度代表性的深度特征。然后，将提取的深度特征输入到深度监督差异判别网络（DDN）中进行变化检测。为了提高输出变化图中对象的边界完整性和内部紧凑性，通过用于变化图重建的注意力模块，将原始图像的多层次深度特征与图像差异特征融合。通过直接将变化映射损失引入网络中的中间层，进一步增强了DDN，并以端到端的方式对整个网络进行训练。IFN应用于一个公开可用的数据集，以及一个由谷歌地球覆盖中国不同城市的多源双时间图像组成的具有挑战性的数据集。视觉解释和定量评估都证实，与最先进的方法相比，IFN通过返回具有完整边界和高度内部紧凑性的变化区域，优于文献中的四种基准方法。</p>
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p>Change detection</p>
+<p>Deep supervision network</p>
+<p>image fusion</p>
+<p>high resolution remote sensing image</p>
+<p>image difference discrimination</p>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>变化检测旨在识别同一区域多时相图像中的差异。监测双时相遥感图像中的差异对于理解陆地表面变化至关重要。使用遥感图像进行变化检测已广泛应用于各种应用,如灾害损害评估,土地覆盖制图和城市扩张调查。随着高分辨率光学传感器(如WorldView-3 GeoEys-1,QuickBird和高分二号)的发展,高分辨率遥感图像的日益增多,极大拓宽了变化检测在高分辨率双时相图像中的潜在应用范围。数十年来,变化检测研究一直在遥感社区开展。传统变化检测方法可以大致分为三类:1)基于图像算术的,2)基于图像变换的和3)后分类方法。基于图像算术的方法直接比较多时相图像的像素值,以产生图像差异图,在此基础上应用阈值将像素分类为变化类或不变类。图像差分(Singh, 1986),图像回归(Jackson, 1983)和图像比值(Todd, 1977)等算术运算通常用于图像比较。基于图像算术的方法的关键是决定阈值边界的位置,以区分变化像素和不变像素(Singh, 1989)。最近,一些其他基于机器学习的方法如随机森林回归,支持向量机和核回归也已被提出用于遥感图像变化检测(Zerrouki等人,2018; Luppino等人,2019; Padron-Hidalgo等人,2019)。例如,Luppino等人(2019)首先利用亲和矩阵从共定位补丁中创建伪训练数据。然后,在伪训练数据上测试了四种不同的机器学习算法,以将一个图像的域转换到另一个域,以实现异构变化检测。基于图像变换的方法将图像光谱组合转换为特定的特征空间,以区分变化像素。主成分分析(PCA)是基于图像变换的方法中应用最广泛的降维算法之一(Kuncheva和Faithfull,2014)。Saha等人(2019)提出使用循环一致的生成对抗网络(CycleGAN)以非监督的方式将不同传感器的图像转换到相同的域中,并通过深度特征变化向量分析进一步实现变化检测。由于基于像素的分析忽略了空间上下文信息,因此提出了基于对象的变化检测方法。对象基础方法的主要思想是从分割后的图像对象中提取特征,并识别对象状态的变化(Chen等人,2012)。在Celik(2009)的工作中,PCA应用于图像差异图上以从对象中提取代表性特征。在后分类方法中,对双时相图像进行独立分类和标记。通过直接比较分类结果提取变化区域(Wu等人,2017)。算术基础和变换基础方法是典型的非监督方法。为了提高变化检测的性能,许多学者将变化检测视为在监督方式下明确查找土地覆盖过渡的问题。最流行的监督方法是后分类。后分类方法规避了在不同时间原始图像中的变化检测困难。但是,这些方法对分类结果高度敏感(Deng等人,2008)。算术基础和变换基础方法高度依赖于为判别性特征提取经验设计的算法,这些算法在高分辨率图像上无法获得满意的结果。此外,像素级方法中差异图像派生中的错误,对象级方法中分割对象的不确定性以及双时相图像在后分类方法中的误分类错误不可避免地通过变化检测的不同阶段传播,并最终对结果产生负面影响。高分辨率图像中传达的细节图像和复杂的纹理特征为变化检测任务带来了新的挑战。这导致了深度学习基础变化检测方法的兴起。在基于像素和基于对象的方法中,首先通过深度学习技术(如深度信念网络,堆叠去噪自动编码器和卷积神经网络(CNN))(El Amin等人,2017; Lei等人,2019b; Zhang等人,2016)提取像素或对象的深度特征。之后,通过深度特征比较生成差异图像或变化向量。最终变化图通过聚类或基于阈值的分类方法产生。受益于深度神经网络强大的高级特征提取能力,这些方法的性能优于传统方法。然而,像素级和对象级方法中的误差传播问题仍然存在。基于完全卷积网络(FCN)实现的深度特征方法被提出(Alcantarilla等人,2018; Bromley等人,1994; Caye Daudt等人,2018; Daudt等人,2018; Peng等人, 2019; Shelhamer等人,2017)。深度特征方法将双时相图像转换为高级空间,并将深度特征作为分析单元。这些方法在网络内集成了特征提取和差异判别操作,以端到端的方式直接产生最终变化图。值得注意的是,这些网络大多数都是从为单图像语义分割提出的网络修改而来的。将这些网络转移用于双时相图像中的变化检测通常会遇到一些关键问题,包括早期融合方法中对个别原始图像信息深度特征的缺乏,后期融合方法中代表性原始图像特征的低下以及异构特征融合问题。</p>
+<p>在这篇文章中,我们提出了一种深度监督的图像融合网络,用于高分辨率双时相遥感图像的变化检测。首先,通过完全卷积双流架构并行提取双时相图像的高度代表性深度特征。然后,提取的特征被顺序地馈送到差异判别网络进行变化检测。在差异判别网络中利用注意力模块有效地融合原始图像深度特征和图像差异特征以帮助重建变化图。此外,为进一步提高网络性能,通过在差异判别网络的中间层直接引入变化检测损失来实现深度监督。</p>
+<p>论文的其余部分组织如下:第2节回顾了当前的基于深度学习的变化检测方法。本节还提出了问题陈述和拟议解决方案。第3节介绍了所提出的方法。实验和讨论见第4节。第5节总结全文。</p>
+<h2 id="2-相关工作和问题说明"><a href="#2-相关工作和问题说明" class="headerlink" title="2. 相关工作和问题说明"></a>2. 相关工作和问题说明</h2><p>在第2.1节中,我们在广泛的文献综述后,根据分析单元将基于深度学习的变化检测方法分类为三种类别:1)基于像素的方法,2)基于对象的方法,3)基于深度特征的方法。 之后,陈述了现有基于深度学习的方法的问题。 为了使我们的工作符合最新的技术发展,我们将研究重点放在基于深度特征的方法上。 因此,在2.2节中,具体讨论了现有基于深度特征的方法的问题,并简要概述了拟议的解决方案。</p>
+<h3 id="2-1基于深度学习的变化检测方法"><a href="#2-1基于深度学习的变化检测方法" class="headerlink" title="2.1基于深度学习的变化检测方法"></a>2.1基于深度学习的变化检测方法</h3><p>基于像素的方法遵循与传统基于图像变换的方法类似的过程。图像首先通过深度神经网络转换为深度特征空间,然后逐像素比较深度特征以区分变化像素。例如,Zhang等人(2016)利用深度信念网络将双时相图像转换为高级特征空间。然后,将双时相变化特征映射到2D极坐标域以描述变化信息。 Saha等人(2019)使用了一个预先训练用于语义分割的CNN来从原始图像中提取深度特征。通过变化向量分析生成变化图。 在Hou等人(2017)和Peng和Guan(2019)的工作中,应用预训练的VGG-16架构在多时相图像上进行特征提取。总之,在基于像素的方法中,首先应用深度学习将原始图像转换为高级特征空间。 然后,通过深度特征选择和逐像素比较生成差异图。 最后,在差异图上应用基于阈值的方法、基于聚类的方法和变化向量分析来区分变化像素。 基于对象的方法将分割后的对象作为变化检测的分析单元。 Lei等人(2019b)提出在分割后的超像素上应用堆叠去噪自动编码器来实现基于超像素的变化检测。 Lv等人(2018)使用了堆叠收缩自动编码器从超像素中提取时间变化特征,然后使用简单的线性聚类来生成变化图。 在El Amin等人(2017)的工作中,从多尺度区域中通过预训练的CNN提取的深度特征进行了拼接以扩展深度特征,以克服单个超像素的有限特征。基于对象的变化检测方法遵循“图像分割 - 对象特征提取 - 特征差异分析 - 聚类或阈值分类”过程。总之,对于基于像素和基于对象的变化检测方法,深度信念网络、堆叠去噪自动编码器、CNN等深度学习技术被利用来从像素级或对象级提取深度特征,从中派生出差异图或差异特征向量。 通过这种方式,将原始图像转换为高级特征空间,其中保留了关键信息,同时消除了噪声。 在上述深度学习技术中,CNN是最广泛使用的深度特征提取器(Lv等人,2018)。 虽然应用深度学习进行代表性特征提取的方法优于基于图像算术和基于变换的方法,但误差传播效应仍然存在。 此外,从图像差异图生成变化图仍然遇到传统变化检测方法中经验阈值确定等问题。</p>
+<p>大多数基于像素和基于对象的方法不使用标注数据的监督。 为了克服基于像素和基于对象方法的缺点,并且为了从可用的标注图像中学习有益的指导,已经引入了端到端深度学习体系结构,即完全卷积神经网络(FCN),以监督的方式进行基于深度特征的变化检测。 FCN最初由Long等人(2015)提出,用于图像分割任务。 通过用上采样层替换全连接层,可以将下采样特征恢复为输入图像的原始大小,以实现端到端分类。 根据它们管理双时相图像的方式,可以将这些方法分类为两类:早期融合方法和后期融合方法。 在早期融合方法中,不同时刻拍摄的图像被堆叠为一个输入图像。 例如,在Alcantarilla等人(2018)的工作中,首先将两个双时相街景图像(每个图像有三个通道)拼接成一个具有六个通道的图像。 然后,将六通道图像输入FCN以实现街景图像变化检测。 类似地,Peng等人(2019)将双时相遥感图像组合为一个输入,然后输入修改后的UNet ++架构进行遥感图像变化检测。 与早期融合方法中将双时相图像组合为一个输入不同,后期融合方法将双时相图像中的每一个都作为一个输入(Bromley等人,1994)。 首先,两个独立的网络流水线分别提取双时相图像的特征。 然后,在随后的网络层中进一步组合和比较提取的特征以生成变化图。 基于这一概念,命名为Siamese网络的网络已经被提出用于变化检测。 Siamese网络由具有相同层设置和参数值的两个子网络组成,每个子网络接收一个图像作为输入。 Caye Daudt等人(2018)提出使用Siamese网络进行变化检测,并与早期融合方法进行了比较。 比较结果证明了Siamese网络的效率。 在Caye Daudt等人(2018)的工作基础上,Guo等人(2018)通过在网络中添加对比损失来修改完全卷积Siamese网络,从而改进了性能。</p>
+<h3 id="2-2-问题陈述及解决方案"><a href="#2-2-问题陈述及解决方案" class="headerlink" title="2.2.问题陈述及解决方案"></a>2.2.问题陈述及解决方案</h3><p>基于深度特征的方法以端到端的方式在FCN中集成了原始图像特征提取和图像差异判别。网络中的参数通过反向传播自动更新。经过一系列训练周期后,网络中的参数得到微调,具有变化检测能力。尽管最新的基于深度特征的方法已取得优于任何其他方法的性能,但现有的基于深度特征的体系结构仍存在一些局限性:</p>
+<ol>
+<li><p>为了将语义分割网络迁移用于变化检测任务,早期融合方法简单地将双时相图像拼接成一个图像,以满足单输入的要求。这些分割网络共享一个关键相似之处:使用跳跃连接将深层特征与低层特征组合(Zhou等人,2018)。由于在输入网络之前将双时相图像融合为一个输入,因此早期融合网络的早期层无法提供单个原始图像的信息性深度特征来帮助图像重建,这在后续会导致变化图具有破碎的对象边界和差的对象内部紧凑性。</p>
+</li>
+<li><p>为了提取双时相图像的深度特征,后期融合方法应用接收两个输入的网络分别处理每个双时相图像。特征提取和差异判别通过一系列卷积和池化层在一个集成的网络中进行链接,其中较低的层负责特征提取,而更深的层负责差异判别。由于反向传播是从最后一个差异判别层开始到集成框架中的第一个特征提取层,因此消失梯度的存在会阻止梯度向后流动,并阻止较低层学习有用的特征(Glorot和Bengio,2010; Mao等人,2018; Lei等人,2019a; Liu等人,2020)。因此,训练不良的特征提取层(即较低层)会产生代表性较低的双时相图像特征,因此在差异判别过程之后,变化图会受到较差的图像质量的影响。</p>
+</li>
+<li><p>拼接深度原始图像特征和图像差异特征会产生一个融合问题。令我们分别表示从双时相图像T1和T2提取的特征为fT1和fT2。图像差异特征表示为dT1T2。两个独立提取的特征集fT1和fT2由来自图像T1和T2的高级特征组成。它们对于原始图像重建很有效,但是它们缺乏图像差异信息。dT1T2是通过一组基于fT1和fT2的卷积和池化操作计算出来的,它包含代表T1和T2之间的图像差异的信息特征。dT1T2负责差异判别,而它缺乏单个原始图像特征。如何有效地融合不同域中的特征(即,fT1,fT2和dT1T2)以进行变化检测的问题需要得到解决。</p>
+</li>
+</ol>
+<p>所提出的图像融合网络以有效的方式解决了上述问题。特征提取是通过独立训练的完全卷积双流体系结构进行的,以获取高度代表性的深度双时相图像特征。 为了更好地重建变化图,在差异判别网络中逐层拼接深度双时相图像特征和图像差异特征以包含原始双时相图像特征。通过注意力模块对拼接的特征进行融合,有效地克服了异质性问题。此外,为了进一步改进网络的差异区分能力,提出了深度监督以有效训练差异判别网络中的中间层。</p>
+<h2 id="3-研究方法"><a href="#3-研究方法" class="headerlink" title="3 研究方法"></a>3 研究方法</h2><p>第3.1节提出了网络结构。在第3.2节和3.3节中,我们分别提出了关键的网络组件,即注意力模块和深度监督。第3.4节提供了模型训练的详细信息,包括数据增强过程、训练过程和损失函数。</p>
+<h3 id="3-1-网络结构"><a href="#3-1-网络结构" class="headerlink" title="3.1 网络结构"></a>3.1 网络结构</h3><p>所提出的图像融合网络(IFN)将一对双时相图像(即变化前图像T1和变化后图像T2)作为两个并行流(即流T1和T2,见图1a-b)的独立输入。这使得每个双时相图像的原始特征尽可能地保留下来。然后,在两个流中应用具有共享结构和参数的深度特征提取网络(DFEN)进行原始图像特征提取。之后,两个流汇聚到一个变化检测流中(图1c),该流利用差异判别网络(DDN)生成变化图。DS_1、DS_2、DS_3和DS_4是嵌入在DDN中的四个深度监督模块。</p>
+<p>三个流的结构如下: (a) 流T1:T1图像是输入,通过DFEN执行图像特征提取。对于网络构建,我们将VGG16(Simonyan和Zisserman,2014)中pool5之前的层作为DFEN的骨干。 (b) 流T2:T2图像是输入。为了有效的差异判别,双时相图像应转换到相同的、可比较的特征空间。因此,流T1中的DFEN的结构和参数与流T2共享。提取的T2图像特征与相同尺度的T1图像特征组合,为变化检测流提供高层次和低层次的原始图像特征。 (c) 变化检测流:当双时相图像的深度特征通过流T1和T2被提取后,变化检测流中的DDN执行变化检测。</p>
+<p>通过堆叠的卷积和池化层逐步抽象后,流T1和T2中最深的层获得了大的感受野和紧凑的全局信息。因此,Conv5_3充当DDN的初始输入,生成具有紧凑大小的初步全局变化图。DFEN中的早期层(即Conv4_3、Conv3_3、Conv2_2和Conv1_2)包含着双时相图像的较低级别的局部结构信息,通过跳跃连接与相同尺度的DDN层连接,以补充各个双时相图像的特征。值得一提的是,现有的后期融合方法(Caye Daudt等人,2018; Guo等人,2018)也采用了双流体系结构来处理双时相图像。但是,正如第2.2节所指出的,集成结构中的消失梯度问题会使网络训练变慢并且效果不佳(Lee等人,2015)。基于这样的观察:在高度可区分特征上训练的判别分类器的性能优于在较少可区分特征上训练的判别分类器,在本文中,我们使用预训练的DFEN进行原始图像特征提取,以增强每个双时相图像的特征代表性。应注意,预训练的CNN也已经在基于像素和基于对象的方法中得到了广泛利用(Saha等人,2019; Hou等人,2017; Peng和Guan,2019)。但是,这些方法在提取的特征上采用传统算法(如基于阈值、基于聚类和变化向量分析)进行非监督变化检测。因此,在这种情况下,我们有意探索在自适应学习框架中使用预训练网络的可用性。据我们所知,这是在监督变化检测范围内首次尝试使用预训练网络以端到端的方式进行变化检测。</p>
+<p>DDN的结构如图2所示。DDN从流T1和T2中最深的原始图像特征开始。在合并的深度图像特征(即T1_Conv5_3和T2_Conv5_3)上顺序应用三个卷积层,生成具有紧凑大小的初步全局图像差异特征图。然后应用一个空间注意力模块提取空间注意力图(即SAM_1)用于特征图在空间维度上的改进。为了将分辨率恢复到原始图像的分辨率,放大精炼的图像差异特征图(即IDF_1)到Up_IDF_1。不同层中的特征包含从原始图像中抽象出的不同级别的信息。深层特征包含更多的全局信息但较少的局部信息,而早期层特征包含更丰富的局部目标细节但较差的全局信息。由于跳跃连接在图像分割网络中桥接高层特征和低层特征以获得更好的分割结果(Ronneberger等人,2015; Zhou等人,2018),我们结合每个原始图像的较低级特征(即T1_Conv4_3和T2_Conv4_3)与上采样的图像差异特征Up_IDF_1,以恢复细粒度细节和变化目标的更好掩码。然而,T1_Conv4_3和T2_Conv4_3表示双时相图像的深度特征(fT1,fT2),而Up_IDF_1是表示为dT1T2的图像差异特征。异构特征的直接组合不可避免地会增加训练难度。为了有效地融合原始图像的深度特征和图像差异特征,我们使用通道注意力模块来强调与目标相关的通道,同时抑制与目标无关的通道。之后,应用一个空间注意力模块来增大变化像素和未变化像素之间的距离。注意力模块的动机和描述在第3.1.1节中给出。</p>
+<p>通过这种方式,与原始图像深度特征融合,层次提取图像差异特征以产生具有细节图像的最终变化图。此外,在每一个精炼的图像差异特征之后引入四个深度监督模块(即DS_1、DS_2、DS_3、DS_4)。在差异判别网络的中间层引入深度监督以保证网络训练良好并增强网络性能。有关深度监督的细节在第3.1.2节中介绍。</p>
+<p><img src="https://s2.loli.net/2023/12/03/V3yOsuNlx5Jq9Kr.png" alt="image-20231203202502433"></p>
+<p><img src="https://s2.loli.net/2023/12/03/yaW8u2oMJVExXjH.png" alt="image-20231203202517725"></p>
+<h4 id="3-1-1-用于特征融合的注意力模块"><a href="#3-1-1-用于特征融合的注意力模块" class="headerlink" title="3.1.1 用于特征融合的注意力模块"></a>3.1.1 用于特征融合的注意力模块</h4><p>CNN可以有效地将RGB颜色空间中的原始图像从fRGB(1,2,3)转换为高维特征空间fD(1,…,D),其中D表示特征的维数,d是第d个特征。但是并非所有的高层次特征对于图像差异判别都是有帮助的(Saha等人,2019)。这些不相关的特征有助于增加网络的训练难度(Woo等人,2018)。此外,不同域中的特征组合(即原始图像特征(fT1,fT2)与图像差异特征(dT1T2))带来了异质性问题。因此,我们引入注意力模块来有效地融合不同域中的特征。</p>
+<p>通道注意力模块:首先,通过通道注意力图对组合特征进行逐通道精炼。每个通道的重要性编码在通道注意力图中,其权重在网络中自动重新校准。通过将特征fD(1,…,D)与相应的注意力图权重wD(1,…,D)相乘,与变化检测相关的通道被强调,而与变化检测不相关的通道被抑制。通过这种方式,通道注意力模块专注于从组合的异质特征中“学习哪个通道”。例如,假设在变化前图像T1中的同一区域是一个汽车,在变化后图像T2中被一栋房子所替代,汽车和房子的边界和上下文信息分别存储在fT1和fT2中。理想情况下,在结果变化图中,算法应返回一个具有完整房屋边界的变化区域。通过利用通道注意力图,与房屋信息相关的fT2被强调以产生更好的变化图,与图像差异特征一起。同时,包含汽车信息的fT1被抑制,因为它对变化图的生成没有帮助。</p>
+<p>通道注意力模块如图3所示。</p>
+<p>通道注意力图(McF)的计算详细如下:</p>
+<p><img src="C:\Users\flan\AppData\Roaming\Typora\typora-user-images\image-20231203201759173.png" alt="image-20231203201759173"></p>
+<p>其中F表示输入特征图(见图3)。首先,通过沿空间轴进行平均池化(AvgPool)操作和最大池化(MaxPool)操作挤压输入特征图的空间信息。假设有C个特征图,大小为×H W,经过池化操作后,特征图将被压缩成两个向量,大小为×C 1 1。然后,每个向量被馈送到共享的多层感知机(MLP)。通过共享的MLP合并元素级求和得到的输出。最后,附加一个标称为σ的sigmod函数来分配每个通道的注意权重。</p>
+<p>空间注意力模块:然后,通过空间注意力模块在空间维度上进一步精炼通道级精炼后的特征。类似地,特征图中每个像素位置的重要性编码在空间注意力图中。通过在网络训练过程中迭代地从真值图中接收反馈,空间注意力模块被训练以适应地重新校准每个像素位置的权重,并最终输出空间注意力图,其中变化像素和未变化像素的位置分别被赋予较高和较低的重要性。具体而言,空间注意力模块首先计算一个空间注意力图wp&#x3D;w(1,…,N),其中N表示每个特征图的像素总数,p是地图中的第p个像素位置。然后,对于特征图集合中每个高维特征图f&#x3D;fd(1,…,D), 用wp对f进行逐元素乘法以实现空间级精炼。精炼后的特征图可以表示为fwp。在空间级精炼之后,变化像素被较高的权重乘以而得到强调,未变化像素被较低的权重乘以而得到抑制。通过这种方式,网络可以快速逼近变化区域。在上述案例中(即对象在变化前图像从汽车变化为变化后图像中的房屋),空间注意力模块计算一个空间注意力图,其中位于房屋边界内的像素(即变化像素)的权重高于位于边界外的像素(即未变化像素)。因此,组合特征在空间维度上得到改进。 空间注意力模块的结构如图4所示。</p>
+<p>空间注意力图(MsF)的计算如下:</p>
+<p><img src="https://s2.loli.net/2023/12/03/bqR6CEXjJgaMlPG.png" alt="image-20231203202541871"></p>
+<p>其中 × f7 7表示使用大小为7×7的滤波器的卷积操作,[;]表示拼接操作(见图4)。首先,输入特征图F沿通道轴分别由AvgPool层和MaxPool层进行平均池化和最大池化。然后,将AvgPool和MaxPool特征拼接,并通过卷积层 × f7 7进行卷积。最后使用σ产生最终的MsF。</p>
+<p>总之,通道注意力模块关注从组合的异质特征中“学习哪个通道”。空间注意力模块关注从组合的特征图中“学习哪个区域”。一方面,通道注意力图分别从原始图像特征集和图像差异特征集中选择重要特征并丢弃不必要的特征。因此,可以缓解两组中的冗余。另一方面,通道注意力图明确确定每个选定特征的重要性,并从混合的异质特征中输出一个信息丰富的特征组合。这种基于注意力的特征融合可以自动探索个别原始图像特征和图像差异特征的重要性,以有效解决跨通道维度的异质性问题,并进一步重新校准每个像素位置在空间维度上的重要性,以快速逼近感兴趣的区域。</p>
+<p>在计算出McF和MsF后,输入特征F进行如下精炼:</p>
+<p><img src="https://s2.loli.net/2023/12/03/ty6ZpbBi1ARkMhn.png" alt="image-20231203202551067"></p>
+<p><img src="https://s2.loli.net/2023/12/03/MBGcRXYwHWpaVbP.png" alt="image-20231203202607632"></p>
+<p>其中表示逐元素乘法；F和F分别表示通过通道和空间模块的精细特征图。在所提出的架构中，我们对第一个组合的深层特征（即T1_ Conv5_3和T2_ Conv_5_3）进行空间关注，如下所示</p>
+<p><img src="https://s2.loli.net/2023/12/03/nGxbL1MdlwUPmsV.png" alt="image-20231203202701945"></p>
+<p>其中Conv表示卷积操作。在空间注意力模块之后,变化区域和未变化区域上的特征值距离被扩大,以方便差异判别。对于差异判别网络中的后续组合特征,描述原始图像的特征t和描述图像差异的特征被融合。为了强调相关的特征图并抑制不相关的特征图,我们首先在组合特征集上执行通道注意力模块。然后,精炼后的特征图被馈送到一组卷积层中。最后,进一步执行空间注意力模块。计算如下:</p>
+<p><img src="https://s2.loli.net/2023/12/03/lsBECGQ5Zmcn4w6.png" alt="image-20231203202755340"></p>
+<p>其中McF表示组合深度特征(即T1_Conv4_3、T2_Conv4_3和Up_IDF_1)的通道注意力图。然后将通道级精炼特征通过一组卷积层Conv。计算空间注意力图MsF,并逐元素与卷积的通道级精炼特征相乘,以获得最终的空间级精炼深度特征Fcr。</p>
+<h4 id="3-1-2深度监控以增强网络性能"><a href="#3-1-2深度监控以增强网络性能" class="headerlink" title="3.1.2深度监控以增强网络性能"></a>3.1.2深度监控以增强网络性能</h4><p>人工神经网络(ANN)的关键特征是使用反向传播算法更新权重以改进网络。给定ANN和错误函数,反向传播首先计算最后一层权重的误差函数梯度,然后计算第一层权重的梯度。考虑一个损失函数为E的网络,定义了期望输出和计算输出之间的总误差,wkj表示最后输出层中的神经元j和前一层中的神经元k之间的权重。然后,神经元j的输出oj定义为</p>
+<p><img src="https://s2.loli.net/2023/12/03/wLPdb2KYJZBN1nG.png" alt="image-20231203203235622"></p>
+<p>其中σ代表激活函数;ok表示前一层中的神经元输出;K表示前一层中的神经元数量。wij的错误可以通过使用链式法则计算偏导数来导出:<img src="https://s2.loli.net/2023/12/03/hd1RuP9xgaLvAXE.png" alt="image-20231203203334440"></p>
+<p>式(8)表示了最后一层神经元误差的计算。对于中间层中的神经元,因子 E ∂o &#x2F; ∂ j被定义为下一层中神经元的加权和:</p>
+<p><img src="https://s2.loli.net/2023/12/03/lZADndkR9hSxbuT.png" alt="image-20231203203354308"></p>
+<p>其中N表示下一层中的神经元数量;ol表示下一层中神经元l的输出;wjl表示神经元j和神经元l之间的权重。因此,关于wij的误差可以用以下递归表达式计算:</p>
+<p><img src="https://s2.loli.net/2023/12/03/bAWiVrSLv39MxlY.png" alt="image-20231203204246815"></p>
+<p>然后,根据学习率η,梯度下降策略更新权重wij如下:</p>
+<p><img src="https://s2.loli.net/2023/12/03/FX45ulpG9WJtyen.png" alt="image-20231203204718478"></p>
+<p>如我们在式(10)中看到的,如果激活函数使用sigmoid算法,导数 ∂o&#x2F;∂j 小于1。当误差从最后一层向中间层反向传播时,多个 ∂o&#x2F;∂j 的乘积会产生muchsmaller值,这为浅层中的权重创建了一个更小的梯度,这就是所谓的消失梯度。尽管已经提出了ReLU(Glorot等人,2011)和PReLU(He等人,2015)等替代激活函数以试图克服消失梯度问题,但问题仍然存在。 因为式(10)中的权重wjl通常初始化为小于1.0,wjl的乘积也产生更小的值。在大多数情况下,消失梯度问题仍然存在。前几层中随机初始化的神经元训练最慢(Glorot and Bengio,2010),并导致早期层训练不足。因此,训练不足的早期层将对网络中的后续层产生负面影响。通常,误差反向传播的距离越长,早期层获得的梯度就越小。一些学者也证明,反向传播过程中长链网络中的消失梯度问题会影响变化检测性能(Mao等人,2018; Lei等人,2019a; Liu等人,2020)。因此,本文中我们没有使用从差异判别层向特征提取层执行反向传播的集成网络,而是将整个变化检测任务分成两个阶段,以缩短误差传播距离,如第3.1节所述。 此外,为了缓解消失梯度问题并增强差异判别网络的性能,我们在差异判别网络的中间层引入了深度监督来有效地训练中间层。与仅依赖于从输出层逐步反向传播的梯度不同,中间层 additionally 通过各种空间分辨率的变化图进行监督。 通过直接从变化图中接收反馈,中间层产生更高区分度的特征以用于变化区域判别。最后,差异判别网络将 muchmore 快速逼近变化区域。 具体来说,对于差异判别网络中的每个空间级精炼图像差异特征集,我们分别与同一尺度下采样的变化图相关联。深度监督采用如下:</p>
+<p><img src="https://s2.loli.net/2023/12/03/2ZXJYVL5rGRxN18.png" alt="image-20231203205129997"></p>
+<p>在训练过程中，每个深层监督的损失都是独立计算的，并直接反向传播到中间层。通过这种方式，网络中的中间层得到有效训练，并且中间层的权重可以被精细地更新，从而减轻了梯度消失的问题。因此，在之前的层已经经过初步变化检测的精细训练之后，接下来的层将面临一个相对简单的变化检测任务。通过在网络中引入多个深层监督，改进了差异判别网络的性能。</p>
+<h3 id="3-2-模型训练"><a href="#3-2-模型训练" class="headerlink" title="3.2 模型训练"></a>3.2 模型训练</h3><h4 id="3-2-1-数据参数"><a href="#3-2-1-数据参数" class="headerlink" title="3.2.1 数据参数"></a>3.2.1 数据参数</h4><p>为了增加训练数据的多样性，我们使用了一组图像预处理技术进行数据增强：1) 图像旋转：双时相图像对被旋转45°、90°、135°、180°和270°；2) 图像翻转：双时相图像对进行水平翻转；3) 图像添加噪声：我们随机在T1图像上添加了200个盐和胡椒噪声；4) 图像模糊：对T1图像应用高斯模糊滤波器产生模糊的T1图像；5) 图像平滑：对T1图像应用平滑滤波器产生平滑的T1图像。</p>
+<p>需要注意的是，对于增强方法3) 图像添加噪声，4) 图像模糊和5) 图像平滑，只有T1图像进行增强，而相应的T2图像保持不变。这是因为我们有意扩大了T1图像和T2图像之间的图像质量差距，以便为模型的鲁棒性测试生成具有挑战性的数据集。</p>
+<h4 id="3-2-2-训练过程"><a href="#3-2-2-训练过程" class="headerlink" title="3.2.2 训练过程"></a>3.2.2 训练过程</h4><p>在所提出的方法中，深度特征提取网络（DFEN）和差异判别网络（DDN）在训练过程中独立进行训练。由于缺乏在广泛的遥感数据上预训练的可用模型，对于DFEN的训练，我们使用VGG16网络中pool5层之前的层在“ImageNet”数据集上进行预训练（Jia Deng等人，2009）。对于DDN，原始的双时相图像首先被输入到预训练的DFEN中产生深度特征。然后，提取的深度特征被输入到DDN中以区分变化区域。为了有效训练DDN中的神经元，我们通过为每个侧分支分配不同大小的真实地图来引入深层监督。真实地图是通过线性插值算法生成的。派生真实地图的大小定义如下：</p>
+<p><img src="https://s2.loli.net/2023/12/03/cMJ24XCN3Z7yzqo.png" alt="image-20231203211240286"></p>
+<p>其中，gtL和gtW分别表示原始地面真实地图的长度和宽度；(gtDSl1, gtDSw1)，(gtDSl2, gtDSw2)，(gtDSl3, gtDSw3)和(gtDSl4, gtDSw4)分别表示DS_1、DS_2、DS_3和DS_4中的真实地图的长度和宽度。</p>
+<h4 id="3-2-3-损失函数"><a href="#3-2-3-损失函数" class="headerlink" title="3.2.3 损失函数"></a>3.2.3 损失函数</h4><p>二元交叉熵通常用于二元分类问题，定义如下：<img src="https://s2.loli.net/2023/12/03/72hbIgYdTW6H9jL.png" alt="image-20231203213439676"></p>
+<p>其中，ti表示像素i的真实值；&#x3D; t1i表示如果真实像素属于变化类，则为1，否则为0。yi表示像素i属于变化类的预测概率，y1i表示像素i属于不变类的概率。从公式（17）可以观察到，如果yi在变化类上取一个非常小的值，将导致非常大的Lbce。例如，如果yi为零，ylog(yi)将变为无穷大，导致无穷大的损失，破坏网络的稳定性。在我们的方法中，我们将Sigmoid二元交叉熵作为损失函数的一部分。Sigmoid二元交叉熵定义如下：</p>
+<p><img src="https://s2.loli.net/2023/12/03/gYGIK2RSl4k6uwf.png" alt="image-20231203220847183"></p>
+<p>其中，yi表示像素i属于变化类的预测概率，ti表示像素i的真实值。最后，所提出网络的总损失定义为：<img src="https://s2.loli.net/2023/12/03/aVjfItPQwMBKgG6.png" alt="image-20231203221005187"></p>
+<h2 id="4-实验和讨论"><a href="#4-实验和讨论" class="headerlink" title="4 实验和讨论"></a>4 实验和讨论</h2><h3 id="4-1-数据集"><a href="#4-1-数据集" class="headerlink" title="4.1 数据集"></a>4.1 数据集</h3><p>在实验中使用了两个数据集进行全面的基准比较。第一个数据集是由Lebedev等人（2018）发布的。在该数据集上进行测试时，经过修改的Unet++架构实现了最佳性能（Peng等人，2019）。第二个数据集是从Google Earth手动收集的具有挑战性的数据集。与文献中在覆盖相同区域的图像上训练和测试模型不同，我们在覆盖不同区域的第二个数据集上训练和测试模型，以评估模型的泛化能力。一方面，使用来自不同城市的图像作为训练数据集，增加了区分变化区域和过滤噪声引起的图像差异的难度；另一方面，使用来自另一个城市的图像进行模型测试，旨在挑战模型的泛化能力。具体而言，对于模型训练，北京、成都、深圳、重庆和武汉的双时相图像被裁剪成394个大小为512×512的子图像对。经过数据增强，获得了3940个双时相图像对的集合。我们随机选择90%的数据集用于模型训练，剩下的10%用于模型验证。西安的图像对被裁剪成48个图像对用于模型测试。</p>
+<h3 id="4-2-参数设置"><a href="#4-2-参数设置" class="headerlink" title="4.2 参数设置"></a>4.2 参数设置</h3><p>所有卷积层中的卷积核都设置为3×3。在每个连接层之后，下一个卷积层中的滤波器数量设置为合并特征中通道数的一半。例如，深度特征提取网络生成具有512个通道的T1_Conv1_2。将T1_Conv1_2和T2_Conv1_2进行级联，将得到具有1024个通道的一组特征图。然后，下一个卷积层中的滤波器数量设置为512。网络中使用了第3.4.3节中描述的损失函数。总共有五个损失函数，每个损失函数的权重都设置为1。初始学习率设置为0.0001，在损失连续5个时期不再减小时降低10%。当验证数据集上的f1分数连续20个时期不再提高时，模型训练完成。</p>
+<h3 id="4-3-基准方法"><a href="#4-3-基准方法" class="headerlink" title="4.3.基准方法"></a>4.3.基准方法</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2023/12/03/%E8%AE%BA%E6%96%87-DFSN%E7%BD%91%E7%BB%9C/">https://flandre923.github.io/2023/12/03/%E8%AE%BA%E6%96%87-DFSN%E7%BD%91%E7%BB%9C/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/12/03/opengl02%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3/" title="opengl02创建窗口"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">opengl02创建窗口</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">56</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">42</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E7%A7%8D%E7%94%A8%E4%BA%8E%E9%AB%98%E5%88%86%E8%BE%A8%E7%8E%87%E5%8F%8C%E6%97%B6%E9%97%B4%E9%81%A5%E6%84%9F%E5%9B%BE%E5%83%8F%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E7%9A%84%E6%B7%B1%E5%BA%A6%E7%9B%91%E7%9D%A3%E5%9B%BE%E5%83%8F%E8%9E%8D%E5%90%88%E7%BD%91%E7%BB%9C"><span class="toc-number">1.</span> <span class="toc-text">一种用于高分辨率双时间遥感图像变化检测的深度监督图像融合网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D"><span class="toc-number">1.2.</span> <span class="toc-text">关键词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.3.</span> <span class="toc-text">1.简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C%E5%92%8C%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E"><span class="toc-number">1.4.</span> <span class="toc-text">2. 相关工作和问题说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8F%98%E5%8C%96%E6%A3%80%E6%B5%8B%E6%96%B9%E6%B3%95"><span class="toc-number">1.4.1.</span> <span class="toc-text">2.1基于深度学习的变化检测方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%97%AE%E9%A2%98%E9%99%88%E8%BF%B0%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.4.2.</span> <span class="toc-text">2.2.问题陈述及解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95"><span class="toc-number">1.5.</span> <span class="toc-text">3 研究方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-number">1.5.1.</span> <span class="toc-text">3.1 网络结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-%E7%94%A8%E4%BA%8E%E7%89%B9%E5%BE%81%E8%9E%8D%E5%90%88%E7%9A%84%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%A8%A1%E5%9D%97"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">3.1.1 用于特征融合的注意力模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2%E6%B7%B1%E5%BA%A6%E7%9B%91%E6%8E%A7%E4%BB%A5%E5%A2%9E%E5%BC%BA%E7%BD%91%E7%BB%9C%E6%80%A7%E8%83%BD"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">3.1.2深度监控以增强网络性能</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">1.5.2.</span> <span class="toc-text">3.2 模型训练</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E6%95%B0%E6%8D%AE%E5%8F%82%E6%95%B0"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">3.2.1 数据参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">3.2.2 训练过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.2.3.</span> <span class="toc-text">3.2.3 损失函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9E%E9%AA%8C%E5%92%8C%E8%AE%A8%E8%AE%BA"><span class="toc-number">1.6.</span> <span class="toc-text">4 实验和讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">1.6.1.</span> <span class="toc-text">4.1 数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.6.2.</span> <span class="toc-text">4.2 参数设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E5%9F%BA%E5%87%86%E6%96%B9%E6%B3%95"><span class="toc-number">1.6.3.</span> <span class="toc-text">4.3.基准方法</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/03/%E8%AE%BA%E6%96%87-DFSN%E7%BD%91%E7%BB%9C/" title="论文-DFSN网络"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论文-DFSN网络"/></a><div class="content"><a class="title" href="/2023/12/03/%E8%AE%BA%E6%96%87-DFSN%E7%BD%91%E7%BB%9C/" title="论文-DFSN网络">论文-DFSN网络</a><time datetime="2023-12-03T09:21:38.000Z" title="Created 2023-12-03 17:21:38">2023-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/03/opengl02%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3/" title="opengl02创建窗口"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl02创建窗口"/></a><div class="content"><a class="title" href="/2023/12/03/opengl02%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3/" title="opengl02创建窗口">opengl02创建窗口</a><time datetime="2023-12-03T06:14:19.000Z" title="Created 2023-12-03 14:14:19">2023-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/03/opengl01%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="opengl01环境搭建"><img src="https://view.moezx.cc/images/2022/02/24/f2c7ce0594ab77fa8dc4c70d5379c8ea.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl01环境搭建"/></a><div class="content"><a class="title" href="/2023/12/03/opengl01%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="opengl01环境搭建">opengl01环境搭建</a><time datetime="2023-12-03T02:25:27.000Z" title="Created 2023-12-03 10:25:27">2023-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/02/Minecraft-%E6%BA%90%E7%A0%81-%E4%BF%A1%E6%A0%87%E6%96%B9%E5%9D%97%E4%BB%A5%E5%8F%8A%E7%88%B6%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/" title="Minecraft-源码-信标方块以及父类和接口"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Minecraft-源码-信标方块以及父类和接口"/></a><div class="content"><a class="title" href="/2023/12/02/Minecraft-%E6%BA%90%E7%A0%81-%E4%BF%A1%E6%A0%87%E6%96%B9%E5%9D%97%E4%BB%A5%E5%8F%8A%E7%88%B6%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/" title="Minecraft-源码-信标方块以及父类和接口">Minecraft-源码-信标方块以及父类和接口</a><time datetime="2023-12-02T04:41:56.000Z" title="Created 2023-12-02 12:41:56">2023-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/30/Minecraft%E6%BA%90%E7%A0%81-%E7%BB%8F%E9%AA%8C%E7%90%83/" title="Minecraft源码-经验球"><img src="https://view.moezx.cc/images/2018/01/15/PID66745952byBison.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Minecraft源码-经验球"/></a><div class="content"><a class="title" href="/2023/11/30/Minecraft%E6%BA%90%E7%A0%81-%E7%BB%8F%E9%AA%8C%E7%90%83/" title="Minecraft源码-经验球">Minecraft源码-经验球</a><time datetime="2023-11-30T06:55:12.000Z" title="Created 2023-11-30 14:55:12">2023-11-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: 'e185ca9c8549022772ca08d16972eb4b',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
