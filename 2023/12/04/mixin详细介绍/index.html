@@ -1,0 +1,625 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>mixin详细介绍 | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="introduction Mixins是Fabric生态系统中的一个强大而重要的工具。它们的主要用途是修改基础游戏中的现有代码，可以通过注入自定义逻辑、删除机制或修改数值来实现。 Mixins必须使用Java编写，即使你使用Kotlin或其他语言。 如果想要了解Mixin的功能、用法和机制的详细步骤，可以查看Mixin官方Wiki。Mixin Javadoc中还有其他文档可供参考。 Fabric">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mixin详细介绍">
+<meta property="og:url" content="https://flandre923.github.io/2023/12/04/mixin%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="introduction Mixins是Fabric生态系统中的一个强大而重要的工具。它们的主要用途是修改基础游戏中的现有代码，可以通过注入自定义逻辑、删除机制或修改数值来实现。 Mixins必须使用Java编写，即使你使用Kotlin或其他语言。 如果想要了解Mixin的功能、用法和机制的详细步骤，可以查看Mixin官方Wiki。Mixin Javadoc中还有其他文档可供参考。 Fabric">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://view.moezx.cc/images/2022/03/26/6d1f8382cfa121721d7efd29f8e1e9b9.jpg">
+<meta property="article:published_time" content="2023-12-04T09:56:12.000Z">
+<meta property="article:modified_time" content="2023-12-05T14:44:13.947Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="我的世界">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="fabric">
+<meta property="article:tag" content="mixin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://view.moezx.cc/images/2022/03/26/6d1f8382cfa121721d7efd29f8e1e9b9.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2023/12/04/mixin%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'mixin详细介绍',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-05 22:44:13'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://view.moezx.cc/images/2022/03/26/6d1f8382cfa121721d7efd29f8e1e9b9.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">mixin详细介绍</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-12-04T09:56:12.000Z" title="Created 2023-12-04 17:56:12">2023-12-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-12-05T14:44:13.947Z" title="Updated 2023-12-05 22:44:13">2023-12-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">5.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>23mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="mixin详细介绍"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h1><ol>
+<li>Mixins是Fabric生态系统中的一个强大而重要的工具。它们的主要用途是修改基础游戏中的现有代码，可以通过注入自定义逻辑、删除机制或修改数值来实现。</li>
+<li>Mixins必须使用Java编写，即使你使用Kotlin或其他语言。</li>
+<li>如果想要了解Mixin的功能、用法和机制的详细步骤，可以查看Mixin官方Wiki。Mixin Javadoc中还有其他文档可供参考。</li>
+<li>Fabric Wiki还提供了几篇实际示例和解释的文章，可以提供更多实用的示例和解释。</li>
+</ol>
+<h2 id="文献"><a href="#文献" class="headerlink" title="文献"></a>文献</h2><p><a target="_blank" rel="noopener" href="https://github.com/SpongePowered/Mixin/wiki">Mixin Official Wiki</a>. </p>
+<p><a target="_blank" rel="noopener" href="https://jenkins.liteloader.com/view/Other/job/Mixin/javadoc/index.html">Mixin Javadoc</a>.</p>
+<h2 id="Mixins"><a href="#Mixins" class="headerlink" title="Mixins"></a>Mixins</h2><p>一些mixin可能会导致冲突，但负责任地使用它们是为mod添加独特行为的关键。</p>
+<p>Mixins有各种各样的口味，大致按偏好顺序排列：</p>
+<ul>
+<li>Adding Interfaces 添加接口</li>
+<li>Callback Injectors 回调注入</li>
+<li>Redirect Injectors 重定向注入</li>
+<li>Overwrites 覆盖</li>
+</ul>
+<p>这不是一个完整的列表，而是一个快速的概述。这里省略了一些mixin类型。</p>
+<h3 id="Adding-Interfaces"><a href="#Adding-Interfaces" class="headerlink" title="Adding Interfaces"></a>Adding Interfaces</h3><p>这可能是使用mixin最安全的方法之一。新的接口实现可以添加到任何Minecraft类中。然后你可以通过强制转换类来访问接口。这不会改变类的任何内容，只是增加了新的东西，因此不太可能发生冲突。</p>
+<h3 id="Callback-Injectors"><a href="#Callback-Injectors" class="headerlink" title="Callback Injectors"></a>Callback Injectors</h3><p>回调注入器允许您将回调钩子添加到现有方法，以及该方法中的特定方法调用。它们还允许您拦截和更改方法的返回值，并提前返回。回调注入可以堆栈，因此不太可能导致mods之间的冲突。</p>
+<h3 id="Redirect-Injectors"><a href="#Redirect-Injectors" class="headerlink" title="Redirect Injectors"></a>Redirect Injectors</h3><p>重定向使您可以使用自己的代码包装目标方法中的方法调用或变量访问。使用这些非常谨慎，一个目标调用或访问只能在所有MOD之间重定向一次。如果两个mod重定向相同的值，这将导致冲突。首先考虑回调注入。</p>
+<h3 id="Overwrite"><a href="#Overwrite" class="headerlink" title="Overwrite"></a>Overwrite</h3><p>使用覆盖时要非常小心。它们完全替换方法，删除所有现有代码，并与方法上的任何其他类型的mixin冲突。它们极有可能不仅与其他MOD冲突，而且与Minecraft本身的更改也发生冲突。您很可能不需要覆盖来执行您想要执行的操作。</p>
+<h1 id="Registering-Mixins"><a href="#Registering-Mixins" class="headerlink" title="Registering Mixins"></a>Registering Mixins</h1><ul>
+<li><p>在资源文件夹中的fabric.mod.json文件中注册Mixins。</p>
+</li>
+<li><p>在fabric.mod.json文件中的mixins数组中添加元素来告诉Fabric应该在哪里查找Mixins。</p>
+</li>
+<li><p>使用fabric.mod.json文件来定义Fabric应该在哪里查找mixins.json文件。</p>
+</li>
+<li><p>mixins.json文件中定义了要注册的Mixin的详细信息。</p>
+</li>
+<li><p>通过添加元素到fabric.mod.json文件的mixins数组中，告诉Fabric在哪里注册Mixin。</p>
+</li>
+<li><p><img src="https://s2.loli.net/2023/12/04/1JrQlEjhxe7KBGd.png" alt="image-20231204225257597"></p>
+</li>
+<li><p>在mixins数组中提供字符串”<modid>.mixins.json”告诉Fabric加载在文件<modid>.mixins.json中定义的mixins。</p>
+</li>
+<li><p>需要定义要加载的mixins以及这些mixins的位置。</p>
+</li>
+<li><p>在注册的<modid>.mixins.json文件中完成上述定义。</p>
+</li>
+<li><p><img src="https://s2.loli.net/2023/12/04/n5aSWLP4x17vCYl.png" alt="image-20231204225501253"></p>
+</li>
+<li><p>在开始使用mixins时，你应该关注的四个主要字段是package字段以及mixins、client和server数组。</p>
+</li>
+<li><p>package字段定义了在哪个文件夹（包）中查找Mixins。</p>
+</li>
+<li><p>mixins数组定义了应该在客户端和服务器上加载的类。</p>
+</li>
+<li><p>client数组定义了应该在客户端上加载的类。</p>
+</li>
+<li><p>server数组定义了应该在服务器上加载的类。</p>
+</li>
+<li><p>根据这个逻辑：net.fabricmc.example.mixin.TitleScreenMixin是将在客户端上加载的mixin类。</p>
+</li>
+</ul>
+<h1 id="Mixin-Injects"><a href="#Mixin-Injects" class="headerlink" title="Mixin Injects"></a>Mixin Injects</h1><h2 id="introduciton"><a href="#introduciton" class="headerlink" title="introduciton"></a>introduciton</h2><ul>
+<li>Mixin Injects允许您在现有方法的指定位置放置自定义代码。</li>
+<li>注入的标准形式如下所示：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;方法名或者签名&quot;, at = @At(&quot;注入点参考&quot;))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injectMethod</span><span class="params">(METHOD ARGS, CallbackInfo info)</span> &#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>注入参考点是指在方法体内注入代码的位置。可以使用几个选项来指定注入点，例如HEAD、RETURN、INVOKE和TAIL。</p>
+</li>
+<li><table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">HEAD</td>
+<td align="left">方法顶部</td>
+</tr>
+<tr>
+<td align="left">RETURN</td>
+<td align="left">每一个放回语句前</td>
+</tr>
+<tr>
+<td align="left">INVOKE</td>
+<td align="left">在方法调用时</td>
+</tr>
+<tr>
+<td align="left">TAIL</td>
+<td align="left">在最终返回声明之前</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>注入点可以引用语句或成员，目标值可以在@At中设置。目标值使用JVM字节码描述符来指定。</p>
+</li>
+<li><table>
+<thead>
+<tr>
+<th align="left">Descriptor</th>
+<th align="left">Primitive</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">B</td>
+<td align="left">byte</td>
+<td align="left">有符号字节</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">char</td>
+<td align="left">基本多语言平面中的Unicode字符代码点，使用UTF-16编码</td>
+</tr>
+<tr>
+<td align="left">D</td>
+<td align="left">double</td>
+<td align="left">双精度浮点数</td>
+</tr>
+<tr>
+<td align="left">F</td>
+<td align="left">float</td>
+<td align="left">单精度浮点数</td>
+</tr>
+<tr>
+<td align="left">I</td>
+<td align="left">int</td>
+<td align="left">有符号整数</td>
+</tr>
+<tr>
+<td align="left">J</td>
+<td align="left">long</td>
+<td align="left">有符号长整数</td>
+</tr>
+<tr>
+<td align="left">L<em>ClassName</em>;</td>
+<td align="left">reference</td>
+<td align="left">ClassName*的实例</td>
+</tr>
+<tr>
+<td align="left">S</td>
+<td align="left">short</td>
+<td align="left">有符号短整型</td>
+</tr>
+<tr>
+<td align="left">Z</td>
+<td align="left">boolean</td>
+<td align="left"><code>true</code> or <code>false</code></td>
+</tr>
+<tr>
+<td align="left">[</td>
+<td align="left">reference</td>
+<td align="left">一个数组维度</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>方法描述符由方法名称、包含参数类型的括号和返回类型组成。如果返回类型是void，需要使用V（Void Descriptor Type）作为类型。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> Object <span class="title function_">m</span><span class="params">(<span class="type">int</span> i, <span class="type">double</span>[] d, Thread t)</span></span><br><span class="line"></span><br><span class="line">m(I[DLjava/lang/Thread;)Ljava/lang/Object</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方法“void foo(String bar)”的 方法描述符是“foo(Ljava&#x2F;lang&#x2F;String;)V”。</li>
+<li>Generics’ types are left out, as generics don’t exist on runtime. So <code>Pair&lt;Integer, ? extends Task&lt;? super VillagerEntity&gt;‍&gt;</code> would become <code>Lcom/mojang/datafixers/util/Pair</code>.</li>
+<li>@Inject 注解的方法始终具有 void 返回类型。方法名称和访问修饰符都不重要，使用描述注入作用的名称最佳。目标方法的参数首先放置在方法头中，后跟一个 CallbackInfo 对象。如果目标方法具有返回类型 (T)，则使用 CallbackInfoReturnable<T> 而非 CallbackInfo。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initialize</span><span class="params">(CallbackInfo info)</span> &#123;</span><br><span class="line">    <span class="comment">// 执行初始化逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Inject</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">processRequest</span><span class="params">(String request, CallbackInfoReturnable&lt;Response&gt; info)</span> &#123;</span><br><span class="line">    <span class="comment">// 处理请求逻辑</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>在方法中提前返回或取消操作时，可以使用CallbackInfo#cancel或CallbackInfoReturnable<T>#setReturnValue(T)。在@Inject注解中，cancellable必须设置为true才能使用这些功能。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;...&quot;, at = @At(&quot;...&quot;), cancellable = true)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>要注入构造函数，请使用 <init>()V 作为方法目标，其中 () 包含构造函数参数描述符。 在注入构造函数时，@At 必须设置为 TAIL 或 RETURN。 官方不支持其他形式的注入。 请注意，一些类的名称为 init 的方法与 <init> 不同。 不要混淆！</li>
+<li>要注入静态构造函数，请使用 <clinit> 作为方法名。</li>
+<li>例子(这是一个普通的init方法不是构造方法)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(TitleScreen.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExampleMixin</span> &#123;</span><br><span class="line">	<span class="meta">@Inject(at = @At(&quot;HEAD&quot;), method = &quot;init()V&quot;)</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(CallbackInfo info)</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;This line is printed by an example mod mixin!&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Mixin-Accessors-Invokers"><a href="#Mixin-Accessors-Invokers" class="headerlink" title="Mixin Accessors &amp; Invokers"></a>Mixin Accessors &amp; Invokers</h1><p>Mixin Accessors &amp; Invokers 是一种用于访问或修改非公共或 final 字段和方法的机制</p>
+<h2 id="accessors"><a href="#accessors" class="headerlink" title="accessors"></a>accessors</h2><p>@Accessors注解用于访问字段。它允许开发者读取和写入原本无法访问的字段的值。</p>
+<h3 id="Getting-a-value-from-the-field"><a href="#Getting-a-value-from-the-field" class="headerlink" title="Getting a value from the field"></a>Getting a value from the field</h3><p>假设你要访问MinecraftClient类的itemUseCooldown字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(MinecraftClient.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MinecraftClientAccessor</span> &#123;</span><br><span class="line">    <span class="meta">@Accessor</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">getItemUseCooldown</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">itemUseCooldown</span> <span class="operator">=</span> ((MinecraftClientAccessor) MinecraftClient.getInstance()).getItemUseCooldown();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Setting-a-value-to-the-field"><a href="#Setting-a-value-to-the-field" class="headerlink" title="Setting a value to the field"></a>Setting a value to the field</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(MinecraftClient.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MinecraftClientAccessor</span> &#123;</span><br><span class="line">    <span class="meta">@Accessor(&quot;itemUseCooldown&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setItemUseCooldown</span><span class="params">(<span class="type">int</span> itemUseCooldown)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">((MinecraftClientAccessor) MinecraftClient.getInstance()).setItemUseCooldown(<span class="number">100</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Accessor-for-static-fields"><a href="#Accessor-for-static-fields" class="headerlink" title="Accessor for static fields"></a>Accessor for static fields</h2><p>假设我们希望访问VanillaLayeredBiomeSource类的BIOMES字段</p>
+<h3 id="Getting-a-value-from-the-field-1"><a href="#Getting-a-value-from-the-field-1" class="headerlink" title="Getting a value from the field"></a>Getting a value from the field</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(VanillaLayeredBiomeSource.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">VanillaLayeredBiomeSourceAccessor</span> &#123;</span><br><span class="line">  <span class="meta">@Accessor(&quot;BIOMES&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> List&lt;RegistryKey&lt;Biome&gt;&gt; <span class="title function_">getBiomes</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">AssertionError</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;RegistryKey&lt;Biome&gt;&gt; biomes = VanillaLayeredBiomeSourceAccessor.getBiomes();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Setting-a-value-to-the-field-1"><a href="#Setting-a-value-to-the-field-1" class="headerlink" title="Setting a value to the field"></a>Setting a value to the field</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(VanillaLayeredBiomeSource.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">VanillaLayeredBiomeSourceAccessor</span> &#123;</span><br><span class="line">  <span class="meta">@Accessor(&quot;BIOMES&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">setBiomes</span><span class="params">(List&lt;RegistryKey&lt;Biome&gt;&gt; biomes)</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">AssertionError</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VanillaLayeredBiomeSourceAccessor.setBiomes(biomes);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Invoker"><a href="#Invoker" class="headerlink" title="Invoker"></a>Invoker</h2><p>@Invoker允许你方法。假设我们想要访问EndermanEntity类的teleportTo方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(EndermanEntity.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">EndermanEntityInvoker</span> &#123;</span><br><span class="line">  <span class="meta">@Invoker(&quot;teleportTo&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">invokeTeleportTo</span><span class="params">(<span class="type">double</span> x, <span class="type">double</span> y, <span class="type">double</span> z)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">EndermanEntity</span> <span class="variable">enderman</span> <span class="operator">=</span> ...;</span><br><span class="line">((EndermanEntityInvoker) enderman).invokeTeleportTo(<span class="number">0.0D</span>, <span class="number">70.0D</span>, <span class="number">0.0D</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Invoker-for-static-methods"><a href="#Invoker-for-static-methods" class="headerlink" title="Invoker for static methods"></a>Invoker for static methods</h2><p>假设我们想要调用BrewingRecipeRegistry类的方法registerPotionType</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(BrewingRecipeRegistry.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BrewingRecipeRegistryInvoker</span> &#123;</span><br><span class="line">  <span class="meta">@Invoker(&quot;registerPotionType&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">invokeRegisterPotionType</span><span class="params">(Item item)</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">AssertionError</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BrewingRecipeRegistryInvoker.invokeRegisterPotionType(item);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Mixin-redirectors"><a href="#Mixin-redirectors" class="headerlink" title="Mixin redirectors"></a>Mixin redirectors</h1><h2 id="introduction-1"><a href="#introduction-1" class="headerlink" title="introduction"></a>introduction</h2><p>重定向器（Redirectors）是可以替代方法调用、字段访问、对象创建和 instanceof 检查的方法。重定向器通过 @Redirect 注解声明，并且通常的格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Redirect(method = &quot;$&#123;signatureOfMethodInWhichToRedirect&#125;&quot;,</span></span><br><span class="line"><span class="meta">          at = @At(value = &quot;$&#123;injectionPointReference&#125;&quot;, target = &quot;$&#123;signature&#125;&quot;))</span></span><br><span class="line"><span class="keyword">public</span> ReturnType <span class="title function_">redirectSomeMethod</span><span class="params">(Arg0Type arg0, Arg1Type arg1)</span> &#123;</span><br><span class="line">    MyClass.doMyComputations();</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> computeSomethingElse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请参考特定的重定向教程，了解有关注入点引用的信息。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_redirectors_methods">redirecting methods</a></li>
+<li><a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_redirectors_fields">redirecting field access</a></li>
+<li><a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_redirectors_constructors">redirecting object creation</a></li>
+<li><a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_redirectors_instanceof">redirecting instanceof checks</a></li>
+</ul>
+<blockquote>
+<p>由于重定向可能会导致模组之间冲突这里就不详细讲了</p>
+</blockquote>
+<h1 id="Mixin-Tips-WIP"><a href="#Mixin-Tips-WIP" class="headerlink" title="Mixin Tips (WIP)"></a>Mixin Tips (WIP)</h1><p>这是一些可能有用的不同技巧的集合。建议阅读以前的文章以了解技巧。</p>
+<h3 id="Why-make-a-class-abstract-（为什么要创建一个抽象类？）"><a href="#Why-make-a-class-abstract-（为什么要创建一个抽象类？）" class="headerlink" title="Why make a class abstract? （为什么要创建一个抽象类？）"></a>Why make a class abstract? （为什么要创建一个抽象类？）</h3><p><strong>1. Prevent instantiation  （1.防止实例化）</strong></p>
+<p>公平地说，你永远不应该实例化一个mixin类，主要是因为如果这个类没有在mixin环境中使用，它对java来说就没有意义了，还有其他方法可以访问mixin中声明的方法。</p>
+<p>声明一个mixin类的抽象并不影响它的功能，并且它可以防止意外的实例化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MixinClass</span> <span class="variable">foo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MixinClass</span>(); <span class="comment">// can&#x27;t do that with an abstract class</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. Make more elegant shadow methods</strong>(<strong>制作更优雅的shadow方法</strong>)</p>
+<p>如果你想从你的目标类中访问一个不可访问的方法或字段到你的mixin类中，你需要使用 <code>@Shadow</code> 来使那个方法&#x2F;字段可见。</p>
+<p>你可以通过使用虚拟方法体(dummy body)在普通类中完美地做到这一点:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Shadow</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">hiddenMethod</span><span class="params">()</span> &#123;<span class="comment">/*dummy body*/</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但使用抽象方法（因此是抽象类）要优雅得多：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Shadow</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">hiddenMethod</span><span class="params">()</span>; <span class="comment">// no dummy body necessary</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：这不适用于私有方法，因为你不能有私有抽象方法，因此你需要使用普通方法。</p>
+<p><strong>3. Access the <code>this</code> instance more easily</strong> 轻松地访问 <code>this</code> 实例</p>
+<p>在mixin中，如果你想访问“this”实例，你必须在mixin类中进行强制转换：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">((TargetClass)(Object)<span class="built_in">this</span>).field/method();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但是，只有当你的mixin类扩展&#x2F;实现了你的目标类所做的一切时，这才有效，这可能是一个痛苦，因为如果其中一个类&#x2F;接口有一个你需要实现的方法，你就会遇到一些麻烦。</p>
+<p>幸运的是，这一切都可以通过使用抽象类来避免，在这种情况下，您不必实现方法，所有问题都可以避免。</p>
+<h3 id="How-to-mixin-inner-classes-如何混合内部类"><a href="#How-to-mixin-inner-classes-如何混合内部类" class="headerlink" title="How to mixin inner classes 如何混合内部类"></a>How to mixin inner classes 如何混合内部类</h3><p><strong>1. Normal inaccessible inner classes 正规不可达内部类</strong></p>
+<p>由于您不能从外部直接访问（并提及）这些类，因此需要使用mixin注释的“targets”字段来指定名称。</p>
+<p>你可以使用外部类的完整名称，然后是 <code>$</code> ，最后是内部类的名称，如下所示：</p>
+<p>Class: </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> some.random.<span class="keyword">package</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Outer</span> &#123;</span><br><span class="line">     <span class="keyword">private</span> <span class="keyword">class</span> <span class="title class_">Inner</span> &#123;</span><br><span class="line">         <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">someRandomMethod</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mixin with injection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(targets = &quot;some.random.package.Outer$Inner&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyMixin</span> &#123;</span><br><span class="line">    <span class="meta">@Inject(method = &quot;someRandomMethod()V&quot;, at = @At(&quot;HEAD&quot;)</span></span><br><span class="line"><span class="meta">    private void injected(CallbackInfo ci) &#123;</span></span><br><span class="line"><span class="meta">        // your code here</span></span><br><span class="line"><span class="meta">    &#125;</span></span><br><span class="line"><span class="meta">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>唯一需要注意的是，如果你想混入内部类构造函数，第一个参数必须是外部类的类型（这是编译器隐式添加的，以允许内部类访问外部类的实例方法）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;&lt;init&gt;(Lsome/random/package/Outer;)V&quot;, at = @At(&quot;HEAD&quot;)</span></span><br><span class="line"><span class="meta">private void injected(CallbackInfo ci) &#123;</span></span><br><span class="line"><span class="meta">    // your code here</span></span><br><span class="line"><span class="meta">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. Static inaccessible inner classes<br>静态不可访问的内部类</strong></p>
+<p>这些和上面一样，唯一的区别是构造函数没有外部类的第一个参数（因为在静态内部类中，只有私有静态方法可以从内部类访问，因此不需要该参数）。</p>
+<p><strong>3. Anonymous inner classes 3.匿名内部类</strong></p>
+<p>这些与静态不可访问的内部类相同，唯一的区别是，由于它们没有名称，因此它们是按外观顺序声明的，例如：匿名内部类如果在我们前面的示例中声明，首先将命名为Outer$1，第二个将命名为Outer$2，第三个命名为Outer$3，依此类推（声明顺序是在源代码级别）。</p>
+<h1 id="Mixin-Examples"><a href="#Mixin-Examples" class="headerlink" title="Mixin Examples"></a>Mixin Examples</h1><p>这是一些常用的混入（Mixin）示例。本页面旨在作为一个速查表。如果您还没有阅读过混入介绍，请参阅混入介绍。</p>
+<h2 id="Mixing-into-a-private-inner-class"><a href="#Mixing-into-a-private-inner-class" class="headerlink" title="Mixing into a private inner class"></a>Mixing into a private inner class</h2><p>使用 targets 参数和 $ 符号来获取内部类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(targets = &quot;net.minecraft.client.render.block.BlockModelRenderer$AmbientOcclusionCalculator&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AmbientOcclusionCalculatorMixin</span> &#123;</span><br><span class="line">    <span class="comment">// do your stuff here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Access-the-this-instance-of-the-class-your-mixin-is-targeting访问混入目标类的实例"><a href="#Access-the-this-instance-of-the-class-your-mixin-is-targeting访问混入目标类的实例" class="headerlink" title="Access the this instance of the class your mixin is targeting访问混入目标类的实例"></a>Access the this instance of the class your mixin is targeting访问混入目标类的实例</h2><p>注意：在可能的情况下应避免双重转型。如果方法或字段来自目标类，请使用 <code>@Shadow</code>。如果方法或字段来自目标类的父类，请将混入类直接继承目标类的直接父类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(TargetClass.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyMixin</span> <span class="keyword">extends</span> <span class="title class_">EveryThingThatTargetClassExtends</span> <span class="keyword">implements</span> <span class="title class_">EverythingThatTargetClassImplements</span> &#123;</span><br><span class="line">  <span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(&quot;HEAD&quot;))</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">    ((TargetClass)(Object)<span class="built_in">this</span>).methodOfTheTargetClass();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-into-the-head-of-a-static-block-注入到一个静态块的头部"><a href="#Injecting-into-the-head-of-a-static-block-注入到一个静态块的头部" class="headerlink" title="Injecting into the head of a static block 注入到一个静态块的头部"></a>Injecting into the head of a static block 注入到一个静态块的头部</h2><p>mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;&lt;clinit&gt;&quot;, at = @At(&quot;HEAD&quot;))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">    doSomething3();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static &#123;</span><br><span class="line"><span class="addition">+   injected(new CallbackInfo(“&lt;clinit&gt;”, false));</span></span><br><span class="line">    doSomething1();</span><br><span class="line">    doSomething2();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-into-the-head-of-a-method-注入到一个方法的头部"><a href="#Injecting-into-the-head-of-a-method-注入到一个方法的头部" class="headerlink" title="Injecting into the head of a method 注入到一个方法的头部"></a>Injecting into the head of a method 注入到一个方法的头部</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(&quot;HEAD&quot;))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">  doSomething4();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line"><span class="addition">+   injected(new CallbackInfo(&quot;foo&quot;, false));</span></span><br><span class="line">    doSomething1();</span><br><span class="line">    doSomething2();</span><br><span class="line">    doSomething3();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-into-the-tail-of-a-method注入到一个方法末尾"><a href="#Injecting-into-the-tail-of-a-method注入到一个方法末尾" class="headerlink" title="Injecting into the tail of a method注入到一个方法末尾"></a>Injecting into the tail of a method注入到一个方法末尾</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(&quot;TAIL&quot;))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">  doSomething4();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    if (doSomething2()) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    doSomething3();</span><br><span class="line"><span class="addition">+   injected(new CallbackInfo(&quot;foo&quot;, false));</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-into-the-returns-of-a-method-注入到方法返回前"><a href="#Injecting-into-the-returns-of-a-method-注入到方法返回前" class="headerlink" title="Injecting into the returns of a method  注入到方法返回前"></a>Injecting into the returns of a method  注入到方法返回前</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(&quot;RETURN&quot;))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">  doSomething4();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    if (doSomething2()) &#123;</span><br><span class="line"><span class="addition">+     injected(new CallbackInfo(&quot;foo&quot;, false));</span></span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    doSomething3();</span><br><span class="line"><span class="addition">+   injected(new CallbackInfo(&quot;foo&quot;, false));</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-into-the-point-before-a-method-call-注入到一个方法调用前"><a href="#Injecting-into-the-point-before-a-method-call-注入到一个方法调用前" class="headerlink" title="Injecting into the point before a method call  注入到一个方法调用前"></a>Injecting into the point before a method call  注入到一个方法调用前</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(value = &quot;INVOKE&quot;, target = &quot;La/b/c/Something;doSomething()V&quot;))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">  doSomething3();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    Something something = new Something();</span><br><span class="line"><span class="addition">+   injected(new CallbackInfo(&quot;foo&quot;, false));</span></span><br><span class="line">    something.doSomething();</span><br><span class="line">    doSomething2();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-into-the-point-after-a-method-call"><a href="#Injecting-into-the-point-after-a-method-call" class="headerlink" title="Injecting into the point after a method call"></a>Injecting into the point after a method call</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(value = &quot;INVOKE&quot;, target = &quot;La/b/c/Something;doSomething()V&quot;, shift = At.Shift.AFTER))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">  doSomething3();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    Something something = new Something();</span><br><span class="line">    something.doSomething();</span><br><span class="line"><span class="addition">+   injected(new CallbackInfo(&quot;foo&quot;, false));</span></span><br><span class="line">    doSomething2();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-into-the-point-before-a-method-call-with-shift-amount-在方法调用之前以位移量注入的内容。"><a href="#Injecting-into-the-point-before-a-method-call-with-shift-amount-在方法调用之前以位移量注入的内容。" class="headerlink" title="Injecting into the point before a method call with shift amount 在方法调用之前以位移量注入的内容。"></a>Injecting into the point before a method call with shift amount 在方法调用之前以位移量注入的内容。</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(value = &quot;INVOKE&quot;, target = &quot;La/b/c/Something;doSomething()V&quot;, shift = At.Shift.BY, by = 2))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">  doSomething3();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    Something something = new Something();</span><br><span class="line">    something.doSomething();</span><br><span class="line">    doSomething2();</span><br><span class="line"><span class="addition">+   injected(new CallbackInfo(&quot;foo&quot;, false));</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-with-a-slice在切片范围内注入"><a href="#Injecting-with-a-slice在切片范围内注入" class="headerlink" title="Injecting with a slice在切片范围内注入"></a>Injecting with a slice在切片范围内注入</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(</span></span><br><span class="line"><span class="meta">  method = &quot;foo()V&quot;,</span></span><br><span class="line"><span class="meta">  at = @At(</span></span><br><span class="line"><span class="meta">    value = &quot;INVOKE&quot;,</span></span><br><span class="line"><span class="meta">    target = &quot;La/b/c/Something;doSomething()V&quot;</span></span><br><span class="line"><span class="meta">  ),</span></span><br><span class="line"><span class="meta">  slice = @Slice(</span></span><br><span class="line"><span class="meta">    from = @At(value = &quot;INVOKE&quot;, target = &quot;La/b/c/Something;doSomething2()V&quot;),</span></span><br><span class="line"><span class="meta">    to = @At(value = &quot;INVOKE&quot;, target = &quot;La/b/c/Something;doSomething3()V&quot;)</span></span><br><span class="line"><span class="meta">  )</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">  doSomething5();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  public class Something &#123;</span><br><span class="line">    public void foo() &#123;</span><br><span class="line">      this.doSomething1();</span><br><span class="line"><span class="addition">+     // It will not inject into here because this is outside of the slice section</span></span><br><span class="line">      this.doSomething();</span><br><span class="line">      this.doSomething2();</span><br><span class="line"><span class="addition">+     injected(new CallbackInfo(&quot;foo&quot;, false));</span></span><br><span class="line">      this.doSomething();</span><br><span class="line">      this.doSomething3();</span><br><span class="line"><span class="addition">+     // It will not inject into here because this is outside of the slice section</span></span><br><span class="line">      this.doSomething();</span><br><span class="line">      this.doSomething4();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-and-cancelling-注入和取消"><a href="#Injecting-and-cancelling-注入和取消" class="headerlink" title="Injecting and cancelling 注入和取消"></a>Injecting and cancelling 注入和取消</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(&quot;HEAD&quot;), cancellable = true)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci)</span> &#123;</span><br><span class="line">  ci.cancel();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line"><span class="addition">+   CallbackInfo ci = new CallbackInfo(&quot;foo&quot;, true);</span></span><br><span class="line"><span class="addition">+   injected(ci);</span></span><br><span class="line"><span class="addition">+   if (ci.isCancelled()) return;</span></span><br><span class="line">    doSomething1();</span><br><span class="line">    doSomething2();</span><br><span class="line">    doSomething3();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Injecting-and-cancelling-with-a-return-value-注入取消并且返回数值"><a href="#Injecting-and-cancelling-with-a-return-value-注入取消并且返回数值" class="headerlink" title="Injecting and cancelling with a return value 注入取消并且返回数值"></a>Injecting and cancelling with a return value 注入取消并且返回数值</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()I;&quot;, at = @At(&quot;HEAD&quot;), cancellable = true)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfoReturnable&lt;Integer&gt; cir)</span> &#123;</span><br><span class="line">  cir.setReturnValue(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  public int foo() &#123;</span><br><span class="line"><span class="addition">+   CallbackInfoReturnable&lt;Integer&gt; cir = new CallbackInfoReturnable&lt;Integer&gt;(&quot;foo&quot;, true);</span></span><br><span class="line"><span class="addition">+   injected(cir);</span></span><br><span class="line"><span class="addition">+   if (cir.isCancelled()) return cir.getReturnValue();</span></span><br><span class="line">    doSomething1();</span><br><span class="line">    doSomething2();</span><br><span class="line">    doSomething3();</span><br><span class="line">    return 10;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Capturing-local-values-捕获本地数值"><a href="#Capturing-local-values-捕获本地数值" class="headerlink" title="Capturing local values 捕获本地数值"></a>Capturing local values 捕获本地数值</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()V&quot;, at = @At(value = &quot;TAIL&quot;), locals = LocalCapture.CAPTURE_FAILHARD)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfo ci, TypeArg1 arg1)</span> &#123;</span><br><span class="line">  <span class="comment">//CAPTURE_FAILHARD: If the calculated locals are different from the expected values, throws an error.</span></span><br><span class="line">  arg1.doSomething4();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    TypeArg1 arg1 = getArg1();</span><br><span class="line">    arg1.doSomething1();</span><br><span class="line">    arg1.doSomething2();</span><br><span class="line">    TypeArg2 arg2 = getArg2();</span><br><span class="line">    arg2.doSomething3();</span><br><span class="line"><span class="addition">+   injected(new CallbackInfo(&quot;foo&quot;, false), arg1);</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modifying-a-return-value-修改返回值"><a href="#Modifying-a-return-value-修改返回值" class="headerlink" title="Modifying a return value 修改返回值"></a>Modifying a return value 修改返回值</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Inject(method = &quot;foo()I;&quot;, at = @At(&quot;RETURN&quot;), cancellable = true)</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(CallbackInfoReturnable&lt;Integer&gt; cir)</span> &#123;</span><br><span class="line">  cir.setReturnValue(cir.getReturnValue() * <span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  public int foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    doSomething2();</span><br><span class="line"><span class="deletion">-   return doSomething3() + 7;</span></span><br><span class="line"><span class="addition">+   int i = doSomething3() + 7;</span></span><br><span class="line"><span class="addition">+   CallbackInfoReturnable&lt;Integer&gt; cir = new CallbackInfoReturnable&lt;Integer&gt;(&quot;foo&quot;, true, i);</span></span><br><span class="line"><span class="addition">+   injected(cir);</span></span><br><span class="line"><span class="addition">+   if (cir.isCancelled()) return cir.getReturnValue();</span></span><br><span class="line"><span class="addition">+   return i;</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redirecting-a-method-call-重定向一个方法调用"><a href="#Redirecting-a-method-call-重定向一个方法调用" class="headerlink" title="Redirecting a method call 重定向一个方法调用"></a>Redirecting a method call 重定向一个方法调用</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Redirect(method = &quot;foo()V&quot;, at = @At(value = &quot;INVOKE&quot;, target = &quot;La/b/c/Something;doSomething(I)I&quot;))</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">injected</span><span class="params">(Something something, <span class="type">int</span> x)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> x + <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    Something something = new Something();</span><br><span class="line"><span class="deletion">-   int i = something.doSomething(10);</span></span><br><span class="line"><span class="addition">+   int i = injected(something, 10);</span></span><br><span class="line">    doSomething2();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redirecting-a-get-field-重定向获得一个字段"><a href="#Redirecting-a-get-field-重定向获得一个字段" class="headerlink" title="Redirecting a get field  重定向获得一个字段"></a>Redirecting a get field  重定向获得一个字段</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Redirect(method = &quot;foo()V&quot;, at = @At(value = &quot;FIELD&quot;, target = &quot;La/b/c/Something;aaa:I&quot;, opcode = Opcodes.GETFIELD))</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">injected</span><span class="params">(Something something)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">12345</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  public class Something &#123;</span><br><span class="line">    public int aaa;</span><br><span class="line">    public void foo() &#123;</span><br><span class="line">      doSomething1();</span><br><span class="line"><span class="deletion">-     if (this.aaa &gt; doSomething2()) &#123;</span></span><br><span class="line"><span class="addition">+     if (injected(this) &gt; doSomething2()) &#123;</span></span><br><span class="line">        doSomething3();</span><br><span class="line">      &#125;</span><br><span class="line">      doSomething4();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redirecting-a-put-field-重定向-放置一个字段"><a href="#Redirecting-a-put-field-重定向-放置一个字段" class="headerlink" title="Redirecting a put field 重定向 放置一个字段"></a>Redirecting a put field 重定向 放置一个字段</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Redirect(method = &quot;foo()V&quot;, at = @At(value = &quot;FIELD&quot;, target = &quot;La/b/c/Something;aaa:I&quot;, opcode = Opcodes.PUTFIELD))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(Something something, <span class="type">int</span> x)</span> &#123;</span><br><span class="line">  something.aaa = x + doSomething5();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  public class Something &#123;</span><br><span class="line">    public int aaa;</span><br><span class="line">    public void foo() &#123;</span><br><span class="line">      doSomething1();</span><br><span class="line"><span class="deletion">-     this.aaa = doSomething2() + doSomething3();</span></span><br><span class="line"><span class="addition">+     inject(this, doSomething2() + doSomething3());</span></span><br><span class="line">      doSomething4();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modifying-an-argument-修改一个参数"><a href="#Modifying-an-argument-修改一个参数" class="headerlink" title="Modifying an argument 修改一个参数"></a>Modifying an argument 修改一个参数</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ModifyArg(method = &quot;foo()V&quot;, at = @At(value = &quot;INVOKE&quot;, target = &quot;La/b/c/Something;doSomething(ZIII)V&quot;), index = 2)</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">injected</span><span class="params">(<span class="type">int</span> x)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> x * <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    Something something = new Something();</span><br><span class="line"><span class="deletion">-   something.doSomething(true, 1, 4, 5);</span></span><br><span class="line"><span class="addition">+   something.doSomething(true, 1, injected(4), 5);</span></span><br><span class="line">    doSomething2();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modifying-multiple-arguments-修改多个参数"><a href="#Modifying-multiple-arguments-修改多个参数" class="headerlink" title="Modifying multiple arguments 修改多个参数"></a>Modifying multiple arguments 修改多个参数</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ModifyArgs(method = &quot;foo()V&quot;, at = @At(value = &quot;INVOKE&quot;, target = &quot;La/b/c/Something;doSomething(IDZ)V&quot;))</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">injected</span><span class="params">(Args args)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a0</span> <span class="operator">=</span> args.get(<span class="number">0</span>);</span><br><span class="line">    <span class="type">double</span> <span class="variable">a1</span> <span class="operator">=</span> args.get(<span class="number">1</span>);</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">a2</span> <span class="operator">=</span> args.get(<span class="number">2</span>);</span><br><span class="line">    args.set(<span class="number">0</span>, a0 + <span class="number">3</span>);</span><br><span class="line">    args.set(<span class="number">1</span>, a1 * <span class="number">2.0D</span>);</span><br><span class="line">    args.set(<span class="number">2</span>, !a2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    doSomething1();</span><br><span class="line">    Something something = new Something();</span><br><span class="line"><span class="deletion">-   something.doSomething(3, 2.5D, true);</span></span><br><span class="line"><span class="addition">+   // Actually, synthetic subclass of Args is generated at runtime,</span></span><br><span class="line"><span class="addition">+   // but we omit the details to make it easier to understand the concept.</span></span><br><span class="line"><span class="addition">+   Args args = new Args(new Object[] &#123; 3, 2.5D, true &#125;);</span></span><br><span class="line"><span class="addition">+   injected(args);</span></span><br><span class="line"><span class="addition">+   something.doSomething(args.get(0), args.get(1), args.get(2));</span></span><br><span class="line">    doSomething2();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modifying-a-parameter-修改parameter"><a href="#Modifying-a-parameter-修改parameter" class="headerlink" title="Modifying a parameter 修改parameter"></a>Modifying a parameter 修改parameter</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ModifyVariable(method = &quot;foo(ZIII)V&quot;, at = @At(&quot;HEAD&quot;), ordinal = 1)</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">injected</span><span class="params">(<span class="type">int</span> y)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> y * <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  public void foo(boolean b, int x, int y, int z) &#123;</span><br><span class="line"><span class="addition">+   y = injected(y);</span></span><br><span class="line">    doSomething1();</span><br><span class="line">    doSomething2();</span><br><span class="line">    doSomething3();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modifying-a-local-variable-on-an-assignment-修改一个局域变量"><a href="#Modifying-a-local-variable-on-an-assignment-修改一个局域变量" class="headerlink" title="Modifying a local variable on an assignment 修改一个局域变量"></a>Modifying a local variable on an assignment 修改一个局域变量</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ModifyVariable(method = &quot;foo()V&quot;, at = @At(&quot;STORE&quot;), ordinal = 1)</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">double</span> <span class="title function_">injected</span><span class="params">(<span class="type">double</span> x)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> x * <span class="number">1.5D</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line">    int i0 = doSomething1();</span><br><span class="line">    double d0 = doSomething2();</span><br><span class="line"><span class="deletion">-   double d1 = doSomething3() + 0.8D;</span></span><br><span class="line"><span class="addition">+   double d1 = injected(doSomething3() + 0.8D);</span></span><br><span class="line">    double d2 = doSomething4();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modifying-a-constant-修改一个常量"><a href="#Modifying-a-constant-修改一个常量" class="headerlink" title="Modifying a constant 修改一个常量"></a>Modifying a constant 修改一个常量</h2><p>Mixin:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ModifyConstant(method = &quot;foo()V&quot;, constant = @Constant(intValue = 4))</span></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">injected</span><span class="params">(<span class="type">int</span> value)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> ++value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  public void foo() &#123;</span><br><span class="line"><span class="deletion">-   for (int i = 0; i &lt; 4; i++) &#123;</span></span><br><span class="line"><span class="addition">+   for (int i = 0; i &lt; injected(4); i++) &#123;</span></span><br><span class="line">      doSomething(i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Exporting-Mixin-Classes-导出Mixin类"><a href="#Exporting-Mixin-Classes-导出Mixin类" class="headerlink" title="Exporting Mixin Classes 导出Mixin类"></a>Exporting Mixin Classes 导出Mixin类</h1><p>在调试mixin时，能够看到已完成的类以及插入的更改和注入是非常有用的。Mixin提供了一个标志，允许这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dmixin.debug.export=true</span><br></pre></td></tr></table></figure>
+
+<p>这应该放在您的VM选项中。加载类后，它们将出现在 <code>\run\.mixin.out</code> 中</p>
+<p><img src="https://fabricmc.net/wiki/lib/exe/fetch.php?tok=68f5a2&media=https://i.imgur.com/d7oKQkg.png" alt="img"></p>
+<h3 id="Only-Exporting-Required-Classes-仅导出必需的类"><a href="#Only-Exporting-Required-Classes-仅导出必需的类" class="headerlink" title="Only Exporting Required Classes 仅导出必需的类"></a>Only Exporting Required Classes 仅导出必需的类</h3><p>转储每一个混合类可能是有用的，但通常是不必要的，确实会减慢minecraft的速度。Mixin提供了一个方便的注释，用于将调试功能应用于单个mixin：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Debug(export = true)</span> <span class="comment">// Enables exporting for the targets of this mixin</span></span><br><span class="line"><span class="meta">@Mixin(...)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyMixin</span> &#123;</span><br><span class="line">    <span class="comment">// Mixin code here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：某些类可能在游戏运行（或世界加载）之前不会出现。</p>
+<h1 id="Interface-Injection-接口注入"><a href="#Interface-Injection-接口注入" class="headerlink" title="Interface Injection 接口注入"></a>Interface Injection 接口注入</h1><p>这是Loom 0.11引入的一项新技术，用于将方法添加到特定的现有类中。更具体地说，您可以创建一个接口，然后将此接口注入到类中。因此，目标类将获取接口的所有方法，就好像它总是拥有它们一样。接口注入是一个编译时的特性，这意味着Mixin也应该被用来将接口实现到目标类中。</p>
+<p>这对库特别有用，有了它，你可以向现有的类添加新的方法并使用它们，而不需要每次都转换或重新实现接口。</p>
+<p>让我们用一个例子更好地解释：</p>
+<p>这个例子的范围是将下面的方法添加到 <code>net.minecraft.fluid.FlowableFluid</code> 中，以获得桶清空时的声音。这通常是不可能的，因为 <code>net.minecraft.fluid.FlowableFluid</code> 没有类似的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;SoundEvent&gt; <span class="title function_">getBucketEmptySound</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
+
+<p>要将方法添加到类中，首先需要创建一个接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> net.fabricmc.example;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BucketEmptySoundGetter</span> &#123;</span><br><span class="line">	<span class="comment">// The methods in an injected interface MUST be default,</span></span><br><span class="line">	<span class="comment">// otherwise code referencing them won&#x27;t compile!</span></span><br><span class="line">	<span class="keyword">default</span> Optional&lt;SoundEvent&gt; <span class="title function_">getBucketEmptySound</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> Optional.empty();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在你需要用一个mixin实现这个接口，把这个接口实现到 <code>net.minecraft.fluid.FlowableFluid</code> 中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Mixin(FlowableFluid.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MixinFlowableFluid</span> <span class="keyword">implements</span> <span class="title class_">BucketEmptySoundGetter</span> &#123;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="keyword">public</span> Optional&lt;SoundEvent&gt; <span class="title function_">getBucketEmptySound</span><span class="params">()</span> &#123;</span><br><span class="line">	    <span class="comment">//This is how to get the default sound, copied from BucketItem class.</span></span><br><span class="line">	    <span class="keyword">return</span> Optional.of(((FlowableFluid) (Object) <span class="built_in">this</span>).isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_EMPTY_LAVA : SoundEvents.ITEM_BUCKET_EMPTY);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后，你需要将接口注入到 <code>net.minecraft.fluid.FlowableFluid</code> 中。可以将以下代码片段添加到fabric.mod.json文件中，以向 <code>net.minecraft.fluid.FlowableFluid</code> 类添加一个或多个接口。请注意，这里所有的类名都必须使用“内部名称”，即使用斜线而不是点（ <code>path/to/my/Class</code> ）。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;custom&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;loom:injected_interfaces&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">			<span class="attr">&quot;net/minecraft/class_3609&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;net/fabricmc/example/BucketEmptySoundGetter&quot;</span><span class="punctuation">]</span></span><br><span class="line">		<span class="punctuation">&#125;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在你可以使用新的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;SoundEvent&gt; sound = mytestfluid.getBucketEmptySound();</span><br></pre></td></tr></table></figure>
+
+<p>您也可以在扩展FlowableFluid的类中重写此方法以实现自定义行为。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[Introduction to Mixins <a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_introduction">Fabric Wiki] (fabricmc.net)</a></p>
+<p>[Registering Mixins <a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_registration">Fabric Wiki] (fabricmc.net)</a></p>
+<p>[Mixin Injects <a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_injects">Fabric Wiki] (fabricmc.net)</a></p>
+<p>[Mixin Accessors &amp; Invokers <a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_accessors">Fabric Wiki] (fabricmc.net)</a></p>
+<p>[Introduction to Modding with Fabric <a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:introduction">Fabric Wiki] — 使用Fabric进行改装的简介[Fabric Wiki] (fabricmc.net)</a></p>
+<p>[Mixin Tips (WIP) <a target="_blank" rel="noopener" href="https://fabricmc.net/wiki/tutorial:mixin_tips">Fabric Wiki] — Mixin Tips（Mixin Tips）[织物Wiki] (fabricmc.net)</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2023/12/04/mixin%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/">https://flandre923.github.io/2023/12/04/mixin%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C/">我的世界</a><a class="post-meta__tags" href="/tags/java/">java</a><a class="post-meta__tags" href="/tags/fabric/">fabric</a><a class="post-meta__tags" href="/tags/mixin/">mixin</a></div><div class="post_share"><div class="social-share" data-image="https://view.moezx.cc/images/2022/03/26/6d1f8382cfa121721d7efd29f8e1e9b9.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/12/04/opengl03%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%89%E8%A7%92%E5%BD%A2/" title="opengl03你好，三角形"><img class="cover" src="https://view.moezx.cc/images/2022/02/24/0357efa6c36996b3fd0edc744c3d0ba8.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">opengl03你好，三角形</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/10/29/Architectury-06-%E6%B7%BB%E5%8A%A0%E5%A4%9A%E7%8A%B6%E6%80%81%E6%96%B9%E5%9D%97/" title="Architectury-06-添加多状态方块"><img class="cover" src="https://w.wallhaven.cc/full/d6/wallhaven-d6d963.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-29</div><div class="title">Architectury-06-添加多状态方块</div></div></a></div><div><a href="/2023/10/29/Architectury-07-%E6%B7%BB%E5%8A%A0%E4%BD%9C%E7%89%A9/" title="Architectury-07-添加作物"><img class="cover" src="https://w.wallhaven.cc/full/d6/wallhaven-d6v5qm.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-29</div><div class="title">Architectury-07-添加作物</div></div></a></div><div><a href="/2023/10/29/Architectury-09-%E6%B7%BB%E5%8A%A0%E6%9D%91%E6%B0%91%EF%BC%8C%E6%B7%BB%E5%8A%A0%E6%9D%91%E6%B0%91%E4%BA%A4%E6%98%93/" title="Architectury-09-添加村民，添加村民交易"><img class="cover" src="https://w.wallhaven.cc/full/kx/wallhaven-kxjv7d.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-29</div><div class="title">Architectury-09-添加村民，添加村民交易</div></div></a></div><div><a href="/2023/11/19/Minecraft05-Itemstack%E6%BA%90%E7%A0%81/" title="Minecraft05-Itemstack源码"><img class="cover" src="https://view.moezx.cc/images/2022/02/24/38586becfbdbfff6e7c637013359ec3e.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-19</div><div class="title">Minecraft05-Itemstack源码</div></div></a></div><div><a href="/2023/10/27/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8Cep5%E6%B7%BB%E5%8A%A0%E7%94%B5%E7%BC%86%E6%95%99%E7%A8%8B/" title="我的世界Forge ep5：添加线缆"><img class="cover" src="https://w.wallhaven.cc/full/yx/wallhaven-yx9dvd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-27</div><div class="title">我的世界Forge ep5：添加线缆</div></div></a></div><div><a href="/2023/10/28/Architectury-01-%E6%B7%BB%E5%8A%A0%E7%89%A9%E5%93%81/" title="Architectury-01-添加物品"><img class="cover" src="https://w.wallhaven.cc/full/x6/wallhaven-x6kkwo.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-01-添加物品</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#introduction"><span class="toc-number">1.</span> <span class="toc-text">introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E7%8C%AE"><span class="toc-number">1.1.</span> <span class="toc-text">文献</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mixins"><span class="toc-number">1.2.</span> <span class="toc-text">Mixins</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-Interfaces"><span class="toc-number">1.2.1.</span> <span class="toc-text">Adding Interfaces</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Callback-Injectors"><span class="toc-number">1.2.2.</span> <span class="toc-text">Callback Injectors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redirect-Injectors"><span class="toc-number">1.2.3.</span> <span class="toc-text">Redirect Injectors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Overwrite"><span class="toc-number">1.2.4.</span> <span class="toc-text">Overwrite</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Registering-Mixins"><span class="toc-number">2.</span> <span class="toc-text">Registering Mixins</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Mixin-Injects"><span class="toc-number">3.</span> <span class="toc-text">Mixin Injects</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#introduciton"><span class="toc-number">3.1.</span> <span class="toc-text">introduciton</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Mixin-Accessors-Invokers"><span class="toc-number">4.</span> <span class="toc-text">Mixin Accessors &amp; Invokers</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#accessors"><span class="toc-number">4.1.</span> <span class="toc-text">accessors</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Getting-a-value-from-the-field"><span class="toc-number">4.1.1.</span> <span class="toc-text">Getting a value from the field</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-a-value-to-the-field"><span class="toc-number">4.1.2.</span> <span class="toc-text">Setting a value to the field</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Accessor-for-static-fields"><span class="toc-number">4.2.</span> <span class="toc-text">Accessor for static fields</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Getting-a-value-from-the-field-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">Getting a value from the field</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-a-value-to-the-field-1"><span class="toc-number">4.2.2.</span> <span class="toc-text">Setting a value to the field</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Invoker"><span class="toc-number">4.3.</span> <span class="toc-text">Invoker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Invoker-for-static-methods"><span class="toc-number">4.4.</span> <span class="toc-text">Invoker for static methods</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Mixin-redirectors"><span class="toc-number">5.</span> <span class="toc-text">Mixin redirectors</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#introduction-1"><span class="toc-number">5.1.</span> <span class="toc-text">introduction</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Mixin-Tips-WIP"><span class="toc-number">6.</span> <span class="toc-text">Mixin Tips (WIP)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Why-make-a-class-abstract-%EF%BC%88%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%8A%BD%E8%B1%A1%E7%B1%BB%EF%BC%9F%EF%BC%89"><span class="toc-number">6.0.1.</span> <span class="toc-text">Why make a class abstract? （为什么要创建一个抽象类？）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-to-mixin-inner-classes-%E5%A6%82%E4%BD%95%E6%B7%B7%E5%90%88%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">6.0.2.</span> <span class="toc-text">How to mixin inner classes 如何混合内部类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Mixin-Examples"><span class="toc-number">7.</span> <span class="toc-text">Mixin Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mixing-into-a-private-inner-class"><span class="toc-number">7.1.</span> <span class="toc-text">Mixing into a private inner class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Access-the-this-instance-of-the-class-your-mixin-is-targeting%E8%AE%BF%E9%97%AE%E6%B7%B7%E5%85%A5%E7%9B%AE%E6%A0%87%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B"><span class="toc-number">7.2.</span> <span class="toc-text">Access the this instance of the class your mixin is targeting访问混入目标类的实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-into-the-head-of-a-static-block-%E6%B3%A8%E5%85%A5%E5%88%B0%E4%B8%80%E4%B8%AA%E9%9D%99%E6%80%81%E5%9D%97%E7%9A%84%E5%A4%B4%E9%83%A8"><span class="toc-number">7.3.</span> <span class="toc-text">Injecting into the head of a static block 注入到一个静态块的头部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-into-the-head-of-a-method-%E6%B3%A8%E5%85%A5%E5%88%B0%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%E7%9A%84%E5%A4%B4%E9%83%A8"><span class="toc-number">7.4.</span> <span class="toc-text">Injecting into the head of a method 注入到一个方法的头部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-into-the-tail-of-a-method%E6%B3%A8%E5%85%A5%E5%88%B0%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%E6%9C%AB%E5%B0%BE"><span class="toc-number">7.5.</span> <span class="toc-text">Injecting into the tail of a method注入到一个方法末尾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-into-the-returns-of-a-method-%E6%B3%A8%E5%85%A5%E5%88%B0%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E5%89%8D"><span class="toc-number">7.6.</span> <span class="toc-text">Injecting into the returns of a method  注入到方法返回前</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-into-the-point-before-a-method-call-%E6%B3%A8%E5%85%A5%E5%88%B0%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E5%89%8D"><span class="toc-number">7.7.</span> <span class="toc-text">Injecting into the point before a method call  注入到一个方法调用前</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-into-the-point-after-a-method-call"><span class="toc-number">7.8.</span> <span class="toc-text">Injecting into the point after a method call</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-into-the-point-before-a-method-call-with-shift-amount-%E5%9C%A8%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E4%B9%8B%E5%89%8D%E4%BB%A5%E4%BD%8D%E7%A7%BB%E9%87%8F%E6%B3%A8%E5%85%A5%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82"><span class="toc-number">7.9.</span> <span class="toc-text">Injecting into the point before a method call with shift amount 在方法调用之前以位移量注入的内容。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-with-a-slice%E5%9C%A8%E5%88%87%E7%89%87%E8%8C%83%E5%9B%B4%E5%86%85%E6%B3%A8%E5%85%A5"><span class="toc-number">7.10.</span> <span class="toc-text">Injecting with a slice在切片范围内注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-and-cancelling-%E6%B3%A8%E5%85%A5%E5%92%8C%E5%8F%96%E6%B6%88"><span class="toc-number">7.11.</span> <span class="toc-text">Injecting and cancelling 注入和取消</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Injecting-and-cancelling-with-a-return-value-%E6%B3%A8%E5%85%A5%E5%8F%96%E6%B6%88%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E6%95%B0%E5%80%BC"><span class="toc-number">7.12.</span> <span class="toc-text">Injecting and cancelling with a return value 注入取消并且返回数值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Capturing-local-values-%E6%8D%95%E8%8E%B7%E6%9C%AC%E5%9C%B0%E6%95%B0%E5%80%BC"><span class="toc-number">7.13.</span> <span class="toc-text">Capturing local values 捕获本地数值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modifying-a-return-value-%E4%BF%AE%E6%94%B9%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">7.14.</span> <span class="toc-text">Modifying a return value 修改返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redirecting-a-method-call-%E9%87%8D%E5%AE%9A%E5%90%91%E4%B8%80%E4%B8%AA%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8"><span class="toc-number">7.15.</span> <span class="toc-text">Redirecting a method call 重定向一个方法调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redirecting-a-get-field-%E9%87%8D%E5%AE%9A%E5%90%91%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="toc-number">7.16.</span> <span class="toc-text">Redirecting a get field  重定向获得一个字段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Redirecting-a-put-field-%E9%87%8D%E5%AE%9A%E5%90%91-%E6%94%BE%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%AD%97%E6%AE%B5"><span class="toc-number">7.17.</span> <span class="toc-text">Redirecting a put field 重定向 放置一个字段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modifying-an-argument-%E4%BF%AE%E6%94%B9%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="toc-number">7.18.</span> <span class="toc-text">Modifying an argument 修改一个参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modifying-multiple-arguments-%E4%BF%AE%E6%94%B9%E5%A4%9A%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="toc-number">7.19.</span> <span class="toc-text">Modifying multiple arguments 修改多个参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modifying-a-parameter-%E4%BF%AE%E6%94%B9parameter"><span class="toc-number">7.20.</span> <span class="toc-text">Modifying a parameter 修改parameter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modifying-a-local-variable-on-an-assignment-%E4%BF%AE%E6%94%B9%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E5%8F%98%E9%87%8F"><span class="toc-number">7.21.</span> <span class="toc-text">Modifying a local variable on an assignment 修改一个局域变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modifying-a-constant-%E4%BF%AE%E6%94%B9%E4%B8%80%E4%B8%AA%E5%B8%B8%E9%87%8F"><span class="toc-number">7.22.</span> <span class="toc-text">Modifying a constant 修改一个常量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Exporting-Mixin-Classes-%E5%AF%BC%E5%87%BAMixin%E7%B1%BB"><span class="toc-number">8.</span> <span class="toc-text">Exporting Mixin Classes 导出Mixin类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Only-Exporting-Required-Classes-%E4%BB%85%E5%AF%BC%E5%87%BA%E5%BF%85%E9%9C%80%E7%9A%84%E7%B1%BB"><span class="toc-number">8.0.1.</span> <span class="toc-text">Only Exporting Required Classes 仅导出必需的类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Interface-Injection-%E6%8E%A5%E5%8F%A3%E6%B3%A8%E5%85%A5"><span class="toc-number">9.</span> <span class="toc-text">Interface Injection 接口注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">10.</span> <span class="toc-text">参考文献</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/04/mixin%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/" title="mixin详细介绍"><img src="https://view.moezx.cc/images/2022/03/26/6d1f8382cfa121721d7efd29f8e1e9b9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mixin详细介绍"/></a><div class="content"><a class="title" href="/2023/12/04/mixin%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/" title="mixin详细介绍">mixin详细介绍</a><time datetime="2023-12-04T09:56:12.000Z" title="Created 2023-12-04 17:56:12">2023-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/04/opengl03%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%89%E8%A7%92%E5%BD%A2/" title="opengl03你好，三角形"><img src="https://view.moezx.cc/images/2022/02/24/0357efa6c36996b3fd0edc744c3d0ba8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl03你好，三角形"/></a><div class="content"><a class="title" href="/2023/12/04/opengl03%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%89%E8%A7%92%E5%BD%A2/" title="opengl03你好，三角形">opengl03你好，三角形</a><time datetime="2023-12-04T09:44:09.000Z" title="Created 2023-12-04 17:44:09">2023-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/03/%E8%AE%BA%E6%96%87-DFSN%E7%BD%91%E7%BB%9C/" title="论文-DFSN网络"><img src="https://view.moezx.cc/images/2022/02/24/1ad99916221b6457e1c6fe9489826261.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论文-DFSN网络"/></a><div class="content"><a class="title" href="/2023/12/03/%E8%AE%BA%E6%96%87-DFSN%E7%BD%91%E7%BB%9C/" title="论文-DFSN网络">论文-DFSN网络</a><time datetime="2023-12-03T09:21:38.000Z" title="Created 2023-12-03 17:21:38">2023-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/03/opengl02%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3/" title="opengl02创建窗口"><img src="https://view.moezx.cc/images/2022/02/24/21072e30a955e2aa314d4b879b95ebf7.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl02创建窗口"/></a><div class="content"><a class="title" href="/2023/12/03/opengl02%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3/" title="opengl02创建窗口">opengl02创建窗口</a><time datetime="2023-12-03T06:14:19.000Z" title="Created 2023-12-03 14:14:19">2023-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/03/opengl01%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="opengl01环境搭建"><img src="https://view.moezx.cc/images/2022/02/24/f2c7ce0594ab77fa8dc4c70d5379c8ea.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl01环境搭建"/></a><div class="content"><a class="title" href="/2023/12/03/opengl01%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="opengl01环境搭建">opengl01环境搭建</a><time datetime="2023-12-03T02:25:27.000Z" title="Created 2023-12-03 10:25:27">2023-12-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: 'a98e1c62c0dad025f7a53a39286e34e7',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
