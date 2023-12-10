@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Minecraft我的世界-如何做弓BowItem | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="RangedWeaponItem1. 类定义:  定义了一个名为RangedWeaponItem的抽象类，该类扩展了Item类。  2. 静态predicates  定义了两个static predicates: BOW_PROJECTILES: 此谓词使用ItemTags检查itemstack是否为“Arrows”类型。ARROWStag。 此谓词将&#96;BOW_PROJECTILES’谓词">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minecraft我的世界-如何做弓BowItem">
+<meta property="og:url" content="https://flandre923.github.io/2023/12/09/Minecraft%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C-%E5%A6%82%E4%BD%95%E5%81%9A%E5%BC%93BowItem/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="RangedWeaponItem1. 类定义:  定义了一个名为RangedWeaponItem的抽象类，该类扩展了Item类。  2. 静态predicates  定义了两个static predicates: BOW_PROJECTILES: 此谓词使用ItemTags检查itemstack是否为“Arrows”类型。ARROWStag。 此谓词将&#96;BOW_PROJECTILES’谓词">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://view.moezx.cc/images/2020/10/13/46556fd32bbbcd923d7cf81c99dcac0e.jpg">
+<meta property="article:published_time" content="2023-12-09T12:04:04.000Z">
+<meta property="article:modified_time" content="2023-12-09T13:54:42.675Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="我的世界">
+<meta property="article:tag" content="弓箭">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://view.moezx.cc/images/2020/10/13/46556fd32bbbcd923d7cf81c99dcac0e.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2023/12/09/Minecraft%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C-%E5%A6%82%E4%BD%95%E5%81%9A%E5%BC%93BowItem/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Minecraft我的世界-如何做弓BowItem',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-09 21:54:42'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://view.moezx.cc/images/2020/10/13/46556fd32bbbcd923d7cf81c99dcac0e.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Minecraft我的世界-如何做弓BowItem</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-12-09T12:04:04.000Z" title="Created 2023-12-09 20:04:04">2023-12-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-12-09T13:54:42.675Z" title="Updated 2023-12-09 21:54:42">2023-12-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">996</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>3mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Minecraft我的世界-如何做弓BowItem"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="RangedWeaponItem"><a href="#RangedWeaponItem" class="headerlink" title="RangedWeaponItem"></a>RangedWeaponItem</h1><p><strong>1. 类定义:</strong></p>
+<ul>
+<li>定义了一个名为<code>RangedWeaponItem</code>的抽象类，该类扩展了<code>Item</code>类。</li>
+</ul>
+<p><strong>2. 静态predicates</strong></p>
+<ul>
+<li>定义了两个static predicates:<ul>
+<li><code>BOW_PROJECTILES</code>: 此谓词使用<code>ItemTags</code>检查<code>itemstack</code>是否为“Arrows”类型。<code>ARROWS</code>tag。</li>
+<li>此谓词将&#96;BOW_PROJECTILES’谓词与对“Firework Rocket”项的附加检查相结合。这使得弩既可以射箭，也可以发射烟花火箭。</li>
+</ul>
+</li>
+</ul>
+<p><strong>3. 构造函数:</strong></p>
+<ul>
+<li>构造函数接受&#96;Item。Settings”对象作为参数，并调用“Item”类的父类构造函数来初始化该项。</li>
+</ul>
+<p><strong>4. getHeldProjectiles:</strong></p>
+<ul>
+<li>此方法返回“getProjectiles”方法的结果。这本质上允许子类定义自己的射弹类型，同时保持与现有“getHeldProjectle”方法的兼容性。</li>
+</ul>
+<p><strong>5. getProjectiles:</strong></p>
+<ul>
+<li>这是一种抽象方法，子类必须实现它来定义它们可以发射的特定类型的投射物。</li>
+</ul>
+<p><strong>6. getHeldProjectile:</strong></p>
+<ul>
+<li>此静态方法以“LivingEntity”和“Predicate＜ItemStack＞”作为参数，并返回 entity’s OFF HAND  和 MAIN HAND 中与给定 predicate匹配的第一个itemstack。</li>
+<li>T方法同时检查实体 entity的Main Hand  和OFF hand 。</li>
+</ul>
+<p><strong>7. getEnchantability:</strong></p>
+<ul>
+<li>此方法覆盖“Item”类的“getEnchantatibility”方法，并返回值1。这意味着“远程武器”实例可以被附魔附魔。</li>
+</ul>
+<p><strong>8. getRange:</strong></p>
+<ul>
+<li>这是一个抽象的方法，子类必须实现它来定义武器的最大射程。</li>
+</ul>
+<h1 id="BowItem"><a href="#BowItem" class="headerlink" title="BowItem"></a>BowItem</h1><p><strong>1. Class Definition:</strong></p>
+<ul>
+<li>此代码定义了一个名为“BowItem”的类，该类扩展了“RangedWeaponItem”类并实现了“Vanishable”接口。</li>
+<li>T这意味着“弓”是一种远程武器，可以被附魔、vanishable 和射箭。</li>
+</ul>
+<p><strong>2. Static Fields:</strong></p>
+<ul>
+<li>Two static fields are defined:<ul>
+<li><code>TICKS_PER_SECOND</code>: 此常数定义一秒钟内的刻度数（20）。</li>
+<li><code>RANGE</code>: 此常数定义弓的最大范围（15）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>3. Constructor:</strong></p>
+<ul>
+<li>构造函数接受<code>Item.Settings</code>对象作为参数，并调用<code>RangedWeaponItem</code>类的父类构造函数来初始化该item。</li>
+</ul>
+<p><strong>4. onStoppedUsing:</strong></p>
+<ul>
+<li>当玩家停止使用弓时，会调用此方法。</li>
+<li>它检查玩家是否是“玩家实体”，以及他们是否有必要的arrows。</li>
+<li>然后计算弓的拉动进度并创建一个箭头实体。</li>
+<li>箭头实体随后以适当的速度、伤害和附魔产生。</li>
+<li>最后，更新 player’s inventory并播放适当的声音。</li>
+</ul>
+<p><strong>5. getPullProgress:</strong></p>
+<ul>
+<li>此静态方法将use ticks作为参数，并返回弓的拉动进度。</li>
+<li>拉动进度用于计算箭头的速度。</li>
+</ul>
+<p><strong>6. getMaxUseTime:</strong></p>
+<ul>
+<li>此方法返回弓的最大使用时间（72000个刻度）。</li>
+</ul>
+<p><strong>7. getUseAction:</strong></p>
+<ul>
+<li>T此方法返回弓（bow）的使用动作。</li>
+</ul>
+<p><strong>8. use:</strong></p>
+<ul>
+<li>当玩家开始使用弓时，就会调用此方法。</li>
+<li>它检查玩家是否有必要的箭头，然后将玩家当前的手设置为持有弓的手。</li>
+</ul>
+<p><strong>9. getProjectiles:</strong></p>
+<ul>
+<li>此方法返回弓可以发射的投射物类型的predicate 。</li>
+</ul>
+<p><strong>10. getRange:</strong></p>
+<ul>
+<li>此方法返回弓的最大范围。</li>
+</ul>
+<h1 id="自定义物品模型ModelPredicateProviderRegistry"><a href="#自定义物品模型ModelPredicateProviderRegistry" class="headerlink" title="自定义物品模型ModelPredicateProviderRegistry"></a>自定义物品模型ModelPredicateProviderRegistry</h1><p><strong>1. Registration:</strong></p>
+<ul>
+<li><p>Three<code>ModelPredicateProviderRegistry.register</code></p>
+<p>调用用于注册特定item和identifiers：</p>
+<ul>
+<li><code>Items.BOW</code>, identifier “pull”: 此提供程序根据剩余使用时间计算弓的“pull（拉动）”进度。</li>
+<li><code>Items.BRUSH</code>, identifier “brushing”: 此提供程序基于笔刷的当前使用时间模10提供“brushing”动画。</li>
+<li><code>Items.BOW</code>, identifier “pulling”：此提供程序检查实体是否实际使用了BOW，如果是则返回1.0f，否则返回0.0f。</li>
+</ul>
+</li>
+</ul>
+<p><strong>2. ClampedModelPredicateProvider:</strong></p>
+<ul>
+<li>The <code>ClampedModelPredicateProvider</code> interface 定义了用于计算模型动画进度的行为。</li>
+<li>它需要四个参数:<ul>
+<li><code>stack</code>: 正在使用的ItemStack。</li>
+<li><code>world</code>: 当前的世界。</li>
+<li><code>entity</code>: 使用项的实体。</li>
+<li><code>seed</code>: 动画中变化的随机种子。</li>
+</ul>
+</li>
+</ul>
+<p><strong>3. register method:</strong></p>
+<ul>
+<li>The<code>register</code>方法需要三个参数:<ul>
+<li><code>item</code>: 要为其注册提供程序的item。</li>
+<li><code>id</code>: 模型动画的标识符。</li>
+<li><code>provider</code>: ClampedModelPredicateProvider实例。</li>
+</ul>
+</li>
+<li>它将提供程序存储在地图中，以便将来在模型渲染期间进行检索。</li>
+<li>该映射使用项目和标识符作为有效访问的密钥。</li>
+</ul>
+<p><strong>4. ITEM_SPECIFIC map:</strong></p>
+<ul>
+<li>此静态映射存储所有已注册的模型predicate 提供程序</li>
+<li>它使用项作为关键字，并存储一个嵌套映射，其中包含标识符及其相应的predicate 提供程序。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2023/12/09/Minecraft%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C-%E5%A6%82%E4%BD%95%E5%81%9A%E5%BC%93BowItem/">https://flandre923.github.io/2023/12/09/Minecraft%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C-%E5%A6%82%E4%BD%95%E5%81%9A%E5%BC%93BowItem/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C/">我的世界</a><a class="post-meta__tags" href="/tags/%E5%BC%93%E7%AE%AD/">弓箭</a></div><div class="post_share"><div class="social-share" data-image="https://view.moezx.cc/images/2020/10/13/46556fd32bbbcd923d7cf81c99dcac0e.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/12/09/opengl05%E7%BA%B9%E7%90%86/" title="opengl05纹理"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous</div><div class="prev_info">opengl05纹理</div></div></a></div><div class="next-post pull-right"><a href="/2023/12/08/opengl04%E7%9D%80%E8%89%B2%E5%99%A8/" title="opengl04着色器"><img class="cover" src="https://view.moezx.cc/images/2018/03/14/18097514_p0.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">opengl04着色器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/10/27/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8Cep5%E6%B7%BB%E5%8A%A0%E7%94%B5%E7%BC%86%E6%95%99%E7%A8%8B/" title="我的世界Forge ep5：添加线缆"><img class="cover" src="https://w.wallhaven.cc/full/yx/wallhaven-yx9dvd.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-27</div><div class="title">我的世界Forge ep5：添加线缆</div></div></a></div><div><a href="/2023/10/28/Architectury-01-%E6%B7%BB%E5%8A%A0%E7%89%A9%E5%93%81/" title="Architectury-01-添加物品"><img class="cover" src="https://w.wallhaven.cc/full/x6/wallhaven-x6kkwo.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-01-添加物品</div></div></a></div><div><a href="/2023/10/28/Architectury-02-%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%9D%97/" title="Architectury-02-添加方块"><img class="cover" src="https://w.wallhaven.cc/full/3l/wallhaven-3l7769.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-02-添加方块</div></div></a></div><div><a href="/2023/10/24/Architectury-00-%E5%89%8D%E8%A8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Architectury-00-环境搭建"><img class="cover" src="https://w.wallhaven.cc/full/qz/wallhaven-qzpj95.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-24</div><div class="title">Architectury-00-环境搭建</div></div></a></div><div><a href="/2023/10/28/Architectury-04-%E9%AB%98%E7%BA%A7%E6%96%B9%E5%9D%97/" title="Architectury-04-高级方块"><img class="cover" src="https://w.wallhaven.cc/full/rr/wallhaven-rreeg1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-04-高级方块</div></div></a></div><div><a href="/2023/10/29/Architectury-05-%E6%B7%BB%E5%8A%A0%E5%90%88%E6%88%90%E8%A1%A8%E5%92%8CLootTable%E4%BB%A5%E5%8F%8A%E6%96%B9%E5%9D%97%E6%8C%96%E6%8E%98%E6%AD%A3%E7%A1%AE%E5%B7%A5%E5%85%B7%E7%9A%84%E6%8C%96%E6%8E%98%E7%AD%89%E7%BA%A7/" title="Architectury-05-添加合成表和LootTable以及方块挖掘正确工具的挖掘等级"><img class="cover" src="https://w.wallhaven.cc/full/kx/wallhaven-kxjdp1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-29</div><div class="title">Architectury-05-添加合成表和LootTable以及方块挖掘正确工具的挖掘等级</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">61</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RangedWeaponItem"><span class="toc-number">1.</span> <span class="toc-text">RangedWeaponItem</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BowItem"><span class="toc-number">2.</span> <span class="toc-text">BowItem</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%89%A9%E5%93%81%E6%A8%A1%E5%9E%8BModelPredicateProviderRegistry"><span class="toc-number">3.</span> <span class="toc-text">自定义物品模型ModelPredicateProviderRegistry</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/09/opengl05%E7%BA%B9%E7%90%86/" title="opengl05纹理"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl05纹理"/></a><div class="content"><a class="title" href="/2023/12/09/opengl05%E7%BA%B9%E7%90%86/" title="opengl05纹理">opengl05纹理</a><time datetime="2023-12-09T14:09:18.000Z" title="Created 2023-12-09 22:09:18">2023-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/09/Minecraft%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C-%E5%A6%82%E4%BD%95%E5%81%9A%E5%BC%93BowItem/" title="Minecraft我的世界-如何做弓BowItem"><img src="https://view.moezx.cc/images/2020/10/13/46556fd32bbbcd923d7cf81c99dcac0e.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Minecraft我的世界-如何做弓BowItem"/></a><div class="content"><a class="title" href="/2023/12/09/Minecraft%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C-%E5%A6%82%E4%BD%95%E5%81%9A%E5%BC%93BowItem/" title="Minecraft我的世界-如何做弓BowItem">Minecraft我的世界-如何做弓BowItem</a><time datetime="2023-12-09T12:04:04.000Z" title="Created 2023-12-09 20:04:04">2023-12-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/08/opengl04%E7%9D%80%E8%89%B2%E5%99%A8/" title="opengl04着色器"><img src="https://view.moezx.cc/images/2018/03/14/18097514_p0.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl04着色器"/></a><div class="content"><a class="title" href="/2023/12/08/opengl04%E7%9D%80%E8%89%B2%E5%99%A8/" title="opengl04着色器">opengl04着色器</a><time datetime="2023-12-08T12:35:05.000Z" title="Created 2023-12-08 20:35:05">2023-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/04/mixin%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/" title="mixin进一步简介"><img src="https://view.moezx.cc/images/2022/03/26/6d1f8382cfa121721d7efd29f8e1e9b9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mixin进一步简介"/></a><div class="content"><a class="title" href="/2023/12/04/mixin%E8%AF%A6%E7%BB%86%E4%BB%8B%E7%BB%8D/" title="mixin进一步简介">mixin进一步简介</a><time datetime="2023-12-04T09:56:12.000Z" title="Created 2023-12-04 17:56:12">2023-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/04/opengl03%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%89%E8%A7%92%E5%BD%A2/" title="opengl03你好，三角形"><img src="https://view.moezx.cc/images/2022/02/24/0357efa6c36996b3fd0edc744c3d0ba8.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl03你好，三角形"/></a><div class="content"><a class="title" href="/2023/12/04/opengl03%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%89%E8%A7%92%E5%BD%A2/" title="opengl03你好，三角形">opengl03你好，三角形</a><time datetime="2023-12-04T09:44:09.000Z" title="Created 2023-12-04 17:44:09">2023-12-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: 'c9ed704addcad49d41643ef464d9fe8a',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
