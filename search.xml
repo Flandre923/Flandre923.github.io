@@ -4,6 +4,48 @@
   
     
     <entry>
+      <title>Minecraft 查询各个mapping之间的对应关关系网站</title>
+      <link href="/2024/01/28/Minecraft-%E6%9F%A5%E8%AF%A2%E5%90%84%E4%B8%AAmapping%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E5%85%B3%E7%B3%BB%E7%BD%91%E7%AB%99/"/>
+      <url>/2024/01/28/Minecraft-%E6%9F%A5%E8%AF%A2%E5%90%84%E4%B8%AAmapping%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E5%85%B3%E7%B3%BB%E7%BD%91%E7%AB%99/</url>
+      
+        <content type="html"><![CDATA[<h1 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h1><p><a href="https://linkie.shedaniel.dev/">Linkie (shedaniel.dev)</a></p><h2 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h2><p><img src="C:/Users/flan/AppData/Roaming/Typora/typora-user-images/image-20240128161245502.png" alt="image-20240128161245502"></p><h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><p><img src="C:/Users/flan/AppData/Roaming/Typora/typora-user-images/image-20240128160327346.png" alt="image-20240128160327346"></p><p>关于Minecraft模组的一些配置信息，这些配置通常用于构建和设置Minecraft模组项目。</p><p><img src="C:/Users/flan/AppData/Roaming/Typora/typora-user-images/image-20240128160411227.png" alt="image-20240128160411227"></p><p>在加载器中可以选择你的构建模组是使用的加载器和构建系统。</p><p><img src="C:/Users/flan/AppData/Roaming/Typora/typora-user-images/image-20240128160517053.png" alt="image-20240128160517053"></p><p>这里可以选择你要构建模组的游戏的版本。</p><h2 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h2><p><img src="C:/Users/flan/AppData/Roaming/Typora/typora-user-images/image-20240128160853413.png" alt="image-20240128160853413"></p><p>在这里可以选择你的源mapping以及目标mapping</p><p><img src="C:/Users/flan/AppData/Roaming/Typora/typora-user-images/image-20240128161001539.png" alt="image-20240128161001539"></p><p>在这里输入的你源mapping中的名字进行搜索，可以得到目标mapping中的名称</p><p>其中的类，方法，字段是可以选择进行过滤的。</p><p><img src="C:/Users/flan/AppData/Roaming/Typora/typora-user-images/image-20240128161216894.png" alt="image-20240128161216894"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Minecraft </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Minecraft-entity-源码</title>
+      <link href="/2024/01/28/Minecraft-entity-%E6%BA%90%E7%A0%81/"/>
+      <url>/2024/01/28/Minecraft-entity-%E6%BA%90%E7%A0%81/</url>
+      
+        <content type="html"><![CDATA[<h1 id="注意使用的是yarn-mapping"><a href="#注意使用的是yarn-mapping" class="headerlink" title="注意使用的是yarn mapping"></a>注意使用的是yarn mapping</h1><h1 id="entity-part-1"><a href="#entity-part-1" class="headerlink" title="entity part 1"></a>entity part 1</h1>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 我的世界 </tag>
+            
+            <tag> Java </tag>
+            
+            <tag> Minecraft </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>minecraft-entity</title>
       <link href="/2023/12/30/minecraft-entity/"/>
       <url>/2023/12/30/minecraft-entity/</url>
