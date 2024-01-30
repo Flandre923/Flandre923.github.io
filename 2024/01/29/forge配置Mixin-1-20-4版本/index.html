@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>forge 和 NeoForge 配置Mixin-1.20.4版本 | Flandre923</title><meta name="author" content="Flandre923"><meta name="copyright" content="Flandre923"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Forge配置Mixins方法1.使用Minecraft Development 插件创建项目时候勾选上Use Mixins即可。  点击create后等待构建完成。 这里我使用这个插件构建项目导致启动游戏会报错找不到main类，不怎么怎么解决。 方法2 在Forge开发环境中配置Mixins配置forge下载Forge的MDK  等待广告后下载  解压后使用IDEA打开这个文件夹   等待项目构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="forge 和 NeoForge 配置Mixin-1.20.4版本">
+<meta property="og:url" content="https://flandre923.github.io/2024/01/29/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/index.html">
+<meta property="og:site_name" content="Flandre923">
+<meta property="og:description" content="Forge配置Mixins方法1.使用Minecraft Development 插件创建项目时候勾选上Use Mixins即可。  点击create后等待构建完成。 这里我使用这个插件构建项目导致启动游戏会报错找不到main类，不怎么怎么解决。 方法2 在Forge开发环境中配置Mixins配置forge下载Forge的MDK  等待广告后下载  解压后使用IDEA打开这个文件夹   等待项目构">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://view.moezx.cc/images/2019/06/09/66873012_p0_master1200.jpg">
+<meta property="article:published_time" content="2024-01-29T09:01:30.000Z">
+<meta property="article:modified_time" content="2024-01-30T04:27:33.380Z">
+<meta property="article:author" content="Flandre923">
+<meta property="article:tag" content="我的世界">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Minecraft">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://view.moezx.cc/images/2019/06/09/66873012_p0_master1200.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://flandre923.github.io/2024/01/29/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'forge 和 NeoForge 配置Mixin-1.20.4版本',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-30 12:27:33'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://view.moezx.cc/images/2019/06/09/66873012_p0_master1200.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Flandre923"><img class="site-icon" src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png"/><span class="site-name">Flandre923</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">forge 和 NeoForge 配置Mixin-1.20.4版本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-01-29T09:01:30.000Z" title="Created 2024-01-29 17:01:30">2024-01-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-01-30T04:27:33.380Z" title="Updated 2024-01-30 12:27:33">2024-01-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">898</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>4mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="forge 和 NeoForge 配置Mixin-1.20.4版本"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Forge配置Mixins"><a href="#Forge配置Mixins" class="headerlink" title="Forge配置Mixins"></a>Forge配置Mixins</h1><h2 id="方法1-使用Minecraft-Development-插件"><a href="#方法1-使用Minecraft-Development-插件" class="headerlink" title="方法1.使用Minecraft Development 插件"></a>方法1.使用Minecraft Development 插件</h2><p>创建项目时候勾选上Use Mixins即可。</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129171003107.png" alt="image-20240129171003107"></p>
+<p>点击create后等待构建完成。</p>
+<p>这里我使用这个插件构建项目导致启动游戏会报错找不到main类，不怎么怎么解决。</p>
+<h2 id="方法2-在Forge开发环境中配置Mixins"><a href="#方法2-在Forge开发环境中配置Mixins" class="headerlink" title="方法2 在Forge开发环境中配置Mixins"></a>方法2 在Forge开发环境中配置Mixins</h2><h3 id="配置forge"><a href="#配置forge" class="headerlink" title="配置forge"></a>配置forge</h3><p>下载Forge的MDK</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129222749767.png" alt="image-20240129222749767"></p>
+<p>等待广告后下载</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129222809167.png" alt="image-20240129222809167"></p>
+<p>解压后使用IDEA打开这个文件夹</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129222905734.png" alt="image-20240129222905734"></p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129222938521.png" alt="image-20240129222938521"></p>
+<p>等待项目构建完成</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129222955992.png" alt="image-20240129222955992"></p>
+<p>运行该Task</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129223805156.png" alt="image-20240129223805156"></p>
+<p>完成后可以选择run client </p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129223839945.png" alt="image-20240129223839945"></p>
+<p>正常启动，就说明forge可以正常运行了。</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240129224116787.png" alt="image-20240129224116787"></p>
+<h3 id="配置mixin"><a href="#配置mixin" class="headerlink" title="配置mixin"></a>配置mixin</h3><p>1.将MixinGradle插件添加到Gradle构建脚本中</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        <span class="comment">// These repositories are only for Gradle plugins, put any other repositories in the repository block further below</span></span><br><span class="line">        maven &#123; url = <span class="string">&#x27;https://repo.spongepowered.org/repository/maven-public/&#x27;</span> &#125;</span><br><span class="line">        mavenCentral()</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">&#x27;org.spongepowered:mixingradle:0.7-SNAPSHOT&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;org.spongepowered.mixin&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.配置一个refmap的生成，使用它来映射到不同的Minecraft环境。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mixin &#123;</span><br><span class="line">    add sourceSets.main, <span class="string">&quot;$&#123;mod_id&#125;.refmap.json&quot;</span></span><br><span class="line"></span><br><span class="line">    config <span class="string">&quot;$&#123;mod_id&#125;.mixins.json&quot;</span></span><br><span class="line">    debug.export = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3.添加一个Mixin作为注释处理器</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line"></span><br><span class="line">    annotationProcessor <span class="string">&#x27;org.spongepowered:mixin:0.8.5:processor&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.添加一个Mixin配置文件</p>
+<p>modid.mixins.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;minVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.8&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;package&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.example.examplemod.mixin&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;compatibilityLevel&quot;</span><span class="punctuation">:</span> <span class="string">&quot;JAVA_17&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;refmap&quot;</span><span class="punctuation">:</span> <span class="string">&quot;examplemod.refmap.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;mixins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;ExampleMixin&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;LivingEntityMixin&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;client&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;injectors&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;defaultRequire&quot;</span><span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>5.最后，您必须使用 <code>genIntellijRuns</code> 或 <code>genEcliipseRuns</code> 重新生成运行配置，具体取决于您的IDE，以允许MixinGradle配置它们</p>
+<h3 id="测试Mixin"><a href="#测试Mixin" class="headerlink" title="测试Mixin"></a>测试Mixin</h3><p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130003103185.png" alt="image-20240130003103185"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.examplemod.mixin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.minecraft.server.MinecraftServer;</span><br><span class="line"><span class="keyword">import</span> org.spongepowered.asm.mixin.Mixin;</span><br><span class="line"><span class="keyword">import</span> org.spongepowered.asm.mixin.injection.At;</span><br><span class="line"><span class="keyword">import</span> org.spongepowered.asm.mixin.injection.Inject;</span><br><span class="line"><span class="keyword">import</span> org.spongepowered.asm.mixin.injection.callback.CallbackInfo;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mixin(MinecraftServer.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExampleMixin</span> &#123;</span><br><span class="line">    <span class="meta">@Inject(at = @At(&quot;HEAD&quot;),method = &quot;loadLevel&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(CallbackInfo info)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;LoadLevel---&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>添加ExampleMinxin类到mixins的json文件中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;required&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">&quot;minVersion&quot;</span>: <span class="string">&quot;0.8&quot;</span>,</span><br><span class="line">  <span class="string">&quot;package&quot;</span>: <span class="string">&quot;com.example.examplemod.mixin&quot;</span>,</span><br><span class="line">  <span class="string">&quot;compatibilityLevel&quot;</span>: <span class="string">&quot;JAVA_17&quot;</span>,</span><br><span class="line">  <span class="string">&quot;refmap&quot;</span>: <span class="string">&quot;examplemod.refmap.json&quot;</span>,</span><br><span class="line">  <span class="string">&quot;mixins&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;ExampleMixin&quot;</span>,</span><br><span class="line">    <span class="string">&quot;LivingEntityMixin&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;client&quot;</span>: [</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;injectors&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;defaultRequire&quot;</span>: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动游戏进入世界会打印LoadLevel的内容</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130003208233.png" alt="image-20240130003208233"></p>
+<h1 id="NeoForge配置Mixins"><a href="#NeoForge配置Mixins" class="headerlink" title="NeoForge配置Mixins"></a>NeoForge配置Mixins</h1><h2 id="配置Neoforge开发环境"><a href="#配置Neoforge开发环境" class="headerlink" title="配置Neoforge开发环境"></a>配置Neoforge开发环境</h2><p>1.进入官网点击MDK</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130093157409.png" alt="image-20240130093157409"></p>
+<p>2.点击code，下载zip</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130093214264.png" alt="image-20240130093214264"></p>
+<p>解压压缩包，我这里还换了个文件夹的名称</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130093310691.png" alt="image-20240130093310691"></p>
+<p>用Idea打开文件夹。等待build完成。</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130093628830.png" alt="image-20240130093628830"></p>
+<p>构建完成</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130100459153.png" alt="image-20240130100459153"></p>
+<p>运行此task获得idea的配置</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130100658872.png" alt="image-20240130100658872"></p>
+<p>选中run client 启动</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130100811683.png" alt="image-20240130100811683"></p>
+<p>正常启动游戏</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130101121979.png" alt="image-20240130101121979"></p>
+<h2 id="配置mixin-1"><a href="#配置mixin-1" class="headerlink" title="配置mixin"></a>配置mixin</h2><p>在build.gradle中配置以下的内容</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">&#x27;java-library&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;eclipse&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;idea&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;maven-publish&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;net.neoforged.gradle.userdev&#x27;</span> version <span class="string">&#x27;7.0.80&#x27;</span></span><br><span class="line">    id <span class="string">&#x27;net.neoforged.gradle.mixin&#x27;</span> version <span class="string">&#x27;7.0.80&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">mixin &#123;</span><br><span class="line">    config(<span class="string">&quot;$&#123;mod_id&#125;.mixins.json&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//configurations &#123;</span></span><br><span class="line"><span class="comment">//    annotationProcessor.exclude group: &quot;org.spongepowered&quot;, module: &quot;mixin&quot;</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.添加mixins的json文件</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130112958690.png" alt="image-20240130112958690"></p>
+<p>ExampleMixin</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.examplemod.mixin;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> net.minecraft.server.MinecraftServer;</span><br><span class="line"><span class="keyword">import</span> org.spongepowered.asm.mixin.Mixin;</span><br><span class="line"><span class="keyword">import</span> org.spongepowered.asm.mixin.injection.At;</span><br><span class="line"><span class="keyword">import</span> org.spongepowered.asm.mixin.injection.Inject;</span><br><span class="line"><span class="keyword">import</span> org.spongepowered.asm.mixin.injection.callback.CallbackInfo;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mixin(MinecraftServer.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ExampleMixin</span> &#123;</span><br><span class="line">    <span class="meta">@Inject(at = @At(&quot;HEAD&quot;),method = &quot;loadLevel&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(CallbackInfo info)</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;LoadLevel---&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>examplemod.mixins.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;required&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;minVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.8&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;package&quot;</span><span class="punctuation">:</span> <span class="string">&quot;com.example.examplemod.mixin&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;compatibilityLevel&quot;</span><span class="punctuation">:</span> <span class="string">&quot;JAVA_17&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;refmap&quot;</span><span class="punctuation">:</span> <span class="string">&quot;examplemod.refmap.json&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;mixins&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;ExampleMixin&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;LivingEntityMixin&quot;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;client&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;injectors&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;defaultRequire&quot;</span><span class="punctuation">:</span> <span class="number">1</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="启动游戏测试"><a href="#启动游戏测试" class="headerlink" title="启动游戏测试"></a>启动游戏测试</h1><p>创建一个世界，进入游戏看查看到mixin成功运行了。</p>
+<p><img src="/../images/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/image-20240130113046700.png" alt="image-20240130113046700"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://darkhax.net/2020/07/mixins">Dark的网站|Mixin简介- Forge — Dark’s Site | Mixin Introduction - Forge (darkhax.net)</a></p>
+<p>[build.gradle - BetterCompatibilityChecker <a target="_blank" rel="noopener" href="https://github.dev/nanite/BetterCompatibilityChecker">GitHub] - Visual Studio Code - GitHub</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://flandre923.github.io">Flandre923</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://flandre923.github.io/2024/01/29/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/">https://flandre923.github.io/2024/01/29/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C/">我的世界</a><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/Minecraft/">Minecraft</a></div><div class="post_share"><div class="social-share" data-image="https://view.moezx.cc/images/2019/06/09/66873012_p0_master1200.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/28/Minecraft-%E6%9F%A5%E8%AF%A2%E5%90%84%E4%B8%AAmapping%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E5%85%B3%E7%B3%BB%E7%BD%91%E7%AB%99/" title="Minecraft 查询各个mapping之间的对应关关系网站"><img class="cover" src="https://view.moezx.cc/images/2022/02/24/4bbcfaac99f4a470f1eb970c880aa6f6.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">Minecraft 查询各个mapping之间的对应关关系网站</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/12/11/Minecraft-world%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9/" title="Minecraft-world相关内容"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-11</div><div class="title">Minecraft-world相关内容</div></div></a></div><div><a href="/2023/10/28/Architectury-04-%E9%AB%98%E7%BA%A7%E6%96%B9%E5%9D%97/" title="Architectury-04-高级方块"><img class="cover" src="https://w.wallhaven.cc/full/rr/wallhaven-rreeg1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-28</div><div class="title">Architectury-04-高级方块</div></div></a></div><div><a href="/2023/10/29/Architectury-08-%E6%B7%BB%E5%8A%A0%E7%94%BB/" title="Architectury-08-添加画"><img class="cover" src="https://w.wallhaven.cc/full/l8/wallhaven-l8d5m2.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-29</div><div class="title">Architectury-08-添加画</div></div></a></div><div><a href="/2023/11/15/Minecraft%E6%BA%90%E7%A0%81-04-%E9%93%81%E7%A0%A7%E4%BB%A3%E7%A0%81/" title="Minecraft源码-04-铁砧代码"><img class="cover" src="https://view.moezx.cc/images/2019/01/12/72301507_p0.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-15</div><div class="title">Minecraft源码-04-铁砧代码</div></div></a></div><div><a href="/2023/11/23/Mincraft%E6%BA%90%E7%A0%8106-block/" title="Mincraft源码06-block"><img class="cover" src="https://view.moezx.cc/images/2018/01/17/violetevergarden66768635_by_DDD.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-23</div><div class="title">Mincraft源码06-block</div></div></a></div><div><a href="/2023/11/25/20-2-NeoForge-%E9%87%8D%E5%91%BD%E5%90%8D%E7%9A%84%E9%87%8D%E6%96%B0%E6%98%A0%E5%B0%84%E8%84%9A%E6%9C%AC/" title="20.2 NeoForge 重命名的重新映射脚本"><img class="cover" src="https://view.moezx.cc/images/2017/11/24/PID55789407by212a.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-11-25</div><div class="title">20.2 NeoForge 重命名的重新映射脚本</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://picss.sunbangyan.cn/2023/10/27/3e5bc1538b77bb52cfb58993e22b0bcd.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Flandre923</div><div class="author-info__description">一个深居洋馆的吸血鬼</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">44</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Forge%E9%85%8D%E7%BD%AEMixins"><span class="toc-number">1.</span> <span class="toc-text">Forge配置Mixins</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%951-%E4%BD%BF%E7%94%A8Minecraft-Development-%E6%8F%92%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">方法1.使用Minecraft Development 插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%952-%E5%9C%A8Forge%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%AD%E9%85%8D%E7%BD%AEMixins"><span class="toc-number">1.2.</span> <span class="toc-text">方法2 在Forge开发环境中配置Mixins</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEforge"><span class="toc-number">1.2.1.</span> <span class="toc-text">配置forge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEmixin"><span class="toc-number">1.2.2.</span> <span class="toc-text">配置mixin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95Mixin"><span class="toc-number">1.2.3.</span> <span class="toc-text">测试Mixin</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NeoForge%E9%85%8D%E7%BD%AEMixins"><span class="toc-number">2.</span> <span class="toc-text">NeoForge配置Mixins</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AENeoforge%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">2.1.</span> <span class="toc-text">配置Neoforge开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEmixin-1"><span class="toc-number">2.2.</span> <span class="toc-text">配置mixin</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B8%B8%E6%88%8F%E6%B5%8B%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text">启动游戏测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/29/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/" title="forge 和 NeoForge 配置Mixin-1.20.4版本"><img src="https://view.moezx.cc/images/2019/06/09/66873012_p0_master1200.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="forge 和 NeoForge 配置Mixin-1.20.4版本"/></a><div class="content"><a class="title" href="/2024/01/29/forge%E9%85%8D%E7%BD%AEMixin-1-20-4%E7%89%88%E6%9C%AC/" title="forge 和 NeoForge 配置Mixin-1.20.4版本">forge 和 NeoForge 配置Mixin-1.20.4版本</a><time datetime="2024-01-29T09:01:30.000Z" title="Created 2024-01-29 17:01:30">2024-01-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/28/Minecraft-%E6%9F%A5%E8%AF%A2%E5%90%84%E4%B8%AAmapping%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E5%85%B3%E7%B3%BB%E7%BD%91%E7%AB%99/" title="Minecraft 查询各个mapping之间的对应关关系网站"><img src="https://view.moezx.cc/images/2022/02/24/4bbcfaac99f4a470f1eb970c880aa6f6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Minecraft 查询各个mapping之间的对应关关系网站"/></a><div class="content"><a class="title" href="/2024/01/28/Minecraft-%E6%9F%A5%E8%AF%A2%E5%90%84%E4%B8%AAmapping%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E5%85%B3%E7%B3%BB%E7%BD%91%E7%AB%99/" title="Minecraft 查询各个mapping之间的对应关关系网站">Minecraft 查询各个mapping之间的对应关关系网站</a><time datetime="2024-01-28T08:01:09.000Z" title="Created 2024-01-28 16:01:09">2024-01-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/17/opengl14%E6%A8%A1%E5%9E%8B%E5%8A%A0%E8%BD%BD/" title="opengl14模型加载"><img src="https://view.moezx.cc/images/2019/03/13/60082303_p0.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl14模型加载"/></a><div class="content"><a class="title" href="/2023/12/17/opengl14%E6%A8%A1%E5%9E%8B%E5%8A%A0%E8%BD%BD/" title="opengl14模型加载">opengl14模型加载</a><time datetime="2023-12-17T09:16:28.000Z" title="Created 2023-12-17 17:16:28">2023-12-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/16/opengl13%E6%8A%95%E5%85%89%E7%89%A9/" title="opengl13投光物"><img src="https://view.moezx.cc/images/2019/01/30/photo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl13投光物"/></a><div class="content"><a class="title" href="/2023/12/16/opengl13%E6%8A%95%E5%85%89%E7%89%A9/" title="opengl13投光物">opengl13投光物</a><time datetime="2023-12-16T15:11:13.000Z" title="Created 2023-12-16 23:11:13">2023-12-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/16/opengl12%E5%85%89%E7%85%A7%E8%B4%B4%E5%9B%BE/" title="opengl12光照贴图"><img src="https://view.moezx.cc/images/2020/02/23/bid3dxh.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opengl12光照贴图"/></a><div class="content"><a class="title" href="/2023/12/16/opengl12%E5%85%89%E7%85%A7%E8%B4%B4%E5%9B%BE/" title="opengl12光照贴图">opengl12光照贴图</a><time datetime="2023-12-16T14:42:55.000Z" title="Created 2023-12-16 22:42:55">2023-12-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Flandre923</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'f8083a01e51a2c9ba51e',
+      clientSecret: 'd56d1b88bd2f5e8f0194cbff9bc8128b81e7fdbe',
+      repo: 'CDN',
+      owner: 'flandre923',
+      admin: ['flandre923'],
+      id: '9391c8509d95daa2c5584f7511a45469',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !true) {
+    if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
